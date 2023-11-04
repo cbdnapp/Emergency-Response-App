@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">CBDN Reports</string>
+    <!-- Menu -->
+    <string name="submit_report_header">Submit Report</string>
+
+    <string name="submit_report_new_button">New</string>
+    <string name="submit_report_new_header">New Report</string>
+
+    <string name="submit_report_finish_button">Finish</string>
+    <string name="submit_report_finish_header">Finish Report</string>
+
+    <string name="submit_report_amend_button">Amend</string>
+    <string name="submit_report_amend_header">Amend Report</string>
+
+    <string name="view_report_header">Report Data</string>
+
+    <string name="view_report_filter_button">Reports</string>
+    <string name="view_report_filter_header">Filter Reports</string>
+
+    <string name="view_report_statistics_button">Statistics</string>
+    <string name="view_report_statistics_header">Report Statistics</string>
+
+    <!-- New Report -->
+    <!-- Query -->
+
+</resources>

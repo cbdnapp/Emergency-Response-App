@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--  CBDN Black - White Spectrum  -->
+    <color name="eerie_black">#FF201E1E</color>
+    <color name="jet">#FF373435</color>
+    <color name="dim_gray">#FF606062</color>
+    <color name="platinum">#FFE5E5E5</color>
+    <color name="white">#FFFFFFFF</color>
+<!--  CBDN Accent Colors  -->
+    <color name="persian_red">#FFCE3539</color>
+    <color name="imperial_red">#FFED3237</color>
+    <color name="copper">#FFB97B3A</color>
+    <color name="goldenrod">#FFDDA739</color>
+    <color name="azul">#FF016DB5</color>
+</resources>
