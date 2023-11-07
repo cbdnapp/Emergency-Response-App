@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <dimen name=""></dimen>-->
+    <!-- FORM DIMENSIONS -->
+    <dimen name="full_field_width">350.dp</dimen>
+    <dimen name="half_field_width">175.dp</dimen>
+    <dimen name="field_top_padding">20.dp</dimen>
 </resources>
