@@ -18,12 +18,12 @@ data class Report(
     // dispatch details
     var respondingTruck: String? = null,
     var commandingOfficer: String? = null,
-    var datetimeDispatch: String? = null,
+    var datetimeDispatch: Long? = null,
     var emergencyCode: String? = null,
     var location: String? = null,
 
     // on scene details
-    var datetimeArrival: String? = null,
+    var datetimeArrival: Long? = null,
     var policePresent: String? = null,
     var ambulancePresent: String? = null,
     var electricCompanyPresent: String? = null,
@@ -33,7 +33,7 @@ data class Report(
     var notes: String? = null,
 
     // submittal details
-    var datetimeReturn: String? = null,
+    var datetimeReturn: Long? = null,
     var author: String? = null,
 )
 data class SubmitNewReportUiState(

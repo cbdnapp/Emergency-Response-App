@@ -26,11 +26,11 @@ object EmergencyCodeData {
             ),
             EmergencyCategories(
                 id = "I",
-                category = "Accidentes"
+                category = "Accidente"
             ),
             EmergencyCategories(
                 id = "O",
-                category = "Otros"
+                category = "Otro"
             ),
         )
     }

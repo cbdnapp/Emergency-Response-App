@@ -20,9 +20,10 @@
     <string name="submit_report_dispatch_details_header">Dispatch Details</string>
     <string name="responding_truck">Responding Truck</string>
     <string name="commanding_officer">Commanding Officer</string>
-    <string name="datetime_of_dispatch">Date and Time of Dispatch</string>
-    <string name="date">YYYY-MM-DD</string>
-    <string name="time">HH:MM</string>
+    <string name="date_and_time_of_dispatch">Date and Time of Dispatch</string>
+    <string name="change_date">Change Date</string>
+    <string name="change_time">Change Time</string>
+    <string name="select_code_category">Select Code Category</string>
     <string name="emergency_code">Emergency Code</string>
     <string name="location">Location</string>
 

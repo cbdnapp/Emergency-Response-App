@@ -68,14 +68,14 @@ private val LightColorScheme = lightColorScheme(
 //    onTertiary = azul,
 //    tertiaryContainer = azul,
 //    onTertiaryContainer = azul,
-//
+
     background = platinum,
     onBackground = jet,
     surface = platinum,
     onSurface = eerie_black,
-//
+
     surfaceVariant = white,
-    onSurfaceVariant = imperial_red,
+    onSurfaceVariant = azul,
 
 //    outline = azul,
 //    inverseOnSurface = azul,
@@ -84,11 +84,11 @@ private val LightColorScheme = lightColorScheme(
 //    surfaceTint = azul,
 //    outlineVariant = azul,
 //    scrim = azul,
-//
-//    error = azul,
-//    errorContainer = azul,
-//    onError = azul,
-//    onErrorContainer = azul,
+
+    error = imperial_red,
+    errorContainer = imperial_red,
+    onError = imperial_red,
+    onErrorContainer = imperial_red,
 )
 
 @Composable
