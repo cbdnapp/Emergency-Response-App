@@ -14,5 +14,6 @@
     <!-- FORM -->
     <dimen name="full_field_width">350.dp</dimen>
     <dimen name="half_field_width">175.dp</dimen>
+    <dimen name="num_field_width">75.dp</dimen>
 
 </resources>

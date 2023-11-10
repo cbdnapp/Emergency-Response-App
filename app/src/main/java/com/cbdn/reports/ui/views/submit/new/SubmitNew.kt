@@ -195,7 +195,7 @@ fun SubmitNewBottomBar(
                 )
                 OnPrimaryTextButton(
                     enabled = submitReady,
-                    onClick = { /*TODO*/ },
+                    onClick = {  },
                     labelResource = R.string.submit,
                     modifier = Modifier
                         .fillMaxWidth()

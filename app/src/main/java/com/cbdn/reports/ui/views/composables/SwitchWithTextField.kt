@@ -28,7 +28,7 @@ fun SwitchWithTextField(
     value: String?,
     updateValue: (String) -> Unit
 ) {
-    if (value == null) updateValue("")
+    if (value == null && !checked) updateValue("")
     Row(
         modifier = Modifier
             .width(dimensionResource(id = R.dimen.full_field_width))
@@ -53,7 +53,7 @@ fun SwitchWithTextField(
                     TextField(
                         value = value ?: "",
                         onValueChange = updateValue,
-                        isError = value == null,
+                        isError = value.isNullOrEmpty(),
                         label = { Text(text = stringResource(id = R.string.unit_id)) },
                         trailingIcon = {
                             if (value != null) {
@@ -66,7 +66,7 @@ fun SwitchWithTextField(
                             }
                         },
                         singleLine = true,
-                    )
+                        )
                 }
             }
         }

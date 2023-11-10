@@ -19,7 +19,7 @@ fun BasicTextField (
     TextField(
         value = value ?: "",
         onValueChange = updateValue,
-        isError = value == null,
+        isError = value.isNullOrEmpty(),
         label = { Text(text = stringResource(id = labelResource)) },
         singleLine = true,
         modifier = Modifier

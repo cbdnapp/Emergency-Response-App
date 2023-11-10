@@ -76,6 +76,10 @@ class SubmitNewViewModel : ViewModel() {
             _uiState.update {
                 _uiState.value.copy(reportComplete = true)
             }
+        } else {
+            _uiState.update {
+                _uiState.value.copy(reportComplete = false)
+            }
         }
     }
     private fun isDispatchComplete() {
@@ -88,7 +92,12 @@ class SubmitNewViewModel : ViewModel() {
             _uiState.update {
                 _uiState.value.copy(dispatchComplete = true)
             }
+        } else {
+            _uiState.update {
+                _uiState.value.copy(dispatchComplete = false)
+            }
         }
+        isReportComplete()
     }
     private fun isLocationComplete() {
         if (
@@ -97,7 +106,12 @@ class SubmitNewViewModel : ViewModel() {
             _uiState.update {
                 _uiState.value.copy(locationComplete = true)
             }
+        } else {
+            _uiState.update {
+                _uiState.value.copy(locationComplete = false)
+            }
         }
+        isReportComplete()
     }
     private fun isOnSceneComplete() {
         if (
@@ -113,7 +127,12 @@ class SubmitNewViewModel : ViewModel() {
             _uiState.update {
                 _uiState.value.copy(onSceneComplete = true)
             }
+        } else {
+            _uiState.update {
+                _uiState.value.copy(onSceneComplete = false)
+            }
         }
+        isReportComplete()
     }
     private fun isSubmitComplete() {
         if (
@@ -123,19 +142,20 @@ class SubmitNewViewModel : ViewModel() {
             _uiState.update {
                 _uiState.value.copy(submitComplete = true)
             }
+            isReportComplete()
         }
     }
 
     fun setRespondingTruck(input: String) {
         _uiState.update {
-            _uiState.value.copy(respondingTruck = input)
+            _uiState.value.copy(respondingTruck = input.ifEmpty { null })
         }
         isDispatchComplete()
     }
 
     fun setCommandingOfficer(input: String) {
         _uiState.update {
-            _uiState.value.copy(commandingOfficer = input)
+            _uiState.value.copy(commandingOfficer = input.ifEmpty { null })
         }
         isDispatchComplete()
     }
@@ -158,13 +178,13 @@ class SubmitNewViewModel : ViewModel() {
     }
     fun setEmergencyCode(input: String) {
         _uiState.update {
-            _uiState.value.copy(emergencyCode = input)
+            _uiState.value.copy(emergencyCode = input.ifEmpty { null })
         }
         isDispatchComplete()
     }
     fun setLocation(input: String) {
         _uiState.update {
-            _uiState.value.copy(location = input)
+            _uiState.value.copy(location = input.ifEmpty { null })
         }
         isLocationComplete()
     }
@@ -178,8 +198,10 @@ class SubmitNewViewModel : ViewModel() {
         _uiState.update {
             _uiState.value.copy(policeCheck = input)
         }
+        if (input) setPolicePresent(null)
+        else setPolicePresent("")
     }
-    fun setPolicePresent(input: String) {
+    fun setPolicePresent(input: String?) {
         _uiState.update {
             _uiState.value.copy(policePresent = input)
         }
@@ -189,8 +211,10 @@ class SubmitNewViewModel : ViewModel() {
         _uiState.update {
             _uiState.value.copy(ambulanceCheck = input)
         }
+        if (input) setAmbulancePresent(null)
+        else setAmbulancePresent("")
     }
-    fun setAmbulancePresent(input: String) {
+    fun setAmbulancePresent(input: String?) {
         _uiState.update {
             _uiState.value.copy(ambulancePresent = input)
         }
@@ -200,8 +224,10 @@ class SubmitNewViewModel : ViewModel() {
         _uiState.update {
             _uiState.value.copy(electricCompanyCheck = input)
         }
+        if (input) setElectricCompanyPresent(null)
+        else setElectricCompanyPresent("")
     }
-    fun setElectricCompanyPresent(input: String) {
+    fun setElectricCompanyPresent(input: String?) {
         _uiState.update {
             _uiState.value.copy(electricCompanyPresent = input)
         }
@@ -211,16 +237,24 @@ class SubmitNewViewModel : ViewModel() {
         _uiState.update {
             _uiState.value.copy(transitPoliceCheck = input)
         }
+        if (input) setTransitPolicePresent(null)
+        else setTransitPolicePresent("")
     }
-    fun setTransitPolicePresent(input: String) {
+    fun setTransitPolicePresent(input: String?) {
         _uiState.update {
             _uiState.value.copy(transitPolicePresent = input)
         }
         isOnSceneComplete()
     }
+    fun setVictimCount(input: Int?) {
+        _uiState.update {
+            _uiState.value.copy(victimCount = input)
+        }
+        isOnSceneComplete()
+    }
     fun setNotes(input: String) {
         _uiState.update {
-            _uiState.value.copy(notes = input)
+            _uiState.value.copy(notes = input.ifEmpty { null })
         }
         isOnSceneComplete()
     }
@@ -232,13 +266,11 @@ class SubmitNewViewModel : ViewModel() {
     }
     fun setAuthor(input: String) {
         _uiState.update {
-            _uiState.value.copy(author = input)
+            _uiState.value.copy(author = input.ifEmpty { null })
         }
         isSubmitComplete()
     }
 
-
-    // Handle business logic
     override fun onCleared() {
         super.onCleared()
         Log.d("Developer", "onCleared")
