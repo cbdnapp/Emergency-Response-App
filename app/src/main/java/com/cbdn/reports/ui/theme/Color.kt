@@ -7,6 +7,7 @@ val eerie_black = Color(0xFF201E1E)
 val jet = Color(0xFF373435)
 val onyx = Color(0xFF393E43)
 val davys_gray = Color(0xFF50575E)
+val timberwolf = Color(0xFFD7D6D7)
 val platinum = Color(0xFFE5E5E5)
 val white = Color(0xFFF1F1F1)
 

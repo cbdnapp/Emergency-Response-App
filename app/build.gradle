@@ -83,7 +83,7 @@ dependencies {
                     //                                //
 
     // navigation: https://developer.android.com/jetpack/compose/navigation/
-    def nav_version = "2.7.4"
+    def nav_version = "2.7.5"
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
     // adaptive windows
@@ -96,6 +96,8 @@ dependencies {
     def lifecycle_version = "2.6.2"
     // ViewModel utilities for Compose
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version"
+
 
 }
 

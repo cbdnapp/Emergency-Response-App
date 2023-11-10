@@ -2,11 +2,9 @@ package com.cbdn.reports.ui.views
 
 
 import AppNavHost
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -16,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -28,40 +25,28 @@ import androidx.navigation.compose.rememberNavController
 import com.cbdn.reports.ui.navigation.Destinations
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App(
-    windowSize: WindowWidthSizeClass,
     navController: NavHostController = rememberNavController()
 ) {
-    // view model
-    // val viewModel: ReportsViewModel = viewModel()
 
     // navigation
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen = Destinations.valueOf(
         backStackEntry?.destination?.route ?: Destinations.AppMenu.name
     )
-
-    // adaptive window size
-    when (windowSize) {
-        WindowWidthSizeClass.Compact -> {}
-        WindowWidthSizeClass.Medium -> {}
-        WindowWidthSizeClass.Expanded -> {}
-        else -> {}
-    }
-
     Scaffold(
-        topBar = { ReportsTopBar(
-            currentScreen = currentScreen,
-            canNavigateBack = navController.previousBackStackEntry != null,
-            navigateUp = { navController.navigateUp() }
-        ) }
+        topBar = {
+            ReportsTopBar(
+                currentScreen = currentScreen,
+                canNavigateBack = navController.previousBackStackEntry != null,
+                navigateUp = { navController.navigateUp() },
+            )
+        }
     ) { innerPadding ->
         AppNavHost(
             navController = navController,
             modifier = Modifier
-                .fillMaxSize()
                 .padding(innerPadding)
         )
     }
@@ -97,7 +82,7 @@ fun ReportsTopBar(
                     )
                 ) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        imageVector = Icons.Rounded.Menu,
                         contentDescription = null,
                     )
                 }

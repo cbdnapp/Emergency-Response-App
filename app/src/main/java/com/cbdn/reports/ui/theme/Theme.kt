@@ -26,18 +26,18 @@ private val DarkColorScheme = darkColorScheme(
     secondaryContainer = goldenrod,
     onSecondaryContainer = onyx,
 
-//    tertiary = azul,
-//    onTertiary = azul,
+    tertiary = timberwolf,
+//    onTertiary = copper,
 //    tertiaryContainer = azul,
 //    onTertiaryContainer = azul,
-//
+
     background = platinum,
     onBackground = jet,
     surface = platinum,
     onSurface = eerie_black,
-//
+
     surfaceVariant = white,
-    onSurfaceVariant = imperial_red,
+    onSurfaceVariant = azul,
 
 //    outline = azul,
 //    inverseOnSurface = azul,
@@ -46,11 +46,11 @@ private val DarkColorScheme = darkColorScheme(
 //    surfaceTint = azul,
 //    outlineVariant = azul,
 //    scrim = azul,
-//
-//    error = azul,
-//    errorContainer = azul,
-//    onError = azul,
-//    onErrorContainer = azul,
+
+    error = imperial_red,
+    errorContainer = imperial_red,
+    onError = imperial_red,
+    onErrorContainer = imperial_red,
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -64,9 +64,9 @@ private val LightColorScheme = lightColorScheme(
     secondaryContainer = goldenrod,
     onSecondaryContainer = onyx,
 
-//    tertiary = azul,
-//    onTertiary = azul,
-//    tertiaryContainer = azul,
+    tertiary = timberwolf,
+//    onTertiary = copper,
+    tertiaryContainer = azul,
 //    onTertiaryContainer = azul,
 
     background = platinum,
@@ -121,4 +121,5 @@ fun CBDNReportsTheme(
         typography = Typography,
         content = content
     )
+
 }

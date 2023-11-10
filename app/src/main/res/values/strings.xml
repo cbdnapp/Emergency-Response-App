@@ -1,23 +1,31 @@
 <resources>
     <string name="app_name">CBDN Reports</string>
     <!-- App Menu -->
-    <string name="submit_report_header">Submit Report</string>
-
-    <string name="submit_report_new_button">New</string>
-    <string name="submit_report_finish_button">Finish</string>
-    <string name="submit_report_amend_button">Amend</string>
-
-    <string name="view_report_header">Report Data</string>
-
-    <string name="view_report_filter_button">Reports</string>
-    <string name="view_report_statistics_button">Statistics</string>
+    <string name="submit_header">Submit Report</string>
+    <string name="submit_new_button">New</string>
+    <string name="submit_finish_button">Finish</string>
+    <string name="submit_amend_button">Amend</string>
+    <string name="view_header">Report Data</string>
+    <string name="view_filter_button">Reports</string>
+    <string name="view_statistics_button">Statistics</string>
 
 
+    <!-- GENERAL BUTTONS -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="previous_button">Previous</string>
+    <string name="submit_button">Submit</string>
+    <string name="next_button">Next</string>
 
     <!-- Submit Report New -->
-    <string name="submit_report_new_header">New Report</string>
+    <string name="submit_new_header">New Report</string>
+    <string name="dispatch">Dispatch</string>
+    <string name="on_scene">On Scene</string>
+    <string name="submit">Submit</string>
 
-    <string name="submit_report_dispatch_details_header">Dispatch Details</string>
+    <string name="submit_dispatch_details_header">Dispatch Details</string>
+    <string name="resources">Resources</string>
     <string name="responding_truck">Responding Truck</string>
     <string name="commanding_officer">Commanding Officer</string>
     <string name="date_and_time_of_dispatch">Date and Time of Dispatch</string>
@@ -25,11 +33,12 @@
     <string name="change_time">Change Time</string>
     <string name="select_code_category">Select Code Category</string>
     <string name="emergency_code">Emergency Code</string>
+
+    <string name="submit_location_header">Location Data</string>
     <string name="location">Location</string>
 
-
-    <string name="submit_report_on_scene_details_header">On Scene Details</string>
-    <string name="datetime_of_arrival">Date and Time of Arrival</string>
+    <string name="submit_on_scene_details_header">On Scene Details</string>
+    <string name="date_and_time_of_arrival">Date and Time of Arrival</string>
     <string name="police_present">Police Unit Present</string>
     <string name="ambulance_present">Ambulance Unit Present</string>
     <string name="electric_company_present">Electricity Company Present</string>
@@ -41,22 +50,22 @@
     <string name="victim_identification">Victim Identification</string>
     <string name="notes">Notes</string>
 
-    <string name="submit_report_submittal_details_header">Submittal Details</string>
-    <string name="datetime_return">Date and Time of Return</string>
+    <string name="submit_submittal_details_header">Submittal Details</string>
+    <string name="date_and_time_of_return">Date and Time of Return</string>
     <string name="author">Submitting Author</string>
 
 
     <!-- Submit Report Finish -->
-    <string name="submit_report_finish_header">Finish Report</string>
+    <string name="submit_finish_header">Finish Report</string>
 
     <!-- Submit Report Amend -->
-    <string name="submit_report_amend_header">Amend Report</string>
+    <string name="submit_amend_header">Amend Report</string>
 
     <!-- View Report Filter -->
-    <string name="view_report_filter_header">Filter Reports</string>
+    <string name="view_filter_header">Filter Reports</string>
 
     <!-- View Report Statistics -->
-    <string name="view_report_statistics_header">Report Statistics</string>
+    <string name="view_statistics_header">Report Statistics</string>
 
 
 </resources>

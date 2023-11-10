@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- FORM DIMENSIONS -->
+    <!-- Menu -->
+    <dimen name="menu_width">200.dp</dimen>
+    <dimen name="next_button_width">200.dp</dimen>
+    <dimen name="next_button_height">80.dp</dimen>
+
+    <!-- Padding-->
+    <dimen name="thick_spacing">50.dp</dimen>
+    <dimen name="moderate_spacing">20.dp</dimen>
+    <dimen name="thin_spacing">5.dp</dimen>
+
+    
+
+    <!-- FORM -->
     <dimen name="full_field_width">350.dp</dimen>
     <dimen name="half_field_width">175.dp</dimen>
-    <dimen name="field_top_padding">20.dp</dimen>
+
+
+
+
 </resources>
