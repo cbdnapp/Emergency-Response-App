@@ -1,8 +1,10 @@
-package com.cbdn.reports.ui.views
+package com.cbdn.reports.ui.views.submit.new
 
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -105,5 +107,7 @@ fun SubmitNewDispatch(
             optionsCodes = codeOptions,
             labelResource = R.string.emergency_code
         )
+
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.thick_spacing)))
     }
 }

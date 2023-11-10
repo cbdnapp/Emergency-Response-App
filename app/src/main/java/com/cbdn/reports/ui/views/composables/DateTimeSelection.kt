@@ -33,7 +33,7 @@ fun DateTimeSelection (
 ) {
     val now: Calendar = Calendar.getInstance()
     now.timeInMillis = displayValue ?: now.timeInMillis
-    updateDatetime(now.timeInMillis)
+    if (displayValue == null) updateDatetime(now.timeInMillis)
 
     val openDateDialog = remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState(

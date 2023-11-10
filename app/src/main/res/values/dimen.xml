@@ -10,13 +10,9 @@
     <dimen name="moderate_spacing">20.dp</dimen>
     <dimen name="thin_spacing">5.dp</dimen>
 
-    
 
     <!-- FORM -->
     <dimen name="full_field_width">350.dp</dimen>
     <dimen name="half_field_width">175.dp</dimen>
-
-
-
 
 </resources>

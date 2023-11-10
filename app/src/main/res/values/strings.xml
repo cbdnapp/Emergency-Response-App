@@ -10,7 +10,9 @@
     <string name="view_statistics_button">Statistics</string>
 
 
-    <!-- GENERAL BUTTONS -->
+    <!-- GENERAL  -->
+    <string name="required">Required</string>
+
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
@@ -39,6 +41,7 @@
 
     <string name="submit_on_scene_details_header">On Scene Details</string>
     <string name="date_and_time_of_arrival">Date and Time of Arrival</string>
+    <string name="unit_id">Unit ID</string>
     <string name="police_present">Police Unit Present</string>
     <string name="ambulance_present">Ambulance Unit Present</string>
     <string name="electric_company_present">Electricity Company Present</string>

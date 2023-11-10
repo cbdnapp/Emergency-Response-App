@@ -1,24 +1,24 @@
-package com.cbdn.reports.ui.views
+package com.cbdn.reports.ui.views.submit.new
 
+import OnSecondaryIcon
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -26,6 +26,8 @@ import com.cbdn.reports.R
 import com.cbdn.reports.ui.navigation.Destinations
 import com.cbdn.reports.ui.navigation.SubmitNewNavHost
 import com.cbdn.reports.ui.viewmodel.SubmitNewViewModel
+import com.cbdn.reports.ui.views.composables.OnPrimaryTextButton
+import com.cbdn.reports.ui.views.composables.OnSecondaryText
 
 @Composable
 fun SubmitNew(
@@ -75,6 +77,9 @@ fun SubmitNewTopBar(
 ) {
     CenterAlignedTopAppBar(
         title = {},
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primary
+            ),
         actions = {
             Row(
                 modifier = Modifier.fillMaxSize(),
@@ -91,15 +96,11 @@ fun SubmitNewTopBar(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         if (dispatchComplete) {
-                            Icon(imageVector = ImageVector.vectorResource(
-                                id = R.drawable.baseline_check_box_24
-                            ), null)
+                            OnSecondaryIcon(iconResource = R.drawable.baseline_check_box_24)
                         } else {
-                            Icon(imageVector = ImageVector.vectorResource(
-                                id = R.drawable.baseline_check_box_outline_blank_24
-                            ), null)
+                            OnSecondaryIcon(iconResource = R.drawable.baseline_check_box_outline_blank_24)
                         }
-                        Text(text = stringResource(id = R.string.dispatch))
+                        OnSecondaryText(textResource = R.string.dispatch)
                     }
                 }
                 TextButton(
@@ -112,15 +113,11 @@ fun SubmitNewTopBar(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         if (locationComplete) {
-                            Icon(imageVector = ImageVector.vectorResource(
-                                id = R.drawable.baseline_check_box_24
-                            ), null)
+                            OnSecondaryIcon(iconResource = R.drawable.baseline_check_box_24)
                         } else {
-                            Icon(imageVector = ImageVector.vectorResource(
-                                id = R.drawable.baseline_check_box_outline_blank_24
-                            ), null)
+                            OnSecondaryIcon(iconResource = R.drawable.baseline_check_box_outline_blank_24)
                         }
-                        Text(text = stringResource(id = R.string.location))
+                        OnSecondaryText(textResource = R.string.location)
                     }
                 }
                 TextButton(
@@ -133,15 +130,11 @@ fun SubmitNewTopBar(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         if (onSceneComplete) {
-                            Icon(imageVector = ImageVector.vectorResource(
-                                id = R.drawable.baseline_check_box_24
-                            ), null)
+                            OnSecondaryIcon(iconResource = R.drawable.baseline_check_box_24)
                         } else {
-                            Icon(imageVector = ImageVector.vectorResource(
-                                id = R.drawable.baseline_check_box_outline_blank_24
-                            ), null)
+                            OnSecondaryIcon(iconResource = R.drawable.baseline_check_box_outline_blank_24)
                         }
-                        Text(text = stringResource(id = R.string.on_scene))
+                        OnSecondaryText(textResource = R.string.on_scene)
                     }
                 }
                 TextButton(
@@ -154,15 +147,11 @@ fun SubmitNewTopBar(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         if (submitComplete) {
-                            Icon(imageVector = ImageVector.vectorResource(
-                                id = R.drawable.baseline_check_box_24
-                            ), null)
+                            OnSecondaryIcon(iconResource = R.drawable.baseline_check_box_24)
                         } else {
-                            Icon(imageVector = ImageVector.vectorResource(
-                                id = R.drawable.baseline_check_box_outline_blank_24
-                            ), null)
+                            OnSecondaryIcon(iconResource = R.drawable.baseline_check_box_outline_blank_24)
                         }
-                        Text(text = stringResource(id = R.string.submit))
+                        OnSecondaryText(textResource = R.string.submit)
                     }
                 }
             }
@@ -178,13 +167,14 @@ fun SubmitNewBottomBar(
     updateCurrentScreen: (String?) -> Unit
 ) {
     BottomAppBar(
+        containerColor = MaterialTheme.colorScheme.primary,
         actions = {
             Row(
                 modifier = Modifier.fillMaxSize(),
                 horizontalArrangement = Arrangement.SpaceAround,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ){
-                TextButton(
+                OnPrimaryTextButton(
                     enabled = currentScreen != "SubmitNewDispatch",
                     onClick = {
                         when(currentScreen) {
@@ -196,19 +186,23 @@ fun SubmitNewBottomBar(
                                 navController.navigate(Destinations.SubmitNewOnScene.name)
                         }
                         updateCurrentScreen(navController.currentBackStackEntry?.destination?.route)
-                    }
-                ) {
-                    Text(stringResource(id = R.string.previous_button))
-                }
-                TextButton(
+                    },
+                    labelResource = R.string.previous_button,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .padding(dimensionResource(id = R.dimen.thin_spacing))
+                )
+                OnPrimaryTextButton(
                     enabled = submitReady,
-                    onClick = {
-                    /*TODO*/
-                }
-                ) {
-                    Text(stringResource(id = R.string.submit_button))
-                }
-                TextButton(
+                    onClick = { /*TODO*/ },
+                    labelResource = R.string.submit,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .padding(dimensionResource(id = R.dimen.thin_spacing))
+                )
+                OnPrimaryTextButton(
                     enabled = currentScreen != "SubmitNewSubmit",
                     onClick = {
                         when(currentScreen) {
@@ -220,10 +214,13 @@ fun SubmitNewBottomBar(
                                 navController.navigate(Destinations.SubmitNewSubmit.name)
                         }
                         updateCurrentScreen(navController.currentBackStackEntry?.destination?.route)
-                    }
-                ) {
-                    Text(stringResource(id = R.string.next_button))
-                }
+                    },
+                    labelResource = R.string.next_button,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .padding(dimensionResource(id = R.dimen.thin_spacing))
+                )
             }
         },
     )

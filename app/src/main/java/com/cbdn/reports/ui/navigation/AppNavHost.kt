@@ -6,11 +6,11 @@ import androidx.navigation.compose.composable
 import com.cbdn.reports.ui.navigation.Destinations
 import com.cbdn.reports.ui.viewmodel.SubmitNewViewModel
 import com.cbdn.reports.ui.views.AppMenu
-import com.cbdn.reports.ui.views.SubmitAmend
-import com.cbdn.reports.ui.views.SubmitFinish
-import com.cbdn.reports.ui.views.SubmitNew
-import com.cbdn.reports.ui.views.ViewFilter
-import com.cbdn.reports.ui.views.ViewStatistics
+import com.cbdn.reports.ui.views.submit.amend.SubmitAmend
+import com.cbdn.reports.ui.views.submit.finish.SubmitFinish
+import com.cbdn.reports.ui.views.submit.new.SubmitNew
+import com.cbdn.reports.ui.views.view.filter.ViewFilter
+import com.cbdn.reports.ui.views.view.statistics.ViewStatistics
 
 @Composable
 fun AppNavHost(

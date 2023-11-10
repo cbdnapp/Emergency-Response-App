@@ -46,9 +46,13 @@ data class SubmitNewUiState(
     var reportComplete: Boolean = false,
     // dispatch
     var categoryIndex: Int = 0,
-    var selectedOptionText: String? = null
+    var selectedOptionText: String? = null,
     // location
     // on scene
+    var policeCheck: Boolean = false,
+    var ambulanceCheck: Boolean = false,
+    var electricCompanyCheck: Boolean = false,
+    var transitPoliceCheck: Boolean = false,
     // submittal
 )
 
@@ -164,6 +168,75 @@ class SubmitNewViewModel : ViewModel() {
         }
         isLocationComplete()
     }
+    fun setDatetimeArrival(input: Long) {
+        _uiState.update {
+            _uiState.value.copy(datetimeArrival = input)
+        }
+        isOnSceneComplete()
+    }
+    fun setPoliceCheck(input: Boolean) {
+        _uiState.update {
+            _uiState.value.copy(policeCheck = input)
+        }
+    }
+    fun setPolicePresent(input: String) {
+        _uiState.update {
+            _uiState.value.copy(policePresent = input)
+        }
+        isOnSceneComplete()
+    }
+    fun setAmbulanceCheck(input: Boolean) {
+        _uiState.update {
+            _uiState.value.copy(ambulanceCheck = input)
+        }
+    }
+    fun setAmbulancePresent(input: String) {
+        _uiState.update {
+            _uiState.value.copy(ambulancePresent = input)
+        }
+        isOnSceneComplete()
+    }
+    fun setElectricCompanyCheck(input: Boolean) {
+        _uiState.update {
+            _uiState.value.copy(electricCompanyCheck = input)
+        }
+    }
+    fun setElectricCompanyPresent(input: String) {
+        _uiState.update {
+            _uiState.value.copy(electricCompanyPresent = input)
+        }
+        isOnSceneComplete()
+    }
+    fun setTransitPoliceCheck(input: Boolean) {
+        _uiState.update {
+            _uiState.value.copy(transitPoliceCheck = input)
+        }
+    }
+    fun setTransitPolicePresent(input: String) {
+        _uiState.update {
+            _uiState.value.copy(transitPolicePresent = input)
+        }
+        isOnSceneComplete()
+    }
+    fun setNotes(input: String) {
+        _uiState.update {
+            _uiState.value.copy(notes = input)
+        }
+        isOnSceneComplete()
+    }
+    fun setDatetimeReturn(input: Long) {
+        _uiState.update {
+            _uiState.value.copy(datetimeReturn = input)
+        }
+        isSubmitComplete()
+    }
+    fun setAuthor(input: String) {
+        _uiState.update {
+            _uiState.value.copy(author = input)
+        }
+        isSubmitComplete()
+    }
+
 
     // Handle business logic
     override fun onCleared() {
