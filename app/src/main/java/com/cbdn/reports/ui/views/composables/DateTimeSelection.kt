@@ -1,9 +1,7 @@
 package com.cbdn.reports.ui.views.composables
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,10 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.cbdn.reports.R
 import convertMillisToDateTime
 import java.util.Calendar
@@ -46,24 +42,14 @@ fun DateTimeSelection (
     )
 
     Row() {
-        Button(
+        FormButton(
             onClick = { openDateDialog.value = true },
-            shape = RectangleShape,
-            modifier = Modifier
-                .width(dimensionResource(id = R.dimen.half_field_width))
-                .padding(horizontal = 10.dp)
-        ) {
-            Text(text = stringResource(id = R.string.change_date))
-        }
-        Button(
+            labelResource = R.string.change_date
+        )
+        FormButton(
             onClick = { openTimeDialog.value = true },
-            shape = RectangleShape,
-            modifier = Modifier
-                .width(dimensionResource(id = R.dimen.half_field_width))
-                .padding(horizontal = 10.dp)
-        ) {
-            Text(text = stringResource(id = R.string.change_time))
-        }
+            labelResource = R.string.change_time
+        )
     }
     if (openDateDialog.value) {
         DatePickerDialog(

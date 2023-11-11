@@ -6,7 +6,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun OnPrimaryTextButton(
@@ -16,6 +18,8 @@ fun OnPrimaryTextButton(
     modifier: Modifier
 ) {
     TextButton (
+        shape = RectangleShape,
+        elevation = ButtonDefaults.buttonElevation(10.dp),
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onPrimary,),
         onClick = onClick,
