@@ -3,11 +3,16 @@
     <!-- App Menu -->
     <string name="submit_header">Submit Report</string>
     <string name="submit_new_button">New</string>
+    <string name="submit_new_description">Start a new report.</string>
     <string name="submit_finish_button">Finish</string>
+    <string name="submit_finish_description">Select an incomplete report and complete it.</string>
     <string name="submit_amend_button">Amend</string>
+    <string name="submit_amend_description">Select a completed report and add to it.</string>
     <string name="view_header">Report Data</string>
     <string name="view_filter_button">Reports</string>
+    <string name="view_filter_description">Search, filter, and select reports.</string>
     <string name="view_statistics_button">Statistics</string>
+    <string name="view_statistics_description">View aggregate data from report data.</string>
 
 
     <!-- GENERAL  -->

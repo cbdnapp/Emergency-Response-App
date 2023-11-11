@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -61,19 +60,22 @@ fun AppMenu(
         )
         MenuButton(
             onClick = { navController.navigate(Destinations.SubmitNew.name) },
-            label = stringResource(id = R.string.submit_new_button),
+            labelResource = R.string.submit_new_button,
+            subLabelResource = R.string.submit_new_description,
             icon = Icons.Rounded.AddCircle,
             modifier = Modifier.weight(2f)
         )
         MenuButton(
             onClick = { navController.navigate(Destinations.SubmitFinish.name) },
-            label = stringResource(id = R.string.submit_finish_button),
+            labelResource = R.string.submit_finish_button,
+            subLabelResource = R.string.submit_finish_description,
             icon = Icons.Rounded.CheckCircle,
             modifier = Modifier.weight(2f)
         )
         MenuButton(
             onClick = { navController.navigate(Destinations.SubmitAmend.name) },
-            label = stringResource(id = R.string.submit_amend_button),
+            labelResource = R.string.submit_amend_button,
+            subLabelResource = R.string.submit_amend_description,
             icon = Icons.Rounded.Edit,
             modifier = Modifier.weight(2f)
         )
@@ -83,13 +85,15 @@ fun AppMenu(
         )
         MenuButton(
             onClick = { navController.navigate(Destinations.ViewFilter.name) },
-            label = stringResource(id = R.string.view_filter_button),
+            labelResource = R.string.view_filter_button,
+            subLabelResource = R.string.view_filter_description,
             icon = ImageVector.vectorResource(id = R.drawable.summarize_24),
             modifier = Modifier.weight(2f)
         )
         MenuButton(
             onClick = { navController.navigate(Destinations.ViewStatistics.name) },
-            label = stringResource(id = R.string.view_statistics_button),
+            labelResource = R.string.view_statistics_button,
+            subLabelResource = R.string.view_statistics_description,
             icon = ImageVector.vectorResource(id = R.drawable.pie_chart_24),
             modifier = Modifier.weight(2f)
         )
