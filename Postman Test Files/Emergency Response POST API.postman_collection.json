@@ -7,15 +7,17 @@
 	},
 	"item": [
 		{
-			"name": "Post emergency",
+			"name": "Post report",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"200 status code\", function () {\r",
+							"    pm.environment.set(\"reportID\", pm.response.json()[\"id\"]);\r",
+							"pm.test(\"201 status code\", function () {\r",
 							"    //Check for appropriate status code\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(201);\r",
+							"\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -25,113 +27,29 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": {
-					"raw": "{{hostname}}/emergencies",
-					"host": [
-						"{{hostname}}"
-					],
-					"path": [
-						"emergencies"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Post station",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"200 status code\", function () {\r",
-							"    //Check for appropriate status code\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"finalized\": false,\r\n    \"author\": [],\r\n    \"datetimeDispatch\": [\"2023/11/05 14:09\"], \r\n    \"datetimeArrival\": [\"2023/11/05 14:21\"], \r\n    \"datetimeReturn\": [\"2023/11/05 16:32\"], \r\n    \"emergencyCode\": [\"F-1\"], \r\n    \"respondingTruck\": [\"R-30\"], \r\n    \"commandingOfficer\": [\"Fred Chief\"], \r\n    \"victimCount\": [2], \r\n    \"victimInfo\":  [ { \r\n            \"statusCode\": \"I-26\", \r\n            \"name\": \"Julia Victim\",  \r\n            \"age\": 48, \r\n            \"identification\": \"0001\" \r\n        },  \r\n        { \r\n            \"statusCode\": \"I-29\",\r\n            \"name\": \"Veronica Dead\",  \r\n            \"age\": 23, \r\n            \"identification\": \"ABC2\" \r\n        }\r\n    ],\r\n    \"policePresent\": [\"2180\"], \r\n    \"ambulancePresent\": [\"481823\"], \r\n    \"electricCompanyPresent\": [null], \r\n    \"transitPolicePresent\": [null], \r\n    \"location\": [\"1234 Dominican Lane\"], \r\n    \"notes\": [\"Some observations about the event.\"] \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
 					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
+				},
 				"url": {
-					"raw": "{{hostname}}/stations",
+					"raw": "{{hostname}}/reports",
 					"host": [
 						"{{hostname}}"
 					],
 					"path": [
-						"stations"
+						"reports"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Post truck",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"200 status code\", function () {\r",
-							"    //Check for appropriate status code\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "{{hostname}}/trucks",
-					"host": [
-						"{{hostname}}"
-					],
-					"path": [
-						"trucks"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Post firefighter",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"200 status code\", function () {\r",
-							"    //Check for appropriate status code\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "{{hostname}}/firefighters",
-					"host": [
-						"{{hostname}}"
-					],
-					"path": [
-						"firefighters"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update emergency",
+			"name": "Put report",
 			"event": [
 				{
 					"listen": "test",
@@ -149,21 +67,30 @@
 			"request": {
 				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"finalized\": true,\r\n    \"author\": [\"New Author\"],\r\n    \"datetimeDispatch\": [\"2022/11/05 14:09\"], \r\n    \"datetimeArrival\": [\"2022/11/05 14:21\"], \r\n    \"datetimeReturn\": [\"2022/11/05 16:32\"], \r\n    \"emergencyCode\": [\"F-12\"], \r\n    \"respondingTruck\": [\"R-302\"], \r\n    \"commandingOfficer\": [\"Fred Chief 2\"], \r\n    \"victimCount\": [2], \r\n    \"victimInfo\":  [ { \r\n            \"statusCode\": \"I-26\", \r\n            \"name\": \"Julia Victim\",  \r\n            \"age\": 48, \r\n            \"identification\": \"0001\" \r\n        },  \r\n        { \r\n            \"statusCode\": \"I-29\",\r\n            \"name\": \"Veronica Dead\",  \r\n            \"age\": 23, \r\n            \"identification\": \"ABC2\" \r\n        }\r\n    ],\r\n    \"policePresent\": [\"2180\"], \r\n    \"ambulancePresent\": [\"481823\"], \r\n    \"electricCompanyPresent\": [null], \r\n    \"transitPolicePresent\": [null], \r\n    \"location\": [\"1234 Dominican Lane\"],\r\n    \"notes\": [\"Some observations about the event.\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{hostname}}/emergencies/1",
+					"raw": "{{hostname}}/reports/{{reportID}}",
 					"host": [
 						"{{hostname}}"
 					],
 					"path": [
-						"emergencies",
-						"1"
+						"reports",
+						"{{reportID}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Update emergency trucks Copy",
+			"name": "Patch report",
 			"event": [
 				{
 					"listen": "test",
@@ -179,25 +106,32 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "PATCH",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"author\": [\"New Author II\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{hostname}}/emergencies/1/trucks/3",
+					"raw": "{{hostname}}/reports/{{reportID}}",
 					"host": [
 						"{{hostname}}"
 					],
 					"path": [
-						"emergencies",
-						"1",
-						"trucks",
-						"3"
+						"reports",
+						"{{reportID}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Update firefighters on duty",
+			"name": "Get report by ID",
 			"event": [
 				{
 					"listen": "test",
@@ -213,25 +147,23 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{hostname}}/stations/2/firefighters/4",
+					"raw": "{{hostname}}/reports/{{reportID}}",
 					"host": [
 						"{{hostname}}"
 					],
 					"path": [
-						"stations",
-						"2",
-						"firefighters",
-						"4"
+						"reports",
+						"{{reportID}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Update firefighters on duty Copy",
+			"name": "Get all reports",
 			"event": [
 				{
 					"listen": "test",
@@ -247,18 +179,15 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{hostname}}/stations/2/trucks/3",
+					"raw": "{{hostname}}/reports",
 					"host": [
 						"{{hostname}}"
 					],
 					"path": [
-						"stations",
-						"2",
-						"trucks",
-						"3"
+						"reports"
 					]
 				}
 			},
