@@ -23,26 +23,27 @@ import com.cbdn.reports.ui.views.composables.FormSubHeader
 fun SubmitSubmittal(
     viewModel: SubmitNewViewModel
 ) {
+    val reportState by viewModel.reportState.collectAsStateWithLifecycle()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
         FormHeader(textResource = R.string.submit_submittal_details_header)
 
         // DATE AND TIME OF RETURN
         FormSubHeader(textResource = R.string.date_and_time_of_return)
         DateTimeSelection(
-            displayValue = uiState.datetimeReturn,
+            displayValue = reportState.datetimeReturn,
             updateDatetime = { viewModel.setDatetimeReturn(it)}
         )
 
         // AUTHOR
         BasicTextField(
-            value = uiState.author,
+            value = reportState.author,
             updateValue = { viewModel.setAuthor(it) },
             labelResource = R.string.author
         )

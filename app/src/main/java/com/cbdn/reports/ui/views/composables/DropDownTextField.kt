@@ -18,16 +18,18 @@ import androidx.compose.ui.res.stringResource
 import com.cbdn.reports.R
 import com.cbdn.reports.data.EmergencyCodes
 import com.cbdn.reports.data.Trucks
+import com.cbdn.reports.data.VictimCodes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDownTextField(
     displayValue: String?,
-    updateDisplayValue: (String) -> Unit,
     updateDataValue: (String) -> Unit,
-    optionsTrucks: List<Trucks>?,
-    optionsCodes: List<EmergencyCodes>?,
+    optionsTrucks: List<Trucks>? = null,
+    optionsEmergencyCodes: List<EmergencyCodes>? = null,
+    optionsVictimCodes: List<VictimCodes>? = null,
     labelResource: Int,
+    labelArg: Any = ""
 ) {
     var expanded by remember { mutableStateOf(false) }
     ExposedDropdownMenuBox(
@@ -39,7 +41,7 @@ fun DropDownTextField(
             value = displayValue ?: "",
             onValueChange = {},
             isError = displayValue == null,
-            label = { Text(stringResource(id = labelResource)) },
+            label = { Text(stringResource(id = labelResource, labelArg)) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),
             modifier = Modifier
@@ -54,19 +56,27 @@ fun DropDownTextField(
                 DropdownMenuItem(
                     text = { Text(selectionOption.code) },
                     onClick = {
-                        updateDisplayValue(selectionOption.code)
                         updateDataValue(selectionOption.code)
                         expanded = false
                     },
                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
                 )
             }
-            optionsCodes?.forEach { selectionOption ->
+            optionsEmergencyCodes?.forEach { selectionOption ->
                 DropdownMenuItem(
                     text = { Text(selectionOption.name) },
                     onClick = {
-                        updateDisplayValue(selectionOption.name)
-                        updateDataValue(selectionOption.code)
+                        updateDataValue(selectionOption.name)
+                        expanded = false
+                    },
+                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                )
+            }
+            optionsVictimCodes?.forEach { selectionOption ->
+                DropdownMenuItem(
+                    text = { Text(selectionOption.name) },
+                    onClick = {
+                        updateDataValue(selectionOption.name)
                         expanded = false
                     },
                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,

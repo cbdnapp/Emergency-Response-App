@@ -10,9 +10,9 @@
     <string name="submit_amend_description">Select a completed report and add to it.</string>
     <string name="view_header">Report Data</string>
     <string name="view_filter_button">Reports</string>
-    <string name="view_filter_description">Search, filter, and select reports.</string>
+    <string name="view_filter_description">Search, filter, and select reports to view.</string>
     <string name="view_statistics_button">Statistics</string>
-    <string name="view_statistics_description">View aggregate data from report data.</string>
+    <string name="view_statistics_description">View aggregate data from reports database.</string>
 
 
     <!-- GENERAL  -->
@@ -28,12 +28,11 @@
     <string name="submit_button">Submit</string>
     <string name="next_button">Next</string>
 
-    <!-- Submit Report New -->
+    <!-- SubmitNew -->
     <string name="submit_new_header">New Report</string>
     <string name="dispatch">Dispatch</string>
     <string name="on_scene">On Scene</string>
     <string name="submit">Submit</string>
-
     <string name="submit_dispatch_details_header">Dispatch Details</string>
     <string name="resources">Resources</string>
     <string name="responding_truck">Responding Truck</string>
@@ -43,10 +42,8 @@
     <string name="change_time">Change Time</string>
     <string name="select_code_category">Select Code Category</string>
     <string name="emergency_code">Emergency Code</string>
-
     <string name="submit_location_header">Location Data</string>
     <string name="location">Location</string>
-
     <string name="submit_on_scene_details_header">On Scene Details</string>
     <string name="date_and_time_of_arrival">Date and Time of Arrival</string>
     <string name="unit_id">Unit ID</string>
@@ -56,11 +53,12 @@
     <string name="transit_police_present">Transit Police Present</string>
     <string name="victim_count_with_count">Victim Count: %s</string>
     <string name="victim_info">Victim Info</string>
-    <string name="victim_name">Name</string>
-    <string name="victim_age">Age</string>
-    <string name="victim_identification">Victim Identification</string>
+    <string name="victim_status_with_arg">Victim #%s: Status Code</string>
+    <string name="victim_number_with_arg">Victim #%s:</string>
+    <string name="victim_name_with_arg">Victim #%s: Name</string>
+    <string name="victim_age_with_arg">Victim #%s: Age</string>
+    <string name="victim_identification_with_arg">Victim #%s: Identification</string>
     <string name="notes">Notes</string>
-
     <string name="submit_submittal_details_header">Submittal Details</string>
     <string name="date_and_time_of_return">Date and Time of Return</string>
     <string name="author">Submitting Author</string>

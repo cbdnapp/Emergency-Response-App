@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -20,8 +21,12 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cbdn.reports.R
+import com.cbdn.reports.data.VictimCodeData
+import com.cbdn.reports.data.VictimCodes
 import com.cbdn.reports.ui.viewmodel.SubmitNewViewModel
+import com.cbdn.reports.ui.views.composables.BasicTextField
 import com.cbdn.reports.ui.views.composables.DateTimeSelection
+import com.cbdn.reports.ui.views.composables.DropDownTextField
 import com.cbdn.reports.ui.views.composables.FormButton
 import com.cbdn.reports.ui.views.composables.FormHeader
 import com.cbdn.reports.ui.views.composables.FormSubHeader
@@ -32,20 +37,21 @@ import com.cbdn.reports.ui.views.composables.SwitchWithTextField
 fun SubmitNewOnSite(
     viewModel: SubmitNewViewModel
 ) {
+    val reportState by viewModel.reportState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
         FormHeader(textResource = R.string.submit_on_scene_details_header)
 
         // DATE AND TIME OF ARRIVAL
         FormSubHeader(textResource = R.string.date_and_time_of_arrival)
         DateTimeSelection(
-            displayValue = uiState.datetimeArrival,
+            displayValue = reportState.datetimeArrival,
             updateDatetime = { viewModel.setDatetimeArrival(it)}
         )
 
@@ -54,7 +60,7 @@ fun SubmitNewOnSite(
             checked = uiState.policeCheck,
             onChange = { viewModel.setPoliceCheck(it) },
             labelResource = R.string.police_present,
-            value = uiState.policePresent,
+            value = reportState.policePresent,
             updateValue = { viewModel.setPolicePresent(it) }
         )
 
@@ -63,7 +69,7 @@ fun SubmitNewOnSite(
             checked = uiState.ambulanceCheck,
             onChange = { viewModel.setAmbulanceCheck(it) },
             labelResource = R.string.ambulance_present,
-            value = uiState.ambulancePresent,
+            value = reportState.ambulancePresent,
             updateValue = { viewModel.setAmbulancePresent(it) }
         )
 
@@ -72,7 +78,7 @@ fun SubmitNewOnSite(
             checked = uiState.electricCompanyCheck,
             onChange = { viewModel.setElectricCompanyCheck(it) },
             labelResource = R.string.electric_company_present,
-            value = uiState.electricCompanyPresent,
+            value = reportState.electricCompanyPresent,
             updateValue = { viewModel.setElectricCompanyPresent(it) }
         )
 
@@ -81,16 +87,16 @@ fun SubmitNewOnSite(
             checked = uiState.transitPoliceCheck,
             onChange = { viewModel.setTransitPoliceCheck(it) },
             labelResource = R.string.transit_police_present,
-            value = uiState.transitPolicePresent,
+            value = reportState.transitPolicePresent,
             updateValue = { viewModel.setTransitPolicePresent(it) }
         )
 
         // NOTES
         FormSubHeader(textResource = R.string.notes)
         TextField(
-            value = uiState.notes ?: "",
+            value = reportState.notes ?: "",
             onValueChange = { viewModel.setNotes(it) },
-            isError = uiState.notes == null,
+            isError = reportState.notes == null,
             label = { Text(text = stringResource(id = R.string.notes)) },
             trailingIcon = {
                 Text(
@@ -103,10 +109,9 @@ fun SubmitNewOnSite(
         )
 
         // VICTIM COUNT
-        if (uiState.victimCount == null ) viewModel.setVictimCount(0)
         FormSubHeaderWithArgs(
             textResource = (R.string.victim_count_with_count),
-            formatArgs = uiState.victimCount.toString()
+            formatArgs = reportState.victimInfo.size
         )
         Row(
             modifier = Modifier
@@ -117,21 +122,57 @@ fun SubmitNewOnSite(
             Row() {
                 FormButton(
                     onClick = {
-                        if (uiState.victimCount!! - 1 >= 0) {
-                            viewModel.setVictimCount(uiState.victimCount!! - 1)
+                        if (reportState.victimInfo.size - 1 >= 0) {
+                            viewModel.setVictimCount(-1)
                         }
                     },
                     labelResource = R.string.remove
                 )
                 FormButton(
-                    onClick = { viewModel.setVictimCount(uiState.victimCount!! + 1) },
+                    onClick = { viewModel.setVictimCount(1) },
                     labelResource = R.string.add
                 )
             }
         }
-        
+
         // VICTIM INFO
 
+        reportState.victimInfo.forEachIndexed { index, _ ->
+            val optionsVictimCodes: List<VictimCodes> = VictimCodeData.getCode()
+            HorizontalDivider(
+                modifier = Modifier
+                .padding(dimensionResource(id = R.dimen.moderate_spacing))
+            )
+            // STATUS CODE
+            DropDownTextField(
+                displayValue = reportState.victimInfo[index].statusCode,
+                updateDataValue = { viewModel.setVictimStatusByIndex(index, it) },
+                optionsVictimCodes = optionsVictimCodes,
+                labelResource = R.string.victim_status_with_arg,
+                labelArg = index + 1
+            )
+            // NAME
+            BasicTextField(
+                value = reportState.victimInfo[index].name,
+                updateValue = { viewModel.setVictimNameByIndex(index, it) },
+                labelResource = R.string.victim_name_with_arg,
+                labelArg = index + 1
+            )
+            // AGE
+            BasicTextField(
+                value = reportState.victimInfo[index].age,
+                updateValue = { viewModel.setVictimAgeByIndex(index, it) },
+                labelResource = R.string.victim_age_with_arg,
+                labelArg = index + 1
+            )
+            // IDENTIFICATION
+            BasicTextField(
+                value = reportState.victimInfo[index].identification,
+                updateValue = { viewModel.setVictimIdentificationByIndex(index, it) },
+                labelResource = R.string.victim_identification_with_arg,
+                labelArg = index + 1
+            )
+        }
         
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.thick_spacing)))
     }

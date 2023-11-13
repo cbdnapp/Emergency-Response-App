@@ -2,40 +2,15 @@ package com.cbdn.reports.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.cbdn.reports.data.datamodel.Report
+import com.cbdn.reports.data.datamodel.VictimInfo
 import com.cbdn.reports.ui.navigation.Destinations
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-data class VictimInfo(
-    var statusCode: String?,
-    var name: String?,
-    var age: Int?,
-    var identification: String?,
-)
-
 data class SubmitNewUiState(
-    // Report data matches Data Model for upload
-    // dispatch
-    var respondingTruck: String? = null,
-    var commandingOfficer: String? = null,
-    var datetimeDispatch: Long? = null,
-    var emergencyCode: String? = null,
-    // location
-    var location: String? = null,
-    // on scene
-    var datetimeArrival: Long? = null,
-    var policePresent: String? = null,
-    var ambulancePresent: String? = null,
-    var electricCompanyPresent: String? = null,
-    var transitPolicePresent: String? = null,
-    var victimCount: Int? = null,
-    var victimInfo: List<VictimInfo> = emptyList(),
-    var notes: String? = null,
-    // submittal
-    var datetimeReturn: Long? = null,
-    var author: String? = null,
 
     // VARIABLES FOR UI FORM
     var currentScreen: String? = Destinations.SubmitNewDispatch.name,
@@ -46,7 +21,6 @@ data class SubmitNewUiState(
     var reportComplete: Boolean = false,
     // dispatch
     var categoryIndex: Int = 0,
-    var selectedOptionText: String? = null,
     // location
     // on scene
     var policeCheck: Boolean = false,
@@ -57,13 +31,14 @@ data class SubmitNewUiState(
 )
 
 class SubmitNewViewModel : ViewModel() {
-
+    private var _reportState = MutableStateFlow(Report())
     private var _uiState = MutableStateFlow(SubmitNewUiState())
+    var reportState: StateFlow<Report> = _reportState.asStateFlow()
     var uiState: StateFlow<SubmitNewUiState> = _uiState.asStateFlow()
 
     fun setCurrentScreen(screen: String?) {
         _uiState.update {
-            _uiState.value.copy(currentScreen = screen)
+            it.copy(currentScreen = screen)
         }
     }
     private fun isReportComplete() {
@@ -74,199 +49,218 @@ class SubmitNewViewModel : ViewModel() {
             this.uiState.value.submitComplete
             ) {
             _uiState.update {
-                _uiState.value.copy(reportComplete = true)
+                it.copy(reportComplete = true)
             }
         } else {
             _uiState.update {
-                _uiState.value.copy(reportComplete = false)
+                it.copy(reportComplete = false)
             }
         }
     }
     private fun isDispatchComplete() {
         if (
-            this.uiState.value.respondingTruck != null &&
-            this.uiState.value.commandingOfficer != null &&
-            this.uiState.value.datetimeDispatch != null &&
-            this.uiState.value.emergencyCode != null
+            this.reportState.value.respondingTruck != null &&
+            this.reportState.value.commandingOfficer != null &&
+            this.reportState.value.datetimeDispatch != null &&
+            this.reportState.value.emergencyCode != null
         ) {
             _uiState.update {
-                _uiState.value.copy(dispatchComplete = true)
+                it.copy(dispatchComplete = true)
             }
         } else {
             _uiState.update {
-                _uiState.value.copy(dispatchComplete = false)
+                it.copy(dispatchComplete = false)
             }
         }
         isReportComplete()
     }
     private fun isLocationComplete() {
         if (
-            this.uiState.value.location != null
+            this.reportState.value.location != null
         ) {
             _uiState.update {
-                _uiState.value.copy(locationComplete = true)
+                it.copy(locationComplete = true)
             }
         } else {
             _uiState.update {
-                _uiState.value.copy(locationComplete = false)
+                it.copy(locationComplete = false)
             }
         }
         isReportComplete()
     }
     private fun isOnSceneComplete() {
         if (
-            this.uiState.value.datetimeArrival != null &&
-            this.uiState.value.policePresent != null &&
-            this.uiState.value.ambulancePresent != null &&
-            this.uiState.value.electricCompanyPresent != null &&
-            this.uiState.value.transitPolicePresent != null &&
-            this.uiState.value.victimCount != null &&
-            this.uiState.value.victimInfo.size == this.uiState.value.victimCount &&
-            this.uiState.value.notes != null
+            this.reportState.value.datetimeArrival != null &&
+            this.reportState.value.policePresent != null &&
+            this.reportState.value.ambulancePresent != null &&
+            this.reportState.value.electricCompanyPresent != null &&
+            this.reportState.value.transitPolicePresent != null &&
+            this.reportState.value.notes != null
         ) {
             _uiState.update {
-                _uiState.value.copy(onSceneComplete = true)
+                it.copy(onSceneComplete = true)
             }
         } else {
             _uiState.update {
-                _uiState.value.copy(onSceneComplete = false)
+                it.copy(onSceneComplete = false)
             }
         }
         isReportComplete()
     }
     private fun isSubmitComplete() {
         if (
-            this.uiState.value.datetimeReturn != null &&
-            this.uiState.value.author != null
+            this.reportState.value.datetimeReturn != null &&
+            this.reportState.value.author != null
         ) {
             _uiState.update {
-                _uiState.value.copy(submitComplete = true)
+                it.copy(submitComplete = true)
             }
             isReportComplete()
         }
     }
 
     fun setRespondingTruck(input: String) {
-        _uiState.update {
-            _uiState.value.copy(respondingTruck = input.ifEmpty { null })
+        _reportState.update {
+            it.copy(respondingTruck = input.ifEmpty { null })
         }
         isDispatchComplete()
     }
 
     fun setCommandingOfficer(input: String) {
-        _uiState.update {
-            _uiState.value.copy(commandingOfficer = input.ifEmpty { null })
+        _reportState.update {
+            it.copy(commandingOfficer = input.ifEmpty { null })
         }
         isDispatchComplete()
     }
 
     fun setDatetimeDispatch(input: Long) {
-        _uiState.update {
-            _uiState.value.copy(datetimeDispatch = input)
+        _reportState.update {
+            it.copy(datetimeDispatch = input)
         }
         isDispatchComplete()
     }
     fun setCategoryIndex(input: Int) {
         _uiState.update {
-            _uiState.value.copy(categoryIndex = input)
-        }
-    }
-    fun setSelectedOptionText(input: String) {
-        _uiState.update {
-            _uiState.value.copy(selectedOptionText = input)
+            it.copy(categoryIndex = input)
         }
     }
     fun setEmergencyCode(input: String) {
-        _uiState.update {
-            _uiState.value.copy(emergencyCode = input.ifEmpty { null })
+        _reportState.update {
+            it.copy(emergencyCode = input.ifEmpty { null })
         }
         isDispatchComplete()
     }
     fun setLocation(input: String) {
-        _uiState.update {
-            _uiState.value.copy(location = input.ifEmpty { null })
+        _reportState.update {
+            it.copy(location = input.ifEmpty { null })
         }
         isLocationComplete()
     }
     fun setDatetimeArrival(input: Long) {
-        _uiState.update {
-            _uiState.value.copy(datetimeArrival = input)
+        _reportState.update {
+            it.copy(datetimeArrival = input)
         }
         isOnSceneComplete()
     }
     fun setPoliceCheck(input: Boolean) {
         _uiState.update {
-            _uiState.value.copy(policeCheck = input)
+            it.copy(policeCheck = input)
         }
         if (input) setPolicePresent(null)
         else setPolicePresent("")
     }
     fun setPolicePresent(input: String?) {
-        _uiState.update {
-            _uiState.value.copy(policePresent = input)
+        _reportState.update {
+            it.copy(policePresent = input)
         }
         isOnSceneComplete()
     }
     fun setAmbulanceCheck(input: Boolean) {
         _uiState.update {
-            _uiState.value.copy(ambulanceCheck = input)
+            it.copy(ambulanceCheck = input)
         }
         if (input) setAmbulancePresent(null)
         else setAmbulancePresent("")
     }
     fun setAmbulancePresent(input: String?) {
-        _uiState.update {
-            _uiState.value.copy(ambulancePresent = input)
+        _reportState.update {
+            it.copy(ambulancePresent = input)
         }
         isOnSceneComplete()
     }
     fun setElectricCompanyCheck(input: Boolean) {
         _uiState.update {
-            _uiState.value.copy(electricCompanyCheck = input)
+            it.copy(electricCompanyCheck = input)
         }
         if (input) setElectricCompanyPresent(null)
         else setElectricCompanyPresent("")
     }
     fun setElectricCompanyPresent(input: String?) {
-        _uiState.update {
-            _uiState.value.copy(electricCompanyPresent = input)
+        _reportState.update {
+            it.copy(electricCompanyPresent = input)
         }
         isOnSceneComplete()
     }
     fun setTransitPoliceCheck(input: Boolean) {
         _uiState.update {
-            _uiState.value.copy(transitPoliceCheck = input)
+            it.copy(transitPoliceCheck = input)
         }
         if (input) setTransitPolicePresent(null)
         else setTransitPolicePresent("")
     }
     fun setTransitPolicePresent(input: String?) {
-        _uiState.update {
-            _uiState.value.copy(transitPolicePresent = input)
-        }
-        isOnSceneComplete()
-    }
-    fun setVictimCount(input: Int?) {
-        _uiState.update {
-            _uiState.value.copy(victimCount = input)
+        _reportState.update {
+            it.copy(transitPolicePresent = input)
         }
         isOnSceneComplete()
     }
     fun setNotes(input: String) {
-        _uiState.update {
-            _uiState.value.copy(notes = input.ifEmpty { null })
+        _reportState.update {
+            it.copy(notes = input.ifEmpty { null })
         }
         isOnSceneComplete()
     }
+    fun setVictimCount(input: Int) {
+        if (input == 1) {
+            _reportState.update{
+                it.copy(
+                    victimInfo = it.victimInfo + VictimInfo(
+                        statusCode = null,
+                        name = null,
+                        age = null,
+                        identification = null
+                    )
+                )
+            }
+        } else if (input == -1) {
+            _reportState.update {
+                it.copy(
+                    victimInfo = it.victimInfo.dropLast(1)
+                )
+            }
+        }
+    }
+    fun setVictimStatusByIndex(index: Int, input: String) {
+        _reportState.value.victimInfo[index].statusCode = input
+    }
+    fun setVictimNameByIndex(index: Int, input: String) {
+        _reportState.value.victimInfo[index].name = input
+    }
+    fun setVictimAgeByIndex(index: Int, input: String) {
+        _reportState.value.victimInfo[index].age = input
+    }
+    fun setVictimIdentificationByIndex(index: Int, input: String) {
+        _reportState.value.victimInfo[index].identification = input
+    }
     fun setDatetimeReturn(input: Long) {
-        _uiState.update {
-            _uiState.value.copy(datetimeReturn = input)
+        _reportState.update {
+            it.copy(datetimeReturn = input)
         }
         isSubmitComplete()
     }
     fun setAuthor(input: String) {
-        _uiState.update {
-            _uiState.value.copy(author = input.ifEmpty { null })
+        _reportState.update {
+            it.copy(author = input.ifEmpty { null })
         }
         isSubmitComplete()
     }

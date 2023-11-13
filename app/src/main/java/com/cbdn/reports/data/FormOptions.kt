@@ -1,15 +1,22 @@
 package com.cbdn.reports.data
-// CONTAINS TEMP DATA OBJECTS FOR GENERATING 1. EMERGENCY CODES AND 2.TRUCKS
 
-// 1. EMERGENCY CODES
+data class EmergencyCategories(
+    val id: String,
+    val category: String,
+)
+
 data class EmergencyCodes(
     val code: String,
     val name: String
 )
 
-data class EmergencyCategories(
-    val id: String,
-    val category: String,
+data class Trucks(
+    val code: String
+)
+
+data class VictimCodes(
+    val code: String,
+    val name: String
 )
 
 object EmergencyCodeData {
@@ -144,13 +151,7 @@ object EmergencyCodeData {
     }
 }
 
-// 2. EMERGENCY CODES
-data class Trucks(
-    val code: String
-)
-
 object TruckData {
-    val default = null
 
     fun getTrucks(): List<Trucks> {
         return listOf(
@@ -185,6 +186,33 @@ object TruckData {
             Trucks(code = "E-26"),
             Trucks(code = "E-27"),
             Trucks(code = "E-28"),
+        )
+    }
+}
+
+object VictimCodeData {
+    fun getCode(): List<VictimCodes> {
+        return listOf(
+            VictimCodes(
+                code = "I-26",
+                name = "Persona sin daño físico (I-26)",
+            ),
+            VictimCodes(
+                code = "I-27",
+                name = "Persona afectada ligeramente (I-27)",
+            ),
+            VictimCodes(
+                code = "I-28",
+                name = "Persona con heridas serias (I-28)",
+            ),
+            VictimCodes(
+                code = "I-28 AVANZADO",
+                name = "Persona en estado crítico (I-28 AVANZADO)",
+            ),
+            VictimCodes(
+                code = "I-29",
+                name = "Persona fallecida (I-29)",
+            ),
         )
     }
 }

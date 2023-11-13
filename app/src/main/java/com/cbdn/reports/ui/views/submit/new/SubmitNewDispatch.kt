@@ -36,31 +36,30 @@ import com.cbdn.reports.ui.views.composables.FormSubHeader
 fun SubmitNewDispatch(
     viewModel: SubmitNewViewModel
 ) {
+    val reportState by viewModel.reportState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
         FormHeader(textResource = R.string.submit_dispatch_details_header)
 
         FormSubHeader(textResource = R.string.resources)
         // RESPONDING TRUCK
         val truckOptions = TruckData.getTrucks()
         DropDownTextField(
-            displayValue = uiState.respondingTruck,
-            updateDisplayValue = { },
+            displayValue = reportState.respondingTruck,
             updateDataValue = { viewModel.setRespondingTruck(it) },
             optionsTrucks = truckOptions,
-            optionsCodes = null,
             labelResource = R.string.responding_truck
         )
 
         // COMMANDING OFFICER
         BasicTextField(
-            value = uiState.commandingOfficer,
+            value = reportState.commandingOfficer,
             updateValue = { viewModel.setCommandingOfficer(it) },
             labelResource = R.string.commanding_officer
         )
@@ -68,13 +67,13 @@ fun SubmitNewDispatch(
         // DATETIME OF DISPATCH
         FormSubHeader(textResource = R.string.date_and_time_of_dispatch)
         DateTimeSelection(
-            displayValue = uiState.datetimeDispatch,
+            displayValue = reportState.datetimeDispatch,
             updateDatetime = { viewModel.setDatetimeDispatch(it)}
         )
 
         // EMERGENCY CODE
         val codeCategories = EmergencyCodeData.getCategories()
-        val codeOptions = EmergencyCodeData.getCode(codeCategories[uiState.categoryIndex])
+        val optionsEmergencyCodes = EmergencyCodeData.getCode(codeCategories[uiState.categoryIndex])
         FormSubHeader(textResource = R.string.select_code_category)
         SingleChoiceSegmentedButtonRow(
             modifier = Modifier
@@ -100,11 +99,9 @@ fun SubmitNewDispatch(
             }
         }
         DropDownTextField(
-            displayValue = uiState.selectedOptionText,
-            updateDisplayValue = { viewModel.setSelectedOptionText(it) },
+            displayValue = reportState.emergencyCode,
             updateDataValue = { viewModel.setEmergencyCode(it) },
-            optionsTrucks = null,
-            optionsCodes = codeOptions,
+            optionsEmergencyCodes = optionsEmergencyCodes,
             labelResource = R.string.emergency_code
         )
 

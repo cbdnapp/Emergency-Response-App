@@ -62,7 +62,7 @@ fun MenuButton(
                     )
                 }
             }
-            Box(modifier = Modifier.weight(.5f)) {
+            Box(modifier = Modifier.weight(.45f)) {
                 Column(
                     modifier = modifier
                         .fillMaxSize(),
@@ -81,7 +81,7 @@ fun MenuButton(
                     )
                 }
             }
-            Box(modifier = Modifier.weight(.2f)) {}
+            Box(modifier = Modifier.weight(.25f)) {}
         }
     }
 }

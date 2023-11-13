@@ -21,19 +21,19 @@ import com.cbdn.reports.ui.views.composables.FormHeader
 fun SubmitNewLocation(
     viewModel: SubmitNewViewModel
 ) {
+    val reportState by viewModel.reportState.collectAsStateWithLifecycle()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
         FormHeader(textResource = R.string.submit_location_header)
 
         // LOCATION
         BasicTextField(
-            value = uiState.location,
+            value = reportState.location,
             updateValue = { viewModel.setLocation(it) },
             labelResource = R.string.location
         )

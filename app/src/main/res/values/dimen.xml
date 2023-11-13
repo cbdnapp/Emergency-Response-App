@@ -6,6 +6,7 @@
     <dimen name="next_button_height">80.dp</dimen>
 
     <!-- Padding-->
+    <dimen name="double_thick_spacing">100.dp</dimen>
     <dimen name="thick_spacing">50.dp</dimen>
     <dimen name="moderate_spacing">20.dp</dimen>
     <dimen name="thin_spacing">5.dp</dimen>
