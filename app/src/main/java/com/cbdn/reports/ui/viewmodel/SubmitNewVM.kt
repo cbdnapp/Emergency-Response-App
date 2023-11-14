@@ -265,6 +265,10 @@ class SubmitNewViewModel : ViewModel() {
         isSubmitComplete()
     }
 
+    fun submitReport() {
+
+    }
+
     override fun onCleared() {
         super.onCleared()
         Log.d("Developer", "onCleared")

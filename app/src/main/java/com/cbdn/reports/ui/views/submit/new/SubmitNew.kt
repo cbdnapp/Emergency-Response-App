@@ -50,6 +50,7 @@ fun SubmitNew(
         bottomBar = {
             SubmitNewBottomBar(
                 navController = navController,
+                viewModel = viewModel,
                 currentScreen = uiState.currentScreen,
                 submitReady = uiState.reportComplete,
                 updateCurrentScreen = { viewModel.setCurrentScreen(it) }
@@ -162,6 +163,7 @@ fun SubmitNewTopBar(
 @Composable
 fun SubmitNewBottomBar(
     navController: NavHostController,
+    viewModel: SubmitNewViewModel,
     currentScreen: String?,
     submitReady: Boolean,
     updateCurrentScreen: (String?) -> Unit
@@ -195,7 +197,7 @@ fun SubmitNewBottomBar(
                 )
                 OnPrimaryTextButton(
                     enabled = submitReady,
-                    onClick = {  },
+                    onClick = { viewModel.submitReport() },
                     labelResource = R.string.submit,
                     modifier = Modifier
                         .fillMaxWidth()
