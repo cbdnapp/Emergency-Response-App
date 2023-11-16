@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
@@ -65,11 +66,12 @@ fun DateTimeSelection (
     if (openDateDialog.value) {
         DatePickerDialog(
             modifier = Modifier
+                .fillMaxSize()
                 .border(
                     dimensionResource(id = R.dimen.thin_spacing),
                     MaterialTheme.colorScheme.tertiaryContainer
                 )
-                .fillMaxSize()
+                .padding(dimensionResource(id = R.dimen.thin_spacing))
                 .background(color = MaterialTheme.colorScheme.background),
             properties = DialogProperties(usePlatformDefaultWidth = false),
             shape = RectangleShape,
@@ -102,18 +104,21 @@ fun DateTimeSelection (
             }
         ) {
             DatePicker(
-                state = datePickerState
+                state = datePickerState,
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.thin_spacing)),
             )
         }
     }
     if (openTimeDialog.value) {
         DatePickerDialog(
             modifier = Modifier
+                .fillMaxSize()
                 .border(
                     dimensionResource(id = R.dimen.thin_spacing),
                     MaterialTheme.colorScheme.tertiaryContainer
                 )
-                .fillMaxSize()
+                .padding(dimensionResource(id = R.dimen.thin_spacing))
                 .background(color = MaterialTheme.colorScheme.background),
             properties = DialogProperties(usePlatformDefaultWidth = false),
             shape = RectangleShape,
@@ -143,6 +148,7 @@ fun DateTimeSelection (
             TimeInput(
                 state = timePickerState,
                 modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.moderate_spacing))
             )
         }
     }

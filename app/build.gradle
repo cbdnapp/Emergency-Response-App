@@ -94,6 +94,7 @@ dependencies {
 
     // view model: https://developer.android.com/jetpack/androidx/releases/lifecycle#groovy
     def lifecycle_version = "2.6.2"
+
     // ViewModel utilities for Compose
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version"

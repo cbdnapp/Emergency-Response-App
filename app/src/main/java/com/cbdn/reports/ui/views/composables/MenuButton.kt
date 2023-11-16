@@ -56,8 +56,7 @@ fun MenuButton(
                         imageVector = icon,
                         contentDescription = null,
                         modifier = Modifier
-                            .scale(1.5f)
-                            .padding(dimensionResource(id = R.dimen.moderate_spacing)),
+                            .scale(1.5f),
                         tint = MaterialTheme.colorScheme.onSurface,
                     )
                 }
@@ -65,7 +64,8 @@ fun MenuButton(
             Box(modifier = Modifier.weight(.45f)) {
                 Column(
                     modifier = modifier
-                        .fillMaxSize(),
+                        .fillMaxSize()
+                        .padding(start = dimensionResource(id = R.dimen.thin_spacing)),
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Center
                 ) {

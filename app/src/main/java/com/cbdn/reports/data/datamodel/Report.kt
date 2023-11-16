@@ -14,9 +14,9 @@ data class Report(
     var ambulancePresent: String? = null,
     var electricCompanyPresent: String? = null,
     var transitPolicePresent: String? = null,
-    var notes: String? = null,
     var victimInfo: List<VictimInfo> = emptyList(),
+    var notes: String? = null,
     // submittal
     var datetimeReturn: Long? = null,
-    var author: String? = null,
+    var reportWriter: String? = null,
 )

@@ -50,6 +50,8 @@ fun AddVictimDialog(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            FormSubHeader(textResource = R.string.victim_details)
+
             // STATUS CODE
             DropDownTextField(
                 displayValue = statusCode,

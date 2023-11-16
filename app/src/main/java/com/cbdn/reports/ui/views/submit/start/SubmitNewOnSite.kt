@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -25,6 +24,7 @@ import com.cbdn.reports.ui.viewmodel.SubmitNewViewModel
 import com.cbdn.reports.ui.views.composables.AddVictimDialog
 import com.cbdn.reports.ui.views.composables.DateTimeSelection
 import com.cbdn.reports.ui.views.composables.FormButton
+import com.cbdn.reports.ui.views.composables.FormDivider
 import com.cbdn.reports.ui.views.composables.FormHeader
 import com.cbdn.reports.ui.views.composables.FormSubHeader
 import com.cbdn.reports.ui.views.composables.FormSubHeaderWithArgs
@@ -52,6 +52,7 @@ fun SubmitNewOnSite(
             displayValue = reportState.datetimeArrival,
             updateDatetime = { viewModel.setDatetimeArrival(it)}
         )
+        FormDivider()
 
         // POLICE PRESENT
         SwitchWithTextField(
@@ -61,6 +62,7 @@ fun SubmitNewOnSite(
             value = reportState.policePresent,
             updateValue = { viewModel.setPolicePresent(it) }
         )
+        FormDivider()
 
         // AMBULANCE PRESENT
         SwitchWithTextField(
@@ -70,6 +72,7 @@ fun SubmitNewOnSite(
             value = reportState.ambulancePresent,
             updateValue = { viewModel.setAmbulancePresent(it) }
         )
+        FormDivider()
 
         // ELECTRIC COMPANY PRESENT
         SwitchWithTextField(
@@ -79,6 +82,7 @@ fun SubmitNewOnSite(
             value = reportState.electricCompanyPresent,
             updateValue = { viewModel.setElectricCompanyPresent(it) }
         )
+        FormDivider()
 
         // TRANSIT POLICE PRESENT
         SwitchWithTextField(
@@ -88,25 +92,9 @@ fun SubmitNewOnSite(
             value = reportState.transitPolicePresent,
             updateValue = { viewModel.setTransitPolicePresent(it) }
         )
+        FormDivider()
 
-        // NOTES
-        FormSubHeader(textResource = R.string.notes)
-        TextField(
-            value = reportState.notes ?: "",
-            onValueChange = { viewModel.setNotes(it) },
-            isError = reportState.notes == null,
-            label = { Text(text = stringResource(id = R.string.notes)) },
-            trailingIcon = {
-                Text(
-                    text = stringResource(id = R.string.required),
-                    modifier = Modifier.padding(dimensionResource(id = R.dimen.thin_spacing))
-                )
-            },
-            modifier = Modifier
-                .width(dimensionResource(id = R.dimen.full_field_width)),
-        )
-
-        // VICTIM COUNT
+        // VICTIM INFO
         FormSubHeader(
             textResource = (R.string.victim_info)
         )
@@ -129,7 +117,6 @@ fun SubmitNewOnSite(
                 )
             }
         }
-
         if (uiState.addVictimDialog) {
             AddVictimDialog(
                 onConfirmation = { viewModel.addVictim() },
@@ -147,13 +134,7 @@ fun SubmitNewOnSite(
                 victimEditIndex = uiState.victimEditIndex
             )
         }
-
-        // VICTIM INFO
         reportState.victimInfo.forEachIndexed { index, _ ->
-            Spacer(
-                modifier = Modifier
-                .padding(dimensionResource(id = R.dimen.thin_spacing))
-            )
             VictimInfoCard(
                 index = index,
                 statusCode = reportState.victimInfo[index].statusCode,
@@ -163,8 +144,29 @@ fun SubmitNewOnSite(
                 remove = { viewModel.removeVictim(index) },
                 edit = { viewModel.initiateVictimEdit(index)}
             )
+            Spacer(
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.thin_spacing))
+            )
         }
-        
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.thick_spacing)))
+        FormDivider()
+
+        // NOTES
+        FormSubHeader(textResource = R.string.notes)
+        TextField(
+            value = reportState.notes ?: "",
+            onValueChange = { viewModel.setNotes(it) },
+            isError = reportState.notes == null,
+            label = { Text(text = stringResource(id = R.string.enter_notes)) },
+            trailingIcon = {
+                Text(
+                    text = stringResource(id = R.string.required),
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.thin_spacing))
+                )
+            },
+            modifier = Modifier
+                .width(dimensionResource(id = R.dimen.full_field_width)),
+        )
+        FormDivider()
     }
 }

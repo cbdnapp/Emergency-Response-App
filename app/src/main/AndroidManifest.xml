@@ -16,7 +16,9 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.CBDNReports">
+            android:theme="@style/Theme.CBDNReports"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity,RedundantLabel">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

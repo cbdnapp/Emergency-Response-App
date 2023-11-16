@@ -2,6 +2,7 @@ package com.cbdn.reports.ui.views
 
 
 import AppNavHost
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Menu
@@ -27,8 +28,15 @@ import com.cbdn.reports.ui.navigation.Destinations
 
 @Composable
 fun App(
+//    windowSize: WindowWidthSizeClass,
     navController: NavHostController = rememberNavController()
 ) {
+    // adaptable window width
+//    val workSpaceWidth: Int = when (windowSize) {
+//        WindowWidthSizeClass.Compact -> {  }
+//        WindowWidthSizeClass.Medium -> {  }
+//        WindowWidthSizeClass.Expanded -> {  }
+//    }
 
     // navigation
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -47,6 +55,7 @@ fun App(
         AppNavHost(
             navController = navController,
             modifier = Modifier
+                .fillMaxSize()
                 .padding(innerPadding)
         )
     }

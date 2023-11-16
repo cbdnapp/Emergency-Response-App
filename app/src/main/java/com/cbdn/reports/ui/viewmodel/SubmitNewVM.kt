@@ -116,7 +116,7 @@ class SubmitNewViewModel : ViewModel() {
     private fun isSubmitComplete() {
         if (
             this.reportState.value.datetimeReturn != null &&
-            this.reportState.value.author != null
+            this.reportState.value.reportWriter != null
         ) {
             _uiState.update {
                 it.copy(submitComplete = true)
@@ -335,9 +335,9 @@ class SubmitNewViewModel : ViewModel() {
         }
         isSubmitComplete()
     }
-    fun setAuthor(input: String) {
+    fun setReportWriter(input: String) {
         _reportState.update {
-            it.copy(author = input.ifEmpty { null })
+            it.copy(reportWriter = input.ifEmpty { null })
         }
         isSubmitComplete()
     }

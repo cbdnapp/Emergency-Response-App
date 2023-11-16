@@ -28,7 +28,7 @@ private val DarkColorScheme = darkColorScheme(
 
     tertiary = timberwolf,
 //    onTertiary = copper,
-//    tertiaryContainer = azul,
+    tertiaryContainer = azul,
 //    onTertiaryContainer = azul,
 
     background = platinum,

@@ -2,9 +2,7 @@ package com.cbdn.reports.ui.views.submit.start
 
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -28,6 +26,7 @@ import com.cbdn.reports.ui.viewmodel.SubmitNewViewModel
 import com.cbdn.reports.ui.views.composables.BasicTextField
 import com.cbdn.reports.ui.views.composables.DateTimeSelection
 import com.cbdn.reports.ui.views.composables.DropDownTextField
+import com.cbdn.reports.ui.views.composables.FormDivider
 import com.cbdn.reports.ui.views.composables.FormHeader
 import com.cbdn.reports.ui.views.composables.FormSubHeader
 
@@ -47,22 +46,26 @@ fun SubmitNewDispatch(
     ) {
         FormHeader(textResource = R.string.submit_dispatch_details_header)
 
-        FormSubHeader(textResource = R.string.resources)
+
         // RESPONDING TRUCK
-        val truckOptions = TruckData.getTrucks()
+        FormSubHeader(textResource = R.string.responding_truck)
         DropDownTextField(
             displayValue = reportState.respondingTruck,
             updateDataValue = { viewModel.setRespondingTruck(it) },
-            optionsTrucks = truckOptions,
-            labelResource = R.string.responding_truck
+            optionsTrucks = TruckData.getTrucks(),
+            labelResource = R.string.select_truck_id
         )
+        FormDivider()
+
 
         // COMMANDING OFFICER
+        FormSubHeader(textResource = R.string.commanding_officer)
         BasicTextField(
             value = reportState.commandingOfficer,
             updateValue = { viewModel.setCommandingOfficer(it) },
-            labelResource = R.string.commanding_officer
+            labelResource = R.string.enter_officers_name
         )
+        FormDivider()
 
         // DATETIME OF DISPATCH
         FormSubHeader(textResource = R.string.date_and_time_of_dispatch)
@@ -70,8 +73,10 @@ fun SubmitNewDispatch(
             displayValue = reportState.datetimeDispatch,
             updateDatetime = { viewModel.setDatetimeDispatch(it)}
         )
+        FormDivider()
 
         // EMERGENCY CODE
+        FormSubHeader(textResource = R.string.emergency_code)
         val codeCategories = EmergencyCodeData.getCategories()
         val optionsEmergencyCodes = EmergencyCodeData.getCode(codeCategories[uiState.categoryIndex])
         FormSubHeader(textResource = R.string.select_code_category)
@@ -102,9 +107,8 @@ fun SubmitNewDispatch(
             displayValue = reportState.emergencyCode,
             updateDataValue = { viewModel.setEmergencyCode(it) },
             optionsEmergencyCodes = optionsEmergencyCodes,
-            labelResource = R.string.emergency_code
+            labelResource = R.string.select_emergency_code_id
         )
-
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.thick_spacing)))
+        FormDivider()
     }
 }

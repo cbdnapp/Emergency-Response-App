@@ -61,6 +61,7 @@ fun SubmitNew(
             navController = navController,
             viewModel = viewModel,
             modifier = Modifier
+                .fillMaxSize()
                 .padding(innerPadding)
         )
     }
@@ -177,19 +178,19 @@ fun SubmitNewBottomBar(
                 verticalAlignment = Alignment.CenterVertically,
             ){
                 OnPrimaryTextButton(
-                    enabled = currentScreen != "SubmitNewDispatch",
+                    enabled = currentScreen != Destinations.SubmitNewDispatch.name,
                     onClick = {
                         when(currentScreen) {
-                            "SubmitNewLocation" ->
+                            Destinations.SubmitNewLocation.name ->
                                 navController.navigate(Destinations.SubmitNewDispatch.name)
-                            "SubmitNewOnScene" ->
+                            Destinations.SubmitNewOnScene.name ->
                                 navController.navigate(Destinations.SubmitNewLocation.name)
-                            "SubmitNewSubmit" ->
+                            Destinations.SubmitNewSubmit.name ->
                                 navController.navigate(Destinations.SubmitNewOnScene.name)
                         }
                         updateCurrentScreen(navController.currentBackStackEntry?.destination?.route)
                     },
-                    labelResource = R.string.previous_button,
+                    labelResource = R.string.previous,
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
@@ -205,19 +206,19 @@ fun SubmitNewBottomBar(
                         .padding(dimensionResource(id = R.dimen.thin_spacing))
                 )
                 OnPrimaryTextButton(
-                    enabled = currentScreen != "SubmitNewSubmit",
+                    enabled = currentScreen != Destinations.SubmitNewSubmit.name,
                     onClick = {
                         when(currentScreen) {
-                            "SubmitNewDispatch" ->
+                            Destinations.SubmitNewDispatch.name ->
                                 navController.navigate(Destinations.SubmitNewLocation.name)
-                            "SubmitNewLocation" ->
+                            Destinations.SubmitNewLocation.name ->
                                 navController.navigate(Destinations.SubmitNewOnScene.name)
-                            "SubmitNewOnScene" ->
+                            Destinations.SubmitNewOnScene.name ->
                                 navController.navigate(Destinations.SubmitNewSubmit.name)
                         }
                         updateCurrentScreen(navController.currentBackStackEntry?.destination?.route)
                     },
-                    labelResource = R.string.next_button,
+                    labelResource = R.string.next,
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
