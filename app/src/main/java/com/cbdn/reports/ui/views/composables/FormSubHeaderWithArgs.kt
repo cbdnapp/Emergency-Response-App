@@ -19,7 +19,7 @@ fun FormSubHeaderWithArgs (
     Text(
         text = stringResource(id = textResource, formatArgs),
         modifier = Modifier
-            .width(dimensionResource(id = R.dimen.full_field_width))
+            .width(dimensionResource(id = R.dimen.half_field_width))
             .padding(top = dimensionResource(id = R.dimen.moderate_spacing)),
         textAlign = TextAlign.Left,
         style = MaterialTheme.typography.headlineMedium

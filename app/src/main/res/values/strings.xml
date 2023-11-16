@@ -19,9 +19,11 @@
     <string name="required">Required</string>
 
     <string name="ok">OK</string>
+    <string name="update">Update</string>
     <string name="cancel">Cancel</string>
 
     <string name="add">Add</string>
+    <string name="edit">Edit</string>
     <string name="remove">Remove</string>
 
     <string name="previous_button">Previous</string>
@@ -53,11 +55,15 @@
     <string name="transit_police_present">Transit Police Present</string>
     <string name="victim_count_with_count">Victim Count: %s</string>
     <string name="victim_info">Victim Info</string>
-    <string name="victim_status_with_arg">Victim #%s: Status Code</string>
-    <string name="victim_number_with_arg">Victim #%s:</string>
-    <string name="victim_name_with_arg">Victim #%s: Name</string>
-    <string name="victim_age_with_arg">Victim #%s: Age</string>
-    <string name="victim_identification_with_arg">Victim #%s: Identification</string>
+    <string name="victim_status_code">Status Code</string>
+    <string name="victim_name">Name</string>
+    <string name="victim_age">Age</string>
+    <string name="victim_number_with_data">Victim Number: %s</string>
+    <string name="victim_identification_with_data">Identification: %s</string>
+    <string name="victim_status_code_with_data">Status Code: %s</string>
+    <string name="victim_name_with_data">Name: %s</string>
+    <string name="victim_age_with_data">Age: %s</string>
+    <string name="victim_identification">Identification</string>
     <string name="notes">Notes</string>
     <string name="submit_submittal_details_header">Submittal Details</string>
     <string name="date_and_time_of_return">Date and Time of Return</string>

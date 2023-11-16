@@ -1,10 +1,14 @@
 package com.cbdn.reports.ui.views.composables
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -15,8 +19,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.window.DialogProperties
 import com.cbdn.reports.R
 import convertMillisToDateTime
 import java.util.Calendar
@@ -41,18 +47,32 @@ fun DateTimeSelection (
         initialMinute = now.get(Calendar.MINUTE)
     )
 
-    Row() {
+    Row(
+        modifier = Modifier
+            .width(dimensionResource(id = R.dimen.full_field_width))
+    ) {
         FormButton(
             onClick = { openDateDialog.value = true },
-            labelResource = R.string.change_date
+            labelResource = R.string.change_date,
+            modifier = Modifier.weight(1f)
         )
         FormButton(
             onClick = { openTimeDialog.value = true },
-            labelResource = R.string.change_time
+            labelResource = R.string.change_time,
+            modifier = Modifier.weight(1f)
         )
     }
     if (openDateDialog.value) {
         DatePickerDialog(
+            modifier = Modifier
+                .border(
+                    dimensionResource(id = R.dimen.thin_spacing),
+                    MaterialTheme.colorScheme.tertiaryContainer
+                )
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.background),
+            properties = DialogProperties(usePlatformDefaultWidth = false),
+            shape = RectangleShape,
             onDismissRequest = { openDateDialog.value = false },
             confirmButton = {
                 TextButton(
@@ -88,6 +108,15 @@ fun DateTimeSelection (
     }
     if (openTimeDialog.value) {
         DatePickerDialog(
+            modifier = Modifier
+                .border(
+                    dimensionResource(id = R.dimen.thin_spacing),
+                    MaterialTheme.colorScheme.tertiaryContainer
+                )
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.background),
+            properties = DialogProperties(usePlatformDefaultWidth = false),
+            shape = RectangleShape,
             onDismissRequest = { openTimeDialog.value = false },
             confirmButton = {
                 TextButton(

@@ -15,13 +15,12 @@ fun BasicTextField (
     value: String?,
     updateValue: (String) -> Unit,
     labelResource: Int,
-    labelArg: Any = ""
 ) {
     TextField(
         value = value ?: "",
         onValueChange = updateValue,
         isError = value.isNullOrEmpty(),
-        label = { Text(text = stringResource(id = labelResource, labelArg)) },
+        label = { Text(text = stringResource(id = labelResource)) },
         singleLine = true,
         modifier = Modifier
             .width(dimensionResource(id = R.dimen.full_field_width)),

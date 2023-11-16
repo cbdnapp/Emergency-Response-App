@@ -6,10 +6,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.cbdn.reports.ui.viewmodel.SubmitNewViewModel
-import com.cbdn.reports.ui.views.submit.new.SubmitNewDispatch
-import com.cbdn.reports.ui.views.submit.new.SubmitNewLocation
-import com.cbdn.reports.ui.views.submit.new.SubmitNewOnSite
-import com.cbdn.reports.ui.views.submit.new.SubmitSubmittal
+import com.cbdn.reports.ui.views.submit.start.SubmitNewDispatch
+import com.cbdn.reports.ui.views.submit.start.SubmitNewLocation
+import com.cbdn.reports.ui.views.submit.start.SubmitNewOnSite
+import com.cbdn.reports.ui.views.submit.start.SubmitSubmittal
 
 
 @Composable

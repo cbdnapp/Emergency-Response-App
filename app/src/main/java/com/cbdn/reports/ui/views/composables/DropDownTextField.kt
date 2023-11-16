@@ -40,7 +40,7 @@ fun DropDownTextField(
             readOnly = true,
             value = displayValue ?: "",
             onValueChange = {},
-            isError = displayValue == null,
+            isError = displayValue.isNullOrEmpty(),
             label = { Text(stringResource(id = labelResource, labelArg)) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             colors = ExposedDropdownMenuDefaults.textFieldColors(),

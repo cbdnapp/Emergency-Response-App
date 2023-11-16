@@ -1,4 +1,4 @@
-package com.cbdn.reports.ui.views.submit.new
+package com.cbdn.reports.ui.views.submit.start
 
 import OnSecondaryIcon
 import androidx.compose.foundation.layout.Arrangement

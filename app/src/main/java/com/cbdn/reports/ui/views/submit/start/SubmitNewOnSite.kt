@@ -1,4 +1,4 @@
-package com.cbdn.reports.ui.views.submit.new
+package com.cbdn.reports.ui.views.submit.start
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -22,16 +21,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cbdn.reports.R
 import com.cbdn.reports.data.VictimCodeData
-import com.cbdn.reports.data.VictimCodes
 import com.cbdn.reports.ui.viewmodel.SubmitNewViewModel
-import com.cbdn.reports.ui.views.composables.BasicTextField
+import com.cbdn.reports.ui.views.composables.AddVictimDialog
 import com.cbdn.reports.ui.views.composables.DateTimeSelection
-import com.cbdn.reports.ui.views.composables.DropDownTextField
 import com.cbdn.reports.ui.views.composables.FormButton
 import com.cbdn.reports.ui.views.composables.FormHeader
 import com.cbdn.reports.ui.views.composables.FormSubHeader
 import com.cbdn.reports.ui.views.composables.FormSubHeaderWithArgs
 import com.cbdn.reports.ui.views.composables.SwitchWithTextField
+import com.cbdn.reports.ui.views.composables.VictimInfoCard
 
 @Composable
 fun SubmitNewOnSite(
@@ -109,9 +107,8 @@ fun SubmitNewOnSite(
         )
 
         // VICTIM COUNT
-        FormSubHeaderWithArgs(
-            textResource = (R.string.victim_count_with_count),
-            formatArgs = reportState.victimInfo.size
+        FormSubHeader(
+            textResource = (R.string.victim_info)
         )
         Row(
             modifier = Modifier
@@ -119,58 +116,52 @@ fun SubmitNewOnSite(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Row() {
+            Row(
+                Modifier.padding(dimensionResource(id = R.dimen.thin_spacing))
+            ) {
+                FormSubHeaderWithArgs(
+                    textResource = R.string.victim_count_with_count,
+                    formatArgs = reportState.victimInfo.size)
                 FormButton(
-                    onClick = {
-                        if (reportState.victimInfo.size - 1 >= 0) {
-                            viewModel.setVictimCount(-1)
-                        }
-                    },
-                    labelResource = R.string.remove
-                )
-                FormButton(
-                    onClick = { viewModel.setVictimCount(1) },
-                    labelResource = R.string.add
+                    onClick = { viewModel.toggleVictimDialog() },
+                    labelResource = R.string.add,
+                    modifier = Modifier.weight(1f)
                 )
             }
         }
 
-        // VICTIM INFO
+        if (uiState.addVictimDialog) {
+            AddVictimDialog(
+                onConfirmation = { viewModel.addVictim() },
+                onDismiss = { viewModel.cancelVictimDialog() },
+                onEdit = { viewModel.updateVictim() },
+                optionsVictimCodes = VictimCodeData.getCode(),
+                statusCode = uiState.victimStatusCode,
+                name = uiState.victimName,
+                age = uiState.victimAge,
+                identification = uiState.victimIdentification,
+                setStatusCode = { viewModel.setVictimStatusCode(it) },
+                setName = { viewModel.setVictimName(it) },
+                setAge = { viewModel.setVictimAge(it) },
+                setIdentification = { viewModel.setVictimIdentification(it) },
+                victimEditIndex = uiState.victimEditIndex
+            )
+        }
 
+        // VICTIM INFO
         reportState.victimInfo.forEachIndexed { index, _ ->
-            val optionsVictimCodes: List<VictimCodes> = VictimCodeData.getCode()
-            HorizontalDivider(
+            Spacer(
                 modifier = Modifier
-                .padding(dimensionResource(id = R.dimen.moderate_spacing))
+                .padding(dimensionResource(id = R.dimen.thin_spacing))
             )
-            // STATUS CODE
-            DropDownTextField(
-                displayValue = reportState.victimInfo[index].statusCode,
-                updateDataValue = { viewModel.setVictimStatusByIndex(index, it) },
-                optionsVictimCodes = optionsVictimCodes,
-                labelResource = R.string.victim_status_with_arg,
-                labelArg = index + 1
-            )
-            // NAME
-            BasicTextField(
-                value = reportState.victimInfo[index].name,
-                updateValue = { viewModel.setVictimNameByIndex(index, it) },
-                labelResource = R.string.victim_name_with_arg,
-                labelArg = index + 1
-            )
-            // AGE
-            BasicTextField(
-                value = reportState.victimInfo[index].age,
-                updateValue = { viewModel.setVictimAgeByIndex(index, it) },
-                labelResource = R.string.victim_age_with_arg,
-                labelArg = index + 1
-            )
-            // IDENTIFICATION
-            BasicTextField(
-                value = reportState.victimInfo[index].identification,
-                updateValue = { viewModel.setVictimIdentificationByIndex(index, it) },
-                labelResource = R.string.victim_identification_with_arg,
-                labelArg = index + 1
+            VictimInfoCard(
+                index = index,
+                statusCode = reportState.victimInfo[index].statusCode,
+                name = reportState.victimInfo[index].name,
+                age = reportState.victimInfo[index].age,
+                identification = reportState.victimInfo[index].identification,
+                remove = { viewModel.removeVictim(index) },
+                edit = { viewModel.initiateVictimEdit(index)}
             )
         }
         

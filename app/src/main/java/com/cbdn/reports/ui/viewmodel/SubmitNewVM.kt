@@ -27,6 +27,12 @@ data class SubmitNewUiState(
     var ambulanceCheck: Boolean = false,
     var electricCompanyCheck: Boolean = false,
     var transitPoliceCheck: Boolean = false,
+    var addVictimDialog: Boolean = false,
+    var victimEditIndex: Int? = null,
+    var victimStatusCode: String = "",
+    var victimName: String = "",
+    var victimAge: String = "",
+    var victimIdentification: String = "",
     // submittal
 )
 
@@ -220,37 +226,108 @@ class SubmitNewViewModel : ViewModel() {
         }
         isOnSceneComplete()
     }
-    fun setVictimCount(input: Int) {
-        if (input == 1) {
-            _reportState.update{
-                it.copy(
-                    victimInfo = it.victimInfo + VictimInfo(
-                        statusCode = null,
-                        name = null,
-                        age = null,
-                        identification = null
-                    )
-                )
-            }
-        } else if (input == -1) {
-            _reportState.update {
-                it.copy(
-                    victimInfo = it.victimInfo.dropLast(1)
-                )
-            }
+    fun toggleVictimDialog() {
+        _uiState.update {
+            it.copy(addVictimDialog = !uiState.value.addVictimDialog)
         }
     }
-    fun setVictimStatusByIndex(index: Int, input: String) {
-        _reportState.value.victimInfo[index].statusCode = input
+    private fun toggleVictimEdit(input: Int? = null) {
+        _uiState.update {
+            it.copy(victimEditIndex = input)
+        }
     }
-    fun setVictimNameByIndex(index: Int, input: String) {
-        _reportState.value.victimInfo[index].name = input
+    fun setVictimStatusCode(input: String) {
+        _uiState.update {
+            it.copy(victimStatusCode = input)
+        }
     }
-    fun setVictimAgeByIndex(index: Int, input: String) {
-        _reportState.value.victimInfo[index].age = input
+    fun setVictimName(input: String) {
+        _uiState.update {
+            it.copy(victimName = input)
+        }
     }
-    fun setVictimIdentificationByIndex(index: Int, input: String) {
-        _reportState.value.victimInfo[index].identification = input
+    fun setVictimAge(input: String) {
+        _uiState.update {
+            it.copy(victimAge = input)
+        }
+    }
+    fun setVictimIdentification(input: String) {
+        _uiState.update {
+            it.copy(victimIdentification = input)
+        }
+    }
+    private fun setVictimFields(
+        statusCode: String = "",
+        name: String = "",
+        age: String = "",
+        identification: String = ""
+    ) {
+        _uiState.update {
+            it.copy(
+                victimStatusCode = statusCode,
+                victimName = name,
+                victimAge = age,
+                victimIdentification = identification
+            )
+        }
+    }
+    fun addVictim() {
+        _reportState.update {
+            it.copy(victimInfo = it.victimInfo + VictimInfo(
+                statusCode = uiState.value.victimStatusCode,
+                name = uiState.value.victimName,
+                age = uiState.value.victimAge,
+                identification = uiState.value.victimIdentification
+            ))
+        }
+        setVictimFields()
+        toggleVictimDialog()
+    }
+    fun cancelVictimDialog() {
+        setVictimFields()
+        toggleVictimDialog()
+        if (uiState.value.victimEditIndex != null) {_uiState.value.victimEditIndex = null}
+    }
+    fun removeVictim(index: Int) {
+        _reportState.update {
+            it.copy(victimInfo = it.victimInfo - it.victimInfo[index])
+        }
+    }
+    fun initiateVictimEdit(index: Int) {
+        setVictimFields(
+            statusCode = reportState.value.victimInfo[index].statusCode,
+            name = reportState.value.victimInfo[index].name,
+            age = reportState.value.victimInfo[index].age,
+            identification = reportState.value.victimInfo[index].identification
+        )
+        toggleVictimEdit(index)
+        toggleVictimDialog()
+    }
+    fun updateVictim() {
+        val firstVictimsList: List<VictimInfo>? =
+            uiState.value.victimEditIndex?.let {
+                reportState.value.victimInfo.subList(0, it)
+            }
+        val secondVictimsList: List<VictimInfo>? =
+            uiState.value.victimEditIndex?.let {
+                reportState.value.victimInfo.subList(it + 1, reportState.value.victimInfo.size)
+            }
+        val newList: MutableList<VictimInfo> = mutableListOf()
+        if (firstVictimsList != null) newList += firstVictimsList
+        val updatedVictim = VictimInfo(
+                    statusCode = uiState.value.victimStatusCode,
+                    name = uiState.value.victimName,
+                    age = uiState.value.victimAge,
+                    identification = uiState.value.victimIdentification
+                )
+        newList += updatedVictim
+        if (secondVictimsList != null) newList += secondVictimsList
+        _reportState.update {
+            it.copy(victimInfo = newList)
+        }
+        toggleVictimEdit()
+        setVictimFields()
+        toggleVictimDialog()
     }
     fun setDatetimeReturn(input: Long) {
         _reportState.update {

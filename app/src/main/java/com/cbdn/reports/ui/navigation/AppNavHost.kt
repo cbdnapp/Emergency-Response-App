@@ -8,7 +8,7 @@ import com.cbdn.reports.ui.viewmodel.SubmitNewViewModel
 import com.cbdn.reports.ui.views.AppMenu
 import com.cbdn.reports.ui.views.submit.amend.SubmitAmend
 import com.cbdn.reports.ui.views.submit.finish.SubmitFinish
-import com.cbdn.reports.ui.views.submit.new.SubmitNew
+import com.cbdn.reports.ui.views.submit.start.SubmitNew
 import com.cbdn.reports.ui.views.view.filter.ViewFilter
 import com.cbdn.reports.ui.views.view.statistics.ViewStatistics
 

@@ -1,4 +1,4 @@
-package com.cbdn.reports.ui.views.submit.new
+package com.cbdn.reports.ui.views.submit.start
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
