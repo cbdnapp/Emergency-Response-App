@@ -1,4 +1,4 @@
-package com.cbdn.reports.ui.views.submit.start
+package com.cbdn.reports.ui.views.newreport
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,15 +10,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cbdn.reports.R
-import com.cbdn.reports.ui.viewmodel.SubmitNewViewModel
+import com.cbdn.reports.ui.viewmodel.NewReportViewModel
 import com.cbdn.reports.ui.views.composables.BasicTextField
 import com.cbdn.reports.ui.views.composables.FormDivider
 import com.cbdn.reports.ui.views.composables.FormHeader
 import com.cbdn.reports.ui.views.composables.FormSubHeader
 
 @Composable
-fun SubmitNewLocation(
-    viewModel: SubmitNewViewModel
+fun NewLocationDetails(
+    viewModel: NewReportViewModel
 ) {
     val reportState by viewModel.reportState.collectAsStateWithLifecycle()
 //    val uiState by viewModel.uiState.collectAsStateWithLifecycle()

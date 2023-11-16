@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-data class SubmitNewUiState(
+data class NewReportUiState(
 
     // VARIABLES FOR UI FORM
-    var currentScreen: String? = Destinations.SubmitNewDispatch.name,
-    var dispatchComplete: Boolean = false,
-    var locationComplete: Boolean = false,
-    var onSceneComplete: Boolean = false,
-    var submitComplete: Boolean = false,
+    var currentScreen: String? = Destinations.NewDispatchDetails.name,
+    var dispatchDetailsComplete: Boolean = false,
+    var locationDetailsComplete: Boolean = false,
+    var siteDetailsComplete: Boolean = false,
+    var submittalDetailsComplete: Boolean = false,
     var reportComplete: Boolean = false,
     // dispatch
     var categoryIndex: Int = 0,
@@ -36,11 +36,11 @@ data class SubmitNewUiState(
     // submittal
 )
 
-class SubmitNewViewModel : ViewModel() {
+class NewReportViewModel : ViewModel() {
     private var _reportState = MutableStateFlow(Report())
-    private var _uiState = MutableStateFlow(SubmitNewUiState())
+    private var _uiState = MutableStateFlow(NewReportUiState())
     var reportState: StateFlow<Report> = _reportState.asStateFlow()
-    var uiState: StateFlow<SubmitNewUiState> = _uiState.asStateFlow()
+    var uiState: StateFlow<NewReportUiState> = _uiState.asStateFlow()
 
     fun setCurrentScreen(screen: String?) {
         _uiState.update {
@@ -49,10 +49,10 @@ class SubmitNewViewModel : ViewModel() {
     }
     private fun isReportComplete() {
         if (
-            this.uiState.value.dispatchComplete &&
-            this.uiState.value.locationComplete &&
-            this.uiState.value.onSceneComplete &&
-            this.uiState.value.submitComplete
+            this.uiState.value.dispatchDetailsComplete &&
+            this.uiState.value.locationDetailsComplete &&
+            this.uiState.value.siteDetailsComplete &&
+            this.uiState.value.submittalDetailsComplete
             ) {
             _uiState.update {
                 it.copy(reportComplete = true)
@@ -71,11 +71,11 @@ class SubmitNewViewModel : ViewModel() {
             this.reportState.value.emergencyCode != null
         ) {
             _uiState.update {
-                it.copy(dispatchComplete = true)
+                it.copy(dispatchDetailsComplete = true)
             }
         } else {
             _uiState.update {
-                it.copy(dispatchComplete = false)
+                it.copy(dispatchDetailsComplete = false)
             }
         }
         isReportComplete()
@@ -85,11 +85,11 @@ class SubmitNewViewModel : ViewModel() {
             this.reportState.value.location != null
         ) {
             _uiState.update {
-                it.copy(locationComplete = true)
+                it.copy(locationDetailsComplete = true)
             }
         } else {
             _uiState.update {
-                it.copy(locationComplete = false)
+                it.copy(locationDetailsComplete = false)
             }
         }
         isReportComplete()
@@ -104,11 +104,11 @@ class SubmitNewViewModel : ViewModel() {
             this.reportState.value.notes != null
         ) {
             _uiState.update {
-                it.copy(onSceneComplete = true)
+                it.copy(siteDetailsComplete = true)
             }
         } else {
             _uiState.update {
-                it.copy(onSceneComplete = false)
+                it.copy(siteDetailsComplete = false)
             }
         }
         isReportComplete()
@@ -119,7 +119,7 @@ class SubmitNewViewModel : ViewModel() {
             this.reportState.value.reportWriter != null
         ) {
             _uiState.update {
-                it.copy(submitComplete = true)
+                it.copy(submittalDetailsComplete = true)
             }
             isReportComplete()
         }

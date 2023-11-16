@@ -1,4 +1,4 @@
-package com.cbdn.reports.ui.views.view.statistics
+package com.cbdn.reports.ui.views.viewstatistics
 
 import androidx.compose.runtime.Composable
 

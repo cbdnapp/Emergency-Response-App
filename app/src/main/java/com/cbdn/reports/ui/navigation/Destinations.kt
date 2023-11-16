@@ -9,31 +9,28 @@ enum class Destinations(
     AppMenu(
         title = R.string.app_name
     ),
-    SubmitNew(
+    NewReport(
         title = R.string.submit_new_header
     ),
-        SubmitNewDispatch(
+        NewDispatchDetails(
             title = R.string.submit_new_header
         ),
-        SubmitNewLocation(
+        NewLocationDetails(
             title = R.string.submit_new_header
         ),
-        SubmitNewOnScene(
+        NewSiteDetails(
             title = R.string.submit_new_header
         ),
-        SubmitNewSubmit(
+        NewSubmittalDetails(
             title = R.string.submit_new_header
         ),
-    SubmitFinish(
-        title = R.string.submit_finish_header
+    FinishReport(
+        title = R.string.finish_report
     ),
-    SubmitAmend(
-        title = R.string.submit_amend_header
-    ),
-    ViewFilter(
-        title = R.string.view_filter_header
+    SearchReports(
+        title = R.string.search_reports
     ),
     ViewStatistics(
-        title = R.string.view_statistics_header
+        title = R.string.view_statistics
     )
 }

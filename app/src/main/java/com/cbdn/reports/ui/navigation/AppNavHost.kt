@@ -4,13 +4,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.cbdn.reports.ui.navigation.Destinations
-import com.cbdn.reports.ui.viewmodel.SubmitNewViewModel
+import com.cbdn.reports.ui.viewmodel.NewReportViewModel
 import com.cbdn.reports.ui.views.AppMenu
-import com.cbdn.reports.ui.views.submit.amend.SubmitAmend
-import com.cbdn.reports.ui.views.submit.finish.SubmitFinish
-import com.cbdn.reports.ui.views.submit.start.SubmitNew
-import com.cbdn.reports.ui.views.view.filter.ViewFilter
-import com.cbdn.reports.ui.views.view.statistics.ViewStatistics
+import com.cbdn.reports.ui.views.finishreport.FinishReport
+import com.cbdn.reports.ui.views.newreport.NewReport
+import com.cbdn.reports.ui.views.searchreports.SearchReports
+import com.cbdn.reports.ui.views.viewstatistics.ViewStatistics
 
 @Composable
 fun AppNavHost(
@@ -25,17 +24,14 @@ fun AppNavHost(
         composable(route = Destinations.AppMenu.toString()) {
             AppMenu(navController = navController)
         }
-        composable(route = Destinations.SubmitNew.name) {
-            SubmitNew(viewModel = SubmitNewViewModel())
+        composable(route = Destinations.NewReport.name) {
+            NewReport(viewModel = NewReportViewModel())
         }
-        composable(route = Destinations.SubmitFinish.name) {
-            SubmitFinish()
+        composable(route = Destinations.FinishReport.name) {
+            FinishReport()
         }
-        composable(route = Destinations.SubmitAmend.name) {
-            SubmitAmend()
-        }
-        composable(route = Destinations.ViewFilter.name) {
-            ViewFilter()
+        composable(route = Destinations.SearchReports.name) {
+            SearchReports()
         }
         composable(route = Destinations.ViewStatistics.name) {
             ViewStatistics()

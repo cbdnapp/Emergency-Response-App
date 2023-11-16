@@ -1,4 +1,4 @@
-package com.cbdn.reports.ui.views.submit.start
+package com.cbdn.reports.ui.views.newreport
 
 
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cbdn.reports.R
 import com.cbdn.reports.data.EmergencyCodeData
 import com.cbdn.reports.data.TruckData
-import com.cbdn.reports.ui.viewmodel.SubmitNewViewModel
+import com.cbdn.reports.ui.viewmodel.NewReportViewModel
 import com.cbdn.reports.ui.views.composables.BasicTextField
 import com.cbdn.reports.ui.views.composables.DateTimeSelection
 import com.cbdn.reports.ui.views.composables.DropDownTextField
@@ -32,8 +32,8 @@ import com.cbdn.reports.ui.views.composables.FormSubHeader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SubmitNewDispatch(
-    viewModel: SubmitNewViewModel
+fun NewDispatchDetails(
+    viewModel: NewReportViewModel
 ) {
     val reportState by viewModel.reportState.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -46,7 +46,6 @@ fun SubmitNewDispatch(
     ) {
         FormHeader(textResource = R.string.submit_dispatch_details_header)
 
-
         // RESPONDING TRUCK
         FormSubHeader(textResource = R.string.responding_truck)
         DropDownTextField(
@@ -56,7 +55,6 @@ fun SubmitNewDispatch(
             labelResource = R.string.select_truck_id
         )
         FormDivider()
-
 
         // COMMANDING OFFICER
         FormSubHeader(textResource = R.string.commanding_officer)

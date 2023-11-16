@@ -1,4 +1,4 @@
-package com.cbdn.reports.ui.views.submit.start
+package com.cbdn.reports.ui.views.newreport
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cbdn.reports.R
 import com.cbdn.reports.data.VictimCodeData
-import com.cbdn.reports.ui.viewmodel.SubmitNewViewModel
+import com.cbdn.reports.ui.viewmodel.NewReportViewModel
 import com.cbdn.reports.ui.views.composables.AddVictimDialog
 import com.cbdn.reports.ui.views.composables.DateTimeSelection
 import com.cbdn.reports.ui.views.composables.FormButton
@@ -32,8 +32,8 @@ import com.cbdn.reports.ui.views.composables.SwitchWithTextField
 import com.cbdn.reports.ui.views.composables.VictimInfoCard
 
 @Composable
-fun SubmitNewOnSite(
-    viewModel: SubmitNewViewModel
+fun NewSiteDetails(
+    viewModel: NewReportViewModel
 ) {
     val reportState by viewModel.reportState.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -134,13 +134,13 @@ fun SubmitNewOnSite(
                 victimEditIndex = uiState.victimEditIndex
             )
         }
-        reportState.victimInfo.forEachIndexed { index, _ ->
+        reportState.victimInfo.forEachIndexed { index, item ->
             VictimInfoCard(
                 index = index,
-                statusCode = reportState.victimInfo[index].statusCode,
-                name = reportState.victimInfo[index].name,
-                age = reportState.victimInfo[index].age,
-                identification = reportState.victimInfo[index].identification,
+                statusCode = item.statusCode,
+                name = item.name,
+                age = item.age,
+                identification = item.identification,
                 remove = { viewModel.removeVictim(index) },
                 edit = { viewModel.initiateVictimEdit(index)}
             )

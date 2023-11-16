@@ -1,4 +1,4 @@
-package com.cbdn.reports.ui.views.submit.start
+package com.cbdn.reports.ui.views.newreport
 
 import OnSecondaryIcon
 import androidx.compose.foundation.layout.Arrangement
@@ -24,15 +24,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.cbdn.reports.R
 import com.cbdn.reports.ui.navigation.Destinations
-import com.cbdn.reports.ui.navigation.SubmitNewNavHost
-import com.cbdn.reports.ui.viewmodel.SubmitNewViewModel
+import com.cbdn.reports.ui.navigation.NewReportNavHost
+import com.cbdn.reports.ui.viewmodel.NewReportViewModel
 import com.cbdn.reports.ui.views.composables.OnPrimaryTextButton
 import com.cbdn.reports.ui.views.composables.OnSecondaryText
 
 @Composable
-fun SubmitNew(
+fun NewReport(
     navController: NavHostController = rememberNavController(),
-    viewModel: SubmitNewViewModel
+    viewModel: NewReportViewModel
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -41,10 +41,10 @@ fun SubmitNew(
             SubmitNewTopBar(
                 navController = navController,
                 updateCurrentScreen = { viewModel.setCurrentScreen(it) },
-                dispatchComplete = uiState.dispatchComplete,
-                locationComplete = uiState.locationComplete,
-                onSceneComplete = uiState.onSceneComplete,
-                submitComplete = uiState.submitComplete
+                dispatchComplete = uiState.dispatchDetailsComplete,
+                locationComplete = uiState.locationDetailsComplete,
+                onSceneComplete = uiState.siteDetailsComplete,
+                submitComplete = uiState.submittalDetailsComplete
             )
         },
         bottomBar = {
@@ -57,7 +57,7 @@ fun SubmitNew(
             )
         }
     ) {innerPadding ->
-        SubmitNewNavHost(
+        NewReportNavHost(
             navController = navController,
             viewModel = viewModel,
             modifier = Modifier
@@ -90,7 +90,7 @@ fun SubmitNewTopBar(
             ){
                 TextButton(
                     onClick = {
-                        navController.navigate(Destinations.SubmitNewDispatch.name)
+                        navController.navigate(Destinations.NewDispatchDetails.name)
                         updateCurrentScreen(
                             navController.currentBackStackEntry?.destination?.route)
                     }) {
@@ -107,7 +107,7 @@ fun SubmitNewTopBar(
                 }
                 TextButton(
                     onClick = {
-                        navController.navigate(Destinations.SubmitNewLocation.name)
+                        navController.navigate(Destinations.NewLocationDetails.name)
                         updateCurrentScreen(
                             navController.currentBackStackEntry?.destination?.route)
                     }) {
@@ -124,7 +124,7 @@ fun SubmitNewTopBar(
                 }
                 TextButton(
                     onClick = {
-                        navController.navigate(Destinations.SubmitNewOnScene.name)
+                        navController.navigate(Destinations.NewSiteDetails.name)
                         updateCurrentScreen(
                             navController.currentBackStackEntry?.destination?.route)
                     }) {
@@ -141,7 +141,7 @@ fun SubmitNewTopBar(
                 }
                 TextButton(
                     onClick = {
-                        navController.navigate(Destinations.SubmitNewSubmit.name)
+                        navController.navigate(Destinations.NewSubmittalDetails.name)
                         updateCurrentScreen(
                             navController.currentBackStackEntry?.destination?.route)
                     }) {
@@ -164,7 +164,7 @@ fun SubmitNewTopBar(
 @Composable
 fun SubmitNewBottomBar(
     navController: NavHostController,
-    viewModel: SubmitNewViewModel,
+    viewModel: NewReportViewModel,
     currentScreen: String?,
     submitReady: Boolean,
     updateCurrentScreen: (String?) -> Unit
@@ -178,15 +178,15 @@ fun SubmitNewBottomBar(
                 verticalAlignment = Alignment.CenterVertically,
             ){
                 OnPrimaryTextButton(
-                    enabled = currentScreen != Destinations.SubmitNewDispatch.name,
+                    enabled = currentScreen != Destinations.NewDispatchDetails.name,
                     onClick = {
                         when(currentScreen) {
-                            Destinations.SubmitNewLocation.name ->
-                                navController.navigate(Destinations.SubmitNewDispatch.name)
-                            Destinations.SubmitNewOnScene.name ->
-                                navController.navigate(Destinations.SubmitNewLocation.name)
-                            Destinations.SubmitNewSubmit.name ->
-                                navController.navigate(Destinations.SubmitNewOnScene.name)
+                            Destinations.NewLocationDetails.name ->
+                                navController.navigate(Destinations.NewDispatchDetails.name)
+                            Destinations.NewSiteDetails.name ->
+                                navController.navigate(Destinations.NewLocationDetails.name)
+                            Destinations.NewSubmittalDetails.name ->
+                                navController.navigate(Destinations.NewSiteDetails.name)
                         }
                         updateCurrentScreen(navController.currentBackStackEntry?.destination?.route)
                     },
@@ -206,15 +206,15 @@ fun SubmitNewBottomBar(
                         .padding(dimensionResource(id = R.dimen.thin_spacing))
                 )
                 OnPrimaryTextButton(
-                    enabled = currentScreen != Destinations.SubmitNewSubmit.name,
+                    enabled = currentScreen != Destinations.NewSubmittalDetails.name,
                     onClick = {
                         when(currentScreen) {
-                            Destinations.SubmitNewDispatch.name ->
-                                navController.navigate(Destinations.SubmitNewLocation.name)
-                            Destinations.SubmitNewLocation.name ->
-                                navController.navigate(Destinations.SubmitNewOnScene.name)
-                            Destinations.SubmitNewOnScene.name ->
-                                navController.navigate(Destinations.SubmitNewSubmit.name)
+                            Destinations.NewDispatchDetails.name ->
+                                navController.navigate(Destinations.NewLocationDetails.name)
+                            Destinations.NewLocationDetails.name ->
+                                navController.navigate(Destinations.NewSiteDetails.name)
+                            Destinations.NewSiteDetails.name ->
+                                navController.navigate(Destinations.NewSubmittalDetails.name)
                         }
                         updateCurrentScreen(navController.currentBackStackEntry?.destination?.route)
                     },

@@ -1,17 +1,15 @@
 <resources>
     <string name="app_name">CBDN Reports</string>
     <!-- App Menu -->
-    <string name="submit_header">Submit Report</string>
-    <string name="submit_new_button">New</string>
+    <string name="report_submission">Report Submission</string>
+    <string name="new_report">New Report</string>
     <string name="submit_new_description">Start a new report.</string>
-    <string name="submit_finish_button">Finish</string>
+    <string name="finish_report">Finish Report</string>
     <string name="submit_finish_description">Select an incomplete report and complete it.</string>
-    <string name="submit_amend_button">Amend</string>
-    <string name="submit_amend_description">Select a completed report and add to it.</string>
-    <string name="view_header">Report Data</string>
-    <string name="view_filter_button">Reports</string>
-    <string name="view_filter_description">Search, filter, and select reports to view.</string>
-    <string name="view_statistics_button">Statistics</string>
+    <string name="report_database">Report Database</string>
+    <string name="search_reports">Search Reports</string>
+    <string name="view_filter_description">Search, filter, and select reports to view or amend.</string>
+    <string name="view_statistics">View Statistics</string>
     <string name="view_statistics_description">View aggregate data from reports database.</string>
 
 
@@ -30,8 +28,8 @@
     <string name="change_time">Change Time</string>
 
     <!-- SubmitNew -->
-    <!-- SubmitNewDispatch -->
     <string name="submit_new_header">New Report</string>
+    <!-- SubmitNewDispatch -->
     <string name="dispatch">Dispatch</string>
     <string name="submit_dispatch_details_header">Dispatch Details</string>
     <string name="responding_truck">Responding Truck</string>
@@ -80,16 +78,10 @@
 
 
     <!-- Submit Report Finish -->
-    <string name="submit_finish_header">Finish Report</string>
-
-    <!-- Submit Report Amend -->
-    <string name="submit_amend_header">Amend Report</string>
 
     <!-- View Report Filter -->
-    <string name="view_filter_header">Filter Reports</string>
 
     <!-- View Report Statistics -->
-    <string name="view_statistics_header">Report Statistics</string>
 
 
 </resources>
