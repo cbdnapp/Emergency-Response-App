@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "993923701910",
+    "project_id": "cbdn-test",
+    "storage_bucket": "cbdn-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993923701910:android:38c8cc1e0a4ed8f4dc36b7",
+        "android_client_info": {
+          "package_name": "com.cbdn.reports"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCslfOtUwSWZgdCnNQK_iWvhc1vR1IwQ9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
