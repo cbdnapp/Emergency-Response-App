@@ -1,13 +1,21 @@
 package com.cbdn.reports.ui.viewmodel
 
+import android.content.ContentValues.TAG
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.cbdn.reports.data.datamodel.Report
 import com.cbdn.reports.data.datamodel.VictimInfo
 import com.cbdn.reports.ui.navigation.Destinations
+import com.google.android.gms.tasks.Tasks.await
+import com.google.firebase.Firebase
+import com.google.firebase.app
+import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.update
 
 data class NewReportUiState(
@@ -41,7 +49,9 @@ class NewReportViewModel : ViewModel() {
     private var _uiState = MutableStateFlow(NewReportUiState())
     var reportState: StateFlow<Report> = _reportState.asStateFlow()
     var uiState: StateFlow<NewReportUiState> = _uiState.asStateFlow()
-
+//    init {
+//        val reports = getReports(finalized = false)
+//    }
     fun setCurrentScreen(screen: String?) {
         _uiState.update {
             it.copy(currentScreen = screen)
@@ -56,6 +66,9 @@ class NewReportViewModel : ViewModel() {
             ) {
             _uiState.update {
                 it.copy(reportComplete = true)
+            }
+            _reportState.update {
+                it.copy(finalized = true)
             }
         } else {
             _uiState.update {
@@ -343,7 +356,36 @@ class NewReportViewModel : ViewModel() {
     }
 
     fun submitReport() {
+        val db = Firebase.firestore
+        db.collection("reports")
+            .add(reportState.value)
+            .addOnSuccessListener { documentReference ->
+                println("DocumentSnapshot added with ID: ${documentReference.id}")
 
+            }
+            .addOnFailureListener { error ->
+                println("Error adding document: $error")
+            }
+    }
+
+    fun getReports(finalized: Boolean): List<Pair<String, Report>> {
+        val reports: MutableList<Pair<String, Report>> = mutableListOf()
+        val db = Firebase.firestore
+        db.collection("reports")
+            .whereEqualTo("finalized", finalized)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val reportID: String = document.id
+                    val report: Report = document.toObject(Report::class.java)
+                    reports.add(Pair(reportID, report))
+                }
+                Log.d("Test", "$reports")
+            }
+            .addOnFailureListener { exception ->
+                println("Error getting reports documents: $exception")
+            }
+        return reports.toList()
     }
 
     override fun onCleared() {

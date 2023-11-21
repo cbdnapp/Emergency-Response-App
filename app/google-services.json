@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "993923701910",
-    "project_id": "cbdn-test",
-    "storage_bucket": "cbdn-test.appspot.com"
+    "project_number": "47745630695",
+    "project_id": "emergency-response-app-restapi",
+    "storage_bucket": "emergency-response-app-restapi.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:993923701910:android:38c8cc1e0a4ed8f4dc36b7",
+        "mobilesdk_app_id": "1:47745630695:android:8d1b6f65ff71bb6726bd42",
         "android_client_info": {
           "package_name": "com.cbdn.reports"
         }
@@ -15,7 +15,26 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCslfOtUwSWZgdCnNQK_iWvhc1vR1IwQ9Q"
+          "current_key": "AIzaSyA97_D8gwSdq2Bkwc8UIw5yKcpMVNmIyeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47745630695:android:a6b9023b37c6581326bd42",
+        "android_client_info": {
+          "package_name": "com.example.post_poc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA97_D8gwSdq2Bkwc8UIw5yKcpMVNmIyeA"
         }
       ],
       "services": {

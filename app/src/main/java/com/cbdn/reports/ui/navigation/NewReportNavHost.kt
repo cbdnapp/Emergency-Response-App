@@ -20,7 +20,7 @@ fun NewReportNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Destinations.NewReport.name,
+        startDestination = Destinations.NewDispatchDetails.name,
         modifier = modifier
     ) {
         composable(route = Destinations.NewDispatchDetails.name) {

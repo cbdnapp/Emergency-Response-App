@@ -28,15 +28,8 @@ import com.cbdn.reports.ui.navigation.Destinations
 
 @Composable
 fun App(
-//    windowSize: WindowWidthSizeClass,
     navController: NavHostController = rememberNavController()
 ) {
-    // adaptable window width
-//    val workSpaceWidth: Int = when (windowSize) {
-//        WindowWidthSizeClass.Compact -> {  }
-//        WindowWidthSizeClass.Medium -> {  }
-//        WindowWidthSizeClass.Expanded -> {  }
-//    }
 
     // navigation
     val backStackEntry by navController.currentBackStackEntryAsState()
