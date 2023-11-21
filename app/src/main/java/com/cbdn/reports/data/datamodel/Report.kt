@@ -19,4 +19,22 @@ data class Report(
     // submittal
     var datetimeReturn: Long? = null,
     var reportWriter: String? = null,
-)
+    var finalized: Boolean = false,
+){
+    constructor(): this(
+        respondingTruck = null,
+        commandingOfficer = null,
+        datetimeDispatch = null,
+        emergencyCode = null,
+        location = null,
+        datetimeArrival = null,
+        policePresent = null,
+        ambulancePresent = null,
+        electricCompanyPresent = null,
+        transitPolicePresent = null,
+        victimInfo = (emptyList()),
+        notes = null,
+        datetimeReturn = null,
+        reportWriter = null,
+        finalized = false)
+}

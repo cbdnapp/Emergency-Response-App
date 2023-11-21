@@ -5,4 +5,6 @@ data class VictimInfo(
     var name: String,
     var age: String,
     var identification: String,
-)
+) {
+    constructor(): this(statusCode="",name="",age="", identification = "" )
+}

@@ -23,6 +23,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.cbdn.reports.R
+import com.cbdn.reports.data.datamodel.FireStoreUtility
 import com.cbdn.reports.ui.navigation.Destinations
 import com.cbdn.reports.ui.navigation.NewReportNavHost
 import com.cbdn.reports.ui.viewmodel.NewReportViewModel
@@ -198,7 +199,7 @@ fun SubmitNewBottomBar(
                 )
                 OnPrimaryTextButton(
                     enabled = submitReady,
-                    onClick = { viewModel.submitReport() },
+                    onClick = { FireStoreUtility().submitReport(viewModel.reportState.value)},
                     labelResource = R.string.submit,
                     modifier = Modifier
                         .fillMaxWidth()
