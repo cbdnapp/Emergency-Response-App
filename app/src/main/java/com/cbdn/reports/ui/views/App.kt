@@ -30,7 +30,6 @@ import com.cbdn.reports.ui.navigation.Destinations
 fun App(
     navController: NavHostController = rememberNavController()
 ) {
-
     // navigation
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen = Destinations.valueOf(
@@ -41,7 +40,7 @@ fun App(
             ReportsTopBar(
                 currentScreen = currentScreen,
                 canNavigateBack = navController.previousBackStackEntry != null,
-                navigateUp = { navController.navigateUp() },
+                navigateUp = { navController.popBackStack() },
             )
         }
     ) { innerPadding ->

@@ -8,9 +8,7 @@ plugins {
     //    developer added plugins     //
     //
     //Firebase
-    id("com.google.gms.google-services")
-
-
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -87,8 +85,12 @@ dependencies {
     def nav_version = "2.7.5"
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
-    // adaptive windows
-//    implementation("androidx.compose.material3:material3-window-size-class")
+    // view model: https://developer.android.com/jetpack/androidx/releases/lifecycle#groovy
+    def lifecycle_version = "2.6.2"
+
+    // ViewModel utilities for Compose
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version"
 
     // Firebase
 //    implementation("com.google.firebase:firebase-analytics")
@@ -98,13 +100,8 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-firestore")
 
-    // view model: https://developer.android.com/jetpack/androidx/releases/lifecycle#groovy
-    def lifecycle_version = "2.6.2"
-
-    // ViewModel utilities for Compose
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version"
-
+    // adaptive windows
+//    implementation("androidx.compose.material3:material3-window-size-class")
 
 }
 

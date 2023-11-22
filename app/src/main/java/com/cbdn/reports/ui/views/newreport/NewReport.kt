@@ -23,7 +23,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.cbdn.reports.R
-import com.cbdn.reports.data.datamodel.FireStoreUtility
 import com.cbdn.reports.ui.navigation.Destinations
 import com.cbdn.reports.ui.navigation.NewReportNavHost
 import com.cbdn.reports.ui.viewmodel.NewReportViewModel
@@ -33,10 +32,9 @@ import com.cbdn.reports.ui.views.composables.OnSecondaryText
 @Composable
 fun NewReport(
     navController: NavHostController = rememberNavController(),
-    viewModel: NewReportViewModel
+    viewModel: NewReportViewModel = NewReportViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
     Scaffold(
         topBar = {
             SubmitNewTopBar(
@@ -199,7 +197,7 @@ fun SubmitNewBottomBar(
                 )
                 OnPrimaryTextButton(
                     enabled = submitReady,
-                    onClick = { FireStoreUtility().submitReport(viewModel.reportState.value)},
+                    onClick = { viewModel.submitReport() },
                     labelResource = R.string.submit,
                     modifier = Modifier
                         .fillMaxWidth()

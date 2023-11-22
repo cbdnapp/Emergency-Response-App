@@ -104,9 +104,7 @@ fun DateTimeSelection (
             }
         ) {
             DatePicker(
-                state = datePickerState,
-                modifier = Modifier
-                    .padding(dimensionResource(id = R.dimen.thin_spacing)),
+                state = datePickerState
             )
         }
     }

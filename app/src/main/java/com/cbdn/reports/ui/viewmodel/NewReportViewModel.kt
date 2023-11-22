@@ -1,21 +1,14 @@
 package com.cbdn.reports.ui.viewmodel
 
-import android.content.ContentValues.TAG
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import com.cbdn.reports.data.datamodel.FireStoreUtility
 import com.cbdn.reports.data.datamodel.Report
 import com.cbdn.reports.data.datamodel.VictimInfo
 import com.cbdn.reports.ui.navigation.Destinations
-import com.google.android.gms.tasks.Tasks.await
-import com.google.firebase.Firebase
-import com.google.firebase.app
-import com.google.firebase.firestore.firestore
-import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.update
 
 data class NewReportUiState(
@@ -42,6 +35,7 @@ data class NewReportUiState(
     var victimAge: String = "",
     var victimIdentification: String = "",
     // submittal
+    var reportID: String = "",
 )
 
 class NewReportViewModel : ViewModel() {
@@ -49,9 +43,14 @@ class NewReportViewModel : ViewModel() {
     private var _uiState = MutableStateFlow(NewReportUiState())
     var reportState: StateFlow<Report> = _reportState.asStateFlow()
     var uiState: StateFlow<NewReportUiState> = _uiState.asStateFlow()
-//    init {
-//        val reports = getReports(finalized = false)
-//    }
+
+    init {
+        Log.d("DEV", "ViewModel init.")
+    }
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("DEV", "ViewModel onCleared.")
+    }
     fun setCurrentScreen(screen: String?) {
         _uiState.update {
             it.copy(currentScreen = screen)
@@ -59,10 +58,10 @@ class NewReportViewModel : ViewModel() {
     }
     private fun isReportComplete() {
         if (
-            this.uiState.value.dispatchDetailsComplete &&
-            this.uiState.value.locationDetailsComplete &&
-            this.uiState.value.siteDetailsComplete &&
-            this.uiState.value.submittalDetailsComplete
+            uiState.value.dispatchDetailsComplete &&
+            uiState.value.locationDetailsComplete &&
+            uiState.value.siteDetailsComplete &&
+            uiState.value.submittalDetailsComplete
             ) {
             _uiState.update {
                 it.copy(reportComplete = true)
@@ -78,10 +77,10 @@ class NewReportViewModel : ViewModel() {
     }
     private fun isDispatchComplete() {
         if (
-            this.reportState.value.respondingTruck != null &&
-            this.reportState.value.commandingOfficer != null &&
-            this.reportState.value.datetimeDispatch != null &&
-            this.reportState.value.emergencyCode != null
+            reportState.value.respondingTruck != null &&
+            reportState.value.commandingOfficer != null &&
+            reportState.value.datetimeDispatch != null &&
+            reportState.value.emergencyCode != null
         ) {
             _uiState.update {
                 it.copy(dispatchDetailsComplete = true)
@@ -95,7 +94,7 @@ class NewReportViewModel : ViewModel() {
     }
     private fun isLocationComplete() {
         if (
-            this.reportState.value.location != null
+            reportState.value.location != null
         ) {
             _uiState.update {
                 it.copy(locationDetailsComplete = true)
@@ -109,12 +108,12 @@ class NewReportViewModel : ViewModel() {
     }
     private fun isOnSceneComplete() {
         if (
-            this.reportState.value.datetimeArrival != null &&
-            this.reportState.value.policePresent != null &&
-            this.reportState.value.ambulancePresent != null &&
-            this.reportState.value.electricCompanyPresent != null &&
-            this.reportState.value.transitPolicePresent != null &&
-            this.reportState.value.notes != null
+            reportState.value.datetimeArrival != null &&
+            reportState.value.policePresent != null &&
+            reportState.value.ambulancePresent != null &&
+            reportState.value.electricCompanyPresent != null &&
+            reportState.value.transitPolicePresent != null &&
+            reportState.value.notes != null
         ) {
             _uiState.update {
                 it.copy(siteDetailsComplete = true)
@@ -128,8 +127,8 @@ class NewReportViewModel : ViewModel() {
     }
     private fun isSubmitComplete() {
         if (
-            this.reportState.value.datetimeReturn != null &&
-            this.reportState.value.reportWriter != null
+            reportState.value.datetimeReturn != null &&
+            reportState.value.reportWriter != null
         ) {
             _uiState.update {
                 it.copy(submittalDetailsComplete = true)
@@ -356,40 +355,10 @@ class NewReportViewModel : ViewModel() {
     }
 
     fun submitReport() {
-        val db = Firebase.firestore
-        db.collection("reports")
-            .add(reportState.value)
-            .addOnSuccessListener { documentReference ->
-                println("DocumentSnapshot added with ID: ${documentReference.id}")
-
-            }
-            .addOnFailureListener { error ->
-                println("Error adding document: $error")
-            }
-    }
-
-    fun getReports(finalized: Boolean): List<Pair<String, Report>> {
-        val reports: MutableList<Pair<String, Report>> = mutableListOf()
-        val db = Firebase.firestore
-        db.collection("reports")
-            .whereEqualTo("finalized", finalized)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val reportID: String = document.id
-                    val report: Report = document.toObject(Report::class.java)
-                    reports.add(Pair(reportID, report))
-                }
-                Log.d("Test", "$reports")
-            }
-            .addOnFailureListener { exception ->
-                println("Error getting reports documents: $exception")
-            }
-        return reports.toList()
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("Developer", "onCleared")
+        if (uiState.value.reportID.isNotEmpty()) {
+            FireStoreUtility().updateReport(reportState.value, uiState.value.reportID)
+        } else {
+            FireStoreUtility().submitReport(reportState.value)
+        }
     }
 }
