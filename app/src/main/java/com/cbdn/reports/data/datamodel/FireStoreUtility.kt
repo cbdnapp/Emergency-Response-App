@@ -24,7 +24,7 @@ class FireStoreUtility {
         db.collection("reports")
             .addSnapshotListener(MetadataChanges.INCLUDE) { querySnapshot, e ->
                 if (e != null) {
-                    Log.w("DEV", "Listen error", e)
+                    Log.e("DEV", "Listen error", e)
                     return@addSnapshotListener
                 }
                 for (change in querySnapshot!!.documentChanges) {
@@ -70,7 +70,7 @@ class FireStoreUtility {
                 Log.d("DEV", "DocumentSnapshot added with ID: $reportID")
             }
             .addOnFailureListener { error ->
-                Log.d("DEV", "Error adding document: $error")
+                Log.e("DEV", "Error adding document: $error")
             }
     }
 
@@ -82,7 +82,7 @@ class FireStoreUtility {
 
             }
             .addOnFailureListener { error ->
-                Log.d("DEV", "Error adding document: $error")
+                Log.e("DEV", "Error adding document: $error")
             }
     }
 
@@ -96,19 +96,19 @@ class FireStoreUtility {
                         Log.d("DEV", "Successfully updated document: ${newDocumentReference.id} ")
                     }
                     .addOnFailureListener{ error ->
-                        Log.d("DEV", "Error updating document: ${newDocumentReference.id}: $error")
+                        Log.e("DEV", "Error updating document: ${newDocumentReference.id}: $error")
                     }
                 db.collection("reports").document(prevId)
                     .update(mapOf("next" to newDocumentReference.id))
                     .addOnSuccessListener {
-                        Log.d("DEV", "Successfully updated document: $prevId ")
+                        Log.e("DEV", "Successfully updated document: $prevId ")
                     }
                     .addOnFailureListener{ error ->
-                        Log.d("DEV", "Error updating document: $prevId: $error")
+                        Log.e("DEV", "Error updating document: $prevId: $error")
                     }
             }
             .addOnFailureListener{ error ->
-                Log.d("DEV", "Error appending document: $error")
+                Log.e("DEV", "Error appending document: $error")
             }
     }
 }
