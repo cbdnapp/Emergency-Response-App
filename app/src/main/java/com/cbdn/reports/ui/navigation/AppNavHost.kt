@@ -4,6 +4,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.cbdn.reports.ui.navigation.Destinations
+import com.cbdn.reports.ui.viewmodel.NewReportViewModel
 import com.cbdn.reports.ui.views.AppMenu
 import com.cbdn.reports.ui.views.finishreport.FinishReport
 import com.cbdn.reports.ui.views.newreport.NewReport
@@ -13,6 +14,7 @@ import com.cbdn.reports.ui.views.viewstatistics.ViewStatistics
 @Composable
 fun AppNavHost(
     navController: NavHostController,
+    newReportViewModel: NewReportViewModel,
     modifier: Modifier
 ) {
     NavHost(
@@ -24,7 +26,7 @@ fun AppNavHost(
             AppMenu(navController = navController)
         }
         composable(route = Destinations.NewReport.name) {
-            NewReport()
+            NewReport(newReportViewModel = newReportViewModel)
         }
         composable(route = Destinations.FinishReport.name) {
             FinishReport()

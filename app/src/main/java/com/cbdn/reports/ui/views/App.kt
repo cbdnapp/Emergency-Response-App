@@ -24,11 +24,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.cbdn.reports.ui.navigation.Destinations
+import com.cbdn.reports.ui.viewmodel.NewReportViewModel
 
 
 @Composable
 fun App(
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    newReportViewModel: NewReportViewModel = NewReportViewModel()
 ) {
     // navigation
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -46,6 +48,7 @@ fun App(
     ) { innerPadding ->
         AppNavHost(
             navController = navController,
+            newReportViewModel = newReportViewModel,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
