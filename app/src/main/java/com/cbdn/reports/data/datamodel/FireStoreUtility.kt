@@ -112,15 +112,4 @@ class FireStoreUtility {
                 Log.d("Test", "Error appending document: $error")
             }
     }
-
-
-
-
-
-
-
-
-//    fun appendReport(){
-//
-//    }
 }
