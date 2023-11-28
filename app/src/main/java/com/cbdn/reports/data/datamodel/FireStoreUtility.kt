@@ -16,14 +16,14 @@ class FireStoreUtility {
             .await()
 
         if(documents.isEmpty){
-            Log.d("Test", "Received no documents")
+            Log.d("DEV", "Received no documents")
         } else {
             for (document in documents) {
                 val reportID: String = document.id
                 val report: Report = document.toObject(Report::class.java)
                 reports.add(Pair(reportID, report))
             }
-            Log.d("Test", "$reports")
+            Log.d("DEV", "$reports")
         }
         Log.d("DEV", "FireStoreUtility Reports: $reports")
         return reports
@@ -33,10 +33,10 @@ class FireStoreUtility {
         db.collection("reports").document(reportID)
             .set(report)
             .addOnSuccessListener {
-                Log.d("Firestore", "DocumentSnapshot added with ID: $reportID")
+                Log.d("DEV", "DocumentSnapshot added with ID: $reportID")
             }
             .addOnFailureListener { error ->
-                Log.e("Firestore","Error adding document: $error")
+                Log.e("DEV","Error adding document: $error")
             }
     }
 
@@ -44,10 +44,10 @@ class FireStoreUtility {
         db.collection("reports")
             .add(report)
             .addOnSuccessListener { documentReference ->
-                Log.d("Firestore", "DocumentSnapshot added with ID: ${documentReference.id}")
+                Log.d("DEV", "DocumentSnapshot added with ID: ${documentReference.id}")
             }
             .addOnFailureListener { error ->
-                Log.e("Firestore","Error adding document: $error")
+                Log.e("DEV","Error adding document: $error")
             }
     }
 }

@@ -32,14 +32,14 @@ import com.cbdn.reports.ui.views.composables.OnSecondaryText
 @Composable
 fun NewReport(
     navController: NavHostController = rememberNavController(),
-    viewModel: NewReportViewModel = NewReportViewModel()
+    newReportViewModel: NewReportViewModel = NewReportViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by newReportViewModel.uiState.collectAsStateWithLifecycle()
     Scaffold(
         topBar = {
             SubmitNewTopBar(
                 navController = navController,
-                updateCurrentScreen = { viewModel.setCurrentScreen(it) },
+                updateCurrentScreen = { newReportViewModel.setCurrentScreen(it) },
                 dispatchComplete = uiState.dispatchDetailsComplete,
                 locationComplete = uiState.locationDetailsComplete,
                 onSceneComplete = uiState.siteDetailsComplete,
@@ -49,16 +49,16 @@ fun NewReport(
         bottomBar = {
             SubmitNewBottomBar(
                 navController = navController,
-                viewModel = viewModel,
+                viewModel = newReportViewModel,
                 currentScreen = uiState.currentScreen,
                 submitReady = uiState.reportComplete,
-                updateCurrentScreen = { viewModel.setCurrentScreen(it) }
+                updateCurrentScreen = { newReportViewModel.setCurrentScreen(it) }
             )
         }
     ) {innerPadding ->
         NewReportNavHost(
             navController = navController,
-            viewModel = viewModel,
+            viewModel = newReportViewModel,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
