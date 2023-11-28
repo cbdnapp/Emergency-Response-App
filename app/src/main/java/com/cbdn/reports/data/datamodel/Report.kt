@@ -40,5 +40,6 @@ data class Report(
         reportWriter = null,
         finalized = false,
         next = null ,
-        previous = null)
+        previous = null
+    )
 }

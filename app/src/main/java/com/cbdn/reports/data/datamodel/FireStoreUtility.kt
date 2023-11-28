@@ -24,19 +24,19 @@ class FireStoreUtility {
         db.collection("reports")
             .addSnapshotListener(MetadataChanges.INCLUDE) { querySnapshot, e ->
                 if (e != null) {
-                    Log.w("Test", "Listen error", e)
+                    Log.w("DEV", "Listen error", e)
                     return@addSnapshotListener
                 }
                 for (change in querySnapshot!!.documentChanges) {
                     if (change.type == DocumentChange.Type.ADDED) {
-                        Log.d("Test", "New Report: ${change.document.data}")
+                        Log.d("DEV", "New Report: ${change.document.data}")
                     }
                     val source = if (querySnapshot.metadata.isFromCache) {
                         "local cache"
                     } else {
                         "server"
                     }
-                    Log.d("Test", "Data fetched from $source")
+                    Log.d("DEV", "Data fetched from $source")
                 }
             }
 
@@ -51,27 +51,26 @@ class FireStoreUtility {
             .await()
 
         if(documents.isEmpty){
-            Log.d("Test", "Received no documents")
+            Log.d("DEV", "Received no documents")
         } else {
             for (document in documents) {
                 val reportID: String = document.id
                 val report: Report = document.toObject(Report::class.java)
                 reports.add(Pair(reportID, report))
             }
-            Log.d("Test", "$reports")
+            Log.d("DEV", "$reports")
         }
-        return reports.toList()
+        return reports
     }
 
     fun updateReport(report: Report, reportID: String){
         db.collection("reports").document(reportID)
             .set(report)
             .addOnSuccessListener {
-                println()
-                Log.d("Test", "DocumentSnapshot added with ID: $reportID")
+                Log.d("DEV", "DocumentSnapshot added with ID: $reportID")
             }
             .addOnFailureListener { error ->
-                Log.d("Test", "Error adding document: $error")
+                Log.d("DEV", "Error adding document: $error")
             }
     }
 
@@ -79,11 +78,11 @@ class FireStoreUtility {
         db.collection("reports")
             .add(report)
             .addOnSuccessListener { documentReference -> println()//
-                Log.d("Test", "DocumentSnapshot added with ID: ${documentReference.id}")
+                Log.d("DEV", "DocumentSnapshot added with ID: ${documentReference.id}")
 
             }
             .addOnFailureListener { error ->
-                Log.d("Test", "Error adding document: $error")
+                Log.d("DEV", "Error adding document: $error")
             }
     }
 
@@ -94,22 +93,22 @@ class FireStoreUtility {
                 db.collection("reports").document(newDocumentReference.id)
                     .update(mapOf("prev" to prevId))
                     .addOnSuccessListener {
-                        Log.d("Test", "Successfully updated document: ${newDocumentReference.id} ")
+                        Log.d("DEV", "Successfully updated document: ${newDocumentReference.id} ")
                     }
                     .addOnFailureListener{ error ->
-                        Log.d("Test", "Error updating document: ${newDocumentReference.id}: $error")
+                        Log.d("DEV", "Error updating document: ${newDocumentReference.id}: $error")
                     }
                 db.collection("reports").document(prevId)
                     .update(mapOf("next" to newDocumentReference.id))
                     .addOnSuccessListener {
-                        Log.d("Test", "Successfully updated document: $prevId ")
+                        Log.d("DEV", "Successfully updated document: $prevId ")
                     }
                     .addOnFailureListener{ error ->
-                        Log.d("Test", "Error updating document: $prevId: $error")
+                        Log.d("DEV", "Error updating document: $prevId: $error")
                     }
             }
             .addOnFailureListener{ error ->
-                Log.d("Test", "Error appending document: $error")
+                Log.d("DEV", "Error appending document: $error")
             }
     }
 }
