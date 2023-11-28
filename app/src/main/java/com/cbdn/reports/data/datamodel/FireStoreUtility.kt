@@ -60,6 +60,7 @@ class FireStoreUtility {
             }
             Log.d("DEV", "$reports")
         }
+        Log.d("DEV", "FireStoreUtility Reports: $reports")
         return reports
     }
 
@@ -77,7 +78,7 @@ class FireStoreUtility {
     fun submitReport(report: Report) {
         db.collection("reports")
             .add(report)
-            .addOnSuccessListener { documentReference -> println()//
+            .addOnSuccessListener { documentReference ->
                 Log.d("DEV", "DocumentSnapshot added with ID: ${documentReference.id}")
 
             }
