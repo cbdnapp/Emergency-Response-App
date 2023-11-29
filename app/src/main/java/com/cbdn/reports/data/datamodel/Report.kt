@@ -20,6 +20,8 @@ data class Report(
     var datetimeReturn: Long? = null,
     var reportWriter: String? = null,
     var finalized: Boolean = false,
+    var next: String? = null,
+    var previous: String? = null
 ){
     constructor(): this(
         respondingTruck = null,
@@ -36,5 +38,8 @@ data class Report(
         notes = null,
         datetimeReturn = null,
         reportWriter = null,
-        finalized = false)
+        finalized = false,
+        next = null ,
+        previous = null
+    )
 }
