@@ -76,6 +76,14 @@
     <string name="report_writer">Report Writer</string>
     <string name="enter_name">Enter Name</string>
 
+    <string name="submitted_successfully">Submitted Successfully</string>
+    <string name="submit_successful_message">The New Report has been submitted with all necessary fields. It will be available in the archive to view or amend.</string>
+    <string name="not_submitted">Report Not Submitted</string>
+    <string name="not_submitted_message">The New Report was finished but was not submitted. Would you like to submit it or discard it?</string>
+    <string name="discard">Discard</string>
+    <string name="incomplete_message">The New Report was incomplete and not submitted. You may discard it or submit it as incomplete. Incomplete reports may be finished or discarded later, but will not show up in the report archive.</string>
+    <string name="submit_as_incomplete">Submit as Incomplete</string>
+
 
     <!-- Submit Report Finish -->
 

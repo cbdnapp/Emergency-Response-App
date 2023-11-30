@@ -7,7 +7,7 @@ plugins {
     //                                //
     //    developer added plugins     //
     //
-    //Firebase
+    // Firebase
     id 'com.google.gms.google-services'
 }
 
@@ -99,10 +99,6 @@ dependencies {
     // Declare the dependency for the Cloud Firestore library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-firestore")
-
-    // adaptive windows
-//    implementation("androidx.compose.material3:material3-window-size-class")
-
 }
 
 //                                //

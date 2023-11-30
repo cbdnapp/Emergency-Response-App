@@ -34,7 +34,7 @@ data class Report(
         ambulancePresent = null,
         electricCompanyPresent = null,
         transitPolicePresent = null,
-        victimInfo = (emptyList()),
+        victimInfo = emptyList(),
         notes = null,
         datetimeReturn = null,
         reportWriter = null,
