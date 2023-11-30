@@ -1,7 +1,6 @@
 package com.cbdn.reports.ui.views.newreport
 
 import OnSecondaryIcon
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,54 +15,29 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.dimensionResource
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.cbdn.reports.R
 import com.cbdn.reports.ui.navigation.Destinations
-import com.cbdn.reports.ui.navigation.NewReportNavHost
 import com.cbdn.reports.ui.viewmodel.AppViewModel
-import com.cbdn.reports.ui.viewmodel.NewReportViewModel
 import com.cbdn.reports.ui.views.composables.OnPrimaryTextButton
 import com.cbdn.reports.ui.views.composables.OnSecondaryText
 
 @Composable
 fun NewReport (
-    appNavController: NavHostController,
-    appViewModel: AppViewModel,
-    navController: NavHostController = rememberNavController(),
-    newReportViewModel: NewReportViewModel = NewReportViewModel(),
-    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
+    navController: NavHostController,
+    appViewModel: AppViewModel
 ) {
-    val reportState by newReportViewModel.reportState.collectAsStateWithLifecycle()
-    val uiState by newReportViewModel.uiState.collectAsStateWithLifecycle()
-    DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { source, event ->
-                Log.d("DEV", "Source: $source, Event: $event")
-        }
-        lifecycleOwner.lifecycle.addObserver(observer)
-        onDispose {
-//            Log.d("DEV", "${}")
-            appViewModel.setReport(reportState)
-            newReportViewModel.leaveScreen()
-//            Log.d("DEV", "Disposed")
-            Log.d("DEV", "Disposed")
-            lifecycleOwner.lifecycle.removeObserver((observer))
-        }
-    }
+//    val reportState by appViewModel.reportState.collectAsStateWithLifecycle()
+    val uiState by appViewModel.uiState.collectAsStateWithLifecycle()
     Scaffold(
         topBar = {
             SubmitNewTopBar(
-                navController = navController,
-                updateCurrentScreen = { newReportViewModel.setCurrentScreen(it) },
+                updateCurrentScreen = { appViewModel.setCurrentScreen(it) },
                 dispatchComplete = uiState.dispatchDetailsComplete,
                 locationComplete = uiState.locationDetailsComplete,
                 onSceneComplete = uiState.siteDetailsComplete,
@@ -72,38 +46,52 @@ fun NewReport (
         },
         bottomBar = {
             SubmitNewBottomBar(
-                navController = navController,
                 currentScreen = uiState.currentScreen,
                 submitReady = uiState.reportComplete,
                 submitClick = {
-                    appViewModel.setReport(reportState)
                     appViewModel.submitReport()
-                    appViewModel.setLastScreen(
-                        appNavController.currentBackStackEntry?.destination?.route
-                    )
-                    appViewModel.setSubmitButtonClicked(true)
-                    newReportViewModel.leaveScreen()
-                    appNavController.popBackStack()
+                    navController.popBackStack(
+                        route = Destinations.AppMenu.name,
+                        inclusive = false)
                               },
-                updateCurrentScreen = { newReportViewModel.setCurrentScreen(it) }
+                updateCurrentScreen = { appViewModel.setCurrentScreen(it) }
             )
         }
     ) {innerPadding ->
-        NewReportNavHost(
-            navController = navController,
-            viewModel = newReportViewModel,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        )
+        when (uiState.currentScreen) {
+            DetailSections.DispatchDetails.name -> { DispatchDetails(
+                viewModel = appViewModel,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) }
+            DetailSections.LocationDetails.name -> { LocationDetails(
+                viewModel = appViewModel,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) }
+            DetailSections.SiteDetails.name -> { SiteDetails(
+                viewModel = appViewModel,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) }
+            DetailSections.SubmittalDetails.name -> { SubmittalDetails(
+                viewModel = appViewModel,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            ) }
+
+        }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SubmitNewTopBar(
-    navController: NavHostController,
-    updateCurrentScreen: (String?) -> Unit,
+    updateCurrentScreen: (String) -> Unit,
     dispatchComplete: Boolean,
     locationComplete: Boolean,
     onSceneComplete: Boolean,
@@ -121,11 +109,7 @@ fun SubmitNewTopBar(
                 verticalAlignment = Alignment.CenterVertically
             ){
                 TextButton(
-                    onClick = {
-                        navController.navigate(Destinations.NewDispatchDetails.name)
-                        updateCurrentScreen(
-                            navController.currentBackStackEntry?.destination?.route)
-                    }) {
+                    onClick = { updateCurrentScreen(DetailSections.DispatchDetails.name) }) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -138,11 +122,7 @@ fun SubmitNewTopBar(
                     }
                 }
                 TextButton(
-                    onClick = {
-                        navController.navigate(Destinations.NewLocationDetails.name)
-                        updateCurrentScreen(
-                            navController.currentBackStackEntry?.destination?.route)
-                    }) {
+                    onClick = { updateCurrentScreen(DetailSections.LocationDetails.name) }) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -155,11 +135,7 @@ fun SubmitNewTopBar(
                     }
                 }
                 TextButton(
-                    onClick = {
-                        navController.navigate(Destinations.NewSiteDetails.name)
-                        updateCurrentScreen(
-                            navController.currentBackStackEntry?.destination?.route)
-                    }) {
+                    onClick = { updateCurrentScreen(DetailSections.SiteDetails.name) }) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -172,11 +148,7 @@ fun SubmitNewTopBar(
                     }
                 }
                 TextButton(
-                    onClick = {
-                        navController.navigate(Destinations.NewSubmittalDetails.name)
-                        updateCurrentScreen(
-                            navController.currentBackStackEntry?.destination?.route)
-                    }) {
+                    onClick = { updateCurrentScreen(DetailSections.SubmittalDetails.name) }) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -195,11 +167,10 @@ fun SubmitNewTopBar(
 
 @Composable
 fun SubmitNewBottomBar(
-    navController: NavHostController,
     currentScreen: String?,
     submitReady: Boolean,
     submitClick: () -> Unit,
-    updateCurrentScreen: (String?) -> Unit
+    updateCurrentScreen: (String) -> Unit
 ) {
     BottomAppBar(
         containerColor = MaterialTheme.colorScheme.primary,
@@ -210,17 +181,16 @@ fun SubmitNewBottomBar(
                 verticalAlignment = Alignment.CenterVertically,
             ){
                 OnPrimaryTextButton(
-                    enabled = currentScreen != Destinations.NewDispatchDetails.name,
+                    enabled = currentScreen != DetailSections.DispatchDetails.name,
                     onClick = {
                         when(currentScreen) {
-                            Destinations.NewLocationDetails.name ->
-                                navController.navigate(Destinations.NewDispatchDetails.name)
-                            Destinations.NewSiteDetails.name ->
-                                navController.navigate(Destinations.NewLocationDetails.name)
-                            Destinations.NewSubmittalDetails.name ->
-                                navController.navigate(Destinations.NewSiteDetails.name)
+                            DetailSections.LocationDetails.name ->
+                                updateCurrentScreen(DetailSections.DispatchDetails.name)
+                            DetailSections.SiteDetails.name ->
+                                updateCurrentScreen(DetailSections.LocationDetails.name)
+                            DetailSections.SubmittalDetails.name ->
+                                updateCurrentScreen(DetailSections.SiteDetails.name)
                         }
-                        updateCurrentScreen(navController.currentBackStackEntry?.destination?.route)
                     },
                     labelResource = R.string.previous,
                     modifier = Modifier
@@ -238,17 +208,16 @@ fun SubmitNewBottomBar(
                         .padding(dimensionResource(id = R.dimen.thin_spacing))
                 )
                 OnPrimaryTextButton(
-                    enabled = currentScreen != Destinations.NewSubmittalDetails.name,
+                    enabled = currentScreen != DetailSections.SubmittalDetails.name,
                     onClick = {
                         when(currentScreen) {
-                            Destinations.NewDispatchDetails.name ->
-                                navController.navigate(Destinations.NewLocationDetails.name)
-                            Destinations.NewLocationDetails.name ->
-                                navController.navigate(Destinations.NewSiteDetails.name)
-                            Destinations.NewSiteDetails.name ->
-                                navController.navigate(Destinations.NewSubmittalDetails.name)
+                            DetailSections.DispatchDetails.name ->
+                                updateCurrentScreen(DetailSections.LocationDetails.name)
+                            DetailSections.LocationDetails.name ->
+                                updateCurrentScreen(DetailSections.SiteDetails.name)
+                            DetailSections.SiteDetails.name ->
+                                updateCurrentScreen(DetailSections.SubmittalDetails.name)
                         }
-                        updateCurrentScreen(navController.currentBackStackEntry?.destination?.route)
                     },
                     labelResource = R.string.next,
                     modifier = Modifier

@@ -37,7 +37,6 @@ import com.cbdn.reports.ui.navigation.AppNavHost
 import com.cbdn.reports.ui.navigation.Destinations
 import com.cbdn.reports.ui.viewmodel.AppViewModel
 import com.cbdn.reports.ui.views.composables.FormButton
-import com.cbdn.reports.ui.views.composables.FormHeader
 
 
 @Composable
@@ -46,7 +45,7 @@ fun App(
     appViewModel: AppViewModel
 ) {
     val uiState by appViewModel.uiState.collectAsStateWithLifecycle()
-    // navigation
+    val reportState by appViewModel.reportState.collectAsStateWithLifecycle()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen = Destinations.valueOf(
         backStackEntry?.destination?.route ?: Destinations.AppMenu.name
@@ -57,106 +56,116 @@ fun App(
                 currentScreen = currentScreen,
                 canNavigateBack = navController.previousBackStackEntry != null,
                 navigateUp = {
-                    appViewModel.setLastScreen(
-                        navController.currentBackStackEntry?.destination?.route
+                    navController.popBackStack(
+                        route = Destinations.AppMenu.name,
+                        inclusive = false
                     )
-                    appViewModel.setSubmitButtonClicked(false)
-                    navController.popBackStack()
-                             },
+                },
             )
         }
     ) { innerPadding ->
+        if (currentScreen == Destinations.AppMenu) {
+            when (uiState.prevDestination) {
+                Destinations.NewReport.name -> {
+                    if (!uiState.submitSuccessful) {
+                        if (reportState.finalized) {
+                            Dialog(onDismissRequest = {
+                                appViewModel.resetUI()
+                            }) {
+                                Column(
+                                    modifier = Modifier
+                                        .background(color = MaterialTheme.colorScheme.background)
+                                        .padding(dimensionResource(id = R.dimen.moderate_spacing)),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                ) {
+                                    Icon(Icons.Rounded.Warning, null)
+                                    DialogHeader(R.string.not_submitted)
+                                    Text(stringResource(id = R.string.not_submitted_message))
+                                    Row {
+                                        FormButton(
+                                            onClick = {
+                                                appViewModel.resetUI()
+                                            },
+                                            labelResource = R.string.discard
+                                        )
+                                        FormButton(
+                                            onClick = {
+                                                appViewModel.submitReport()
+                                            },
+                                            labelResource = R.string.submit
+                                        )
+                                    }
+                                }
+                            }
+                        } else {
+                            Dialog(onDismissRequest = {
+                                appViewModel.resetUI()
+                            }) {
+                                Column(
+                                    modifier = Modifier
+                                        .background(color = MaterialTheme.colorScheme.background)
+                                        .padding(dimensionResource(id = R.dimen.moderate_spacing)),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                ) {
+                                    Icon(Icons.Rounded.Warning, null)
+                                    DialogHeader(R.string.not_submitted)
+                                    Text(stringResource(id = R.string.incomplete_message))
+                                    Row {
+                                        FormButton(
+                                            onClick = {
+                                                appViewModel.resetUI()
+                                            },
+                                            labelResource = R.string.discard
+                                        )
+                                        FormButton(
+                                            onClick = {
+                                                appViewModel.submitReport()
+                                            },
+                                            labelResource = R.string.save_as_incomplete
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        Dialog(onDismissRequest = {
+                            appViewModel.resetUI()
+                        }) {
+                            Column(
+                                modifier = Modifier
+                                    .background(color = MaterialTheme.colorScheme.background)
+                                    .padding(dimensionResource(id = R.dimen.moderate_spacing)),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ) {
+                                Icon(Icons.Rounded.Done, null)
+                                DialogHeader(R.string.submitted_successfully)
+                                Text(stringResource(id = R.string.submit_successful_message))
+                                FormButton(
+                                    onClick = {
+                                        appViewModel.resetUI()
+                                    },
+                                    labelResource = R.string.ok
+                                )
+                            }
+                        }
+                    }
+                }
+                Destinations.FinishReport.name -> { appViewModel.clearPulledReports() }
+                Destinations.SearchReports.name -> { appViewModel.clearPulledReports() }
+                Destinations.ViewStatistics.name -> { appViewModel.clearPulledReports() }
+                else -> {}
+            }
+        }
         AppNavHost(
-            appNavController = navController,
+            navController = navController,
             appViewModel = appViewModel,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         )
-        when (uiState.prevScreen) {
-            Destinations.NewReport.name -> {
-                if (uiState.submitClicked) {
-                    Dialog(onDismissRequest = { appViewModel.resetUiState() }) {
-                        Column(
-                            modifier = Modifier
-                                .background(color = MaterialTheme.colorScheme.background)
-                                .padding(dimensionResource(id = R.dimen.moderate_spacing)),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                        ) {
-                            Icon(Icons.Rounded.Done, null)
-                            FormHeader(R.string.submitted_successfully)
-                            Text(stringResource(id = R.string.submit_successful_message))
-                            FormButton(
-                                onClick = {
-                                    appViewModel.resetUiState()
-                                          },
-                                labelResource = R.string.ok
-                            )
-                        }
-                    }
-                } else {
-                    if (uiState.report?.finalized == true) {
-                        Dialog(onDismissRequest = { appViewModel.resetUiState() }) {
-                            Column(
-                                modifier = Modifier
-                                    .background(color = MaterialTheme.colorScheme.background)
-                                    .padding(dimensionResource(id = R.dimen.moderate_spacing)),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                            ) {
-                                Icon(Icons.Rounded.Warning, null)
-                                DialogHeader(R.string.not_submitted)
-                                Text(stringResource(id = R.string.not_submitted_message))
-                                Row {
-                                    FormButton(
-                                        onClick = { appViewModel.resetUiState() },
-                                        labelResource = R.string.discard
-                                    )
-                                    FormButton(
-                                        onClick = {
-                                            appViewModel.submitReport()
-                                            appViewModel.resetUiState()
-                                        },
-                                        labelResource = R.string.submit
-                                    )
-                                }
-                            }
-                        }
-                    } else {
-                        Dialog(onDismissRequest = { appViewModel.resetUiState() }) {
-                            Column(
-                                modifier = Modifier
-                                    .background(color = MaterialTheme.colorScheme.background)
-                                    .padding(dimensionResource(id = R.dimen.moderate_spacing)),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                            ) {
-                                Icon(Icons.Rounded.Warning, null)
-                                DialogHeader(R.string.not_submitted)
-                                Text(stringResource(id = R.string.incomplete_message))
-                                Row {
-                                    FormButton(
-                                        onClick = { appViewModel.resetUiState() },
-                                        labelResource = R.string.discard
-                                    )
-                                    FormButton(
-                                        onClick = {
-                                            appViewModel.submitReport()
-                                            appViewModel.resetUiState()
-                                        },
-                                        labelResource = R.string.save_as_incomplete
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            Destinations.FinishReport.name -> { appViewModel.resetUiState() }
-            Destinations.SearchReports.name -> { appViewModel.resetUiState() }
-            Destinations.ViewStatistics.name -> { appViewModel.resetUiState() }
-        }
     }
 }
 

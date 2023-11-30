@@ -12,18 +12,6 @@ enum class Destinations(
     NewReport(
         title = R.string.submit_new_header
     ),
-        NewDispatchDetails(
-            title = R.string.submit_new_header
-        ),
-        NewLocationDetails(
-            title = R.string.submit_new_header
-        ),
-        NewSiteDetails(
-            title = R.string.submit_new_header
-        ),
-        NewSubmittalDetails(
-            title = R.string.submit_new_header
-        ),
     FinishReport(
         title = R.string.finish_report
     ),

@@ -2,7 +2,6 @@ package com.cbdn.reports.ui.views.newreport
 
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -22,7 +21,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cbdn.reports.R
 import com.cbdn.reports.data.EmergencyCodeData
 import com.cbdn.reports.data.TruckData
-import com.cbdn.reports.ui.viewmodel.NewReportViewModel
+import com.cbdn.reports.ui.viewmodel.AppViewModel
 import com.cbdn.reports.ui.views.composables.BasicTextField
 import com.cbdn.reports.ui.views.composables.DateTimeSelection
 import com.cbdn.reports.ui.views.composables.DropDownTextField
@@ -32,15 +31,15 @@ import com.cbdn.reports.ui.views.composables.FormSubHeader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewDispatchDetails(
-    viewModel: NewReportViewModel
+fun DispatchDetails(
+    viewModel: AppViewModel,
+    modifier: Modifier
 ) {
     val reportState by viewModel.reportState.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = modifier
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
