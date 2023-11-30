@@ -1,6 +1,7 @@
 package com.cbdn.reports.ui.views.newreport
 
 import OnSecondaryIcon
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,26 +16,46 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.dimensionResource
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.cbdn.reports.R
 import com.cbdn.reports.ui.navigation.Destinations
 import com.cbdn.reports.ui.navigation.NewReportNavHost
+import com.cbdn.reports.ui.viewmodel.AppViewModel
 import com.cbdn.reports.ui.viewmodel.NewReportViewModel
 import com.cbdn.reports.ui.views.composables.OnPrimaryTextButton
 import com.cbdn.reports.ui.views.composables.OnSecondaryText
 
 @Composable
-fun NewReport(
+fun NewReport (
+    appNavController: NavHostController,
+    appViewModel: AppViewModel,
     navController: NavHostController = rememberNavController(),
-    newReportViewModel: NewReportViewModel = NewReportViewModel()
+    newReportViewModel: NewReportViewModel = NewReportViewModel(),
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
 ) {
     val uiState by newReportViewModel.uiState.collectAsStateWithLifecycle()
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { source, event ->
+                Log.d("DEV", "Source: $source, Event: $event")
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            appViewModel.setReport(newReportViewModel.reportState.value)
+            newReportViewModel.leaveScreen()
+            Log.d("DEV", "Disposed")
+            lifecycleOwner.lifecycle.removeObserver((observer))
+        }
+    }
     Scaffold(
         topBar = {
             SubmitNewTopBar(
@@ -49,9 +70,17 @@ fun NewReport(
         bottomBar = {
             SubmitNewBottomBar(
                 navController = navController,
-                viewModel = newReportViewModel,
                 currentScreen = uiState.currentScreen,
                 submitReady = uiState.reportComplete,
+                submitClick = {
+                    appViewModel.setReport(newReportViewModel.reportState.value)
+                    appViewModel.setLastScreen(
+                        appNavController.currentBackStackEntry?.destination?.route
+                    )
+                    appViewModel.setSubmitButtonClicked(true)
+                    newReportViewModel.leaveScreen()
+                    appNavController.popBackStack()
+                              },
                 updateCurrentScreen = { newReportViewModel.setCurrentScreen(it) }
             )
         }
@@ -163,9 +192,9 @@ fun SubmitNewTopBar(
 @Composable
 fun SubmitNewBottomBar(
     navController: NavHostController,
-    viewModel: NewReportViewModel,
     currentScreen: String?,
     submitReady: Boolean,
+    submitClick: () -> Unit,
     updateCurrentScreen: (String?) -> Unit
 ) {
     BottomAppBar(
@@ -197,7 +226,7 @@ fun SubmitNewBottomBar(
                 )
                 OnPrimaryTextButton(
                     enabled = submitReady,
-                    onClick = { viewModel.submitReport() },
+                    onClick = submitClick,
                     labelResource = R.string.submit,
                     modifier = Modifier
                         .fillMaxWidth()

@@ -1,9 +1,7 @@
 package com.cbdn.reports.ui.views.composables
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.DatePicker
@@ -66,12 +64,7 @@ fun DateTimeSelection (
     if (openDateDialog.value) {
         DatePickerDialog(
             modifier = Modifier
-                .fillMaxSize()
-                .border(
-                    dimensionResource(id = R.dimen.thin_spacing),
-                    MaterialTheme.colorScheme.tertiaryContainer
-                )
-                .padding(dimensionResource(id = R.dimen.thin_spacing))
+                .padding(dimensionResource(id = R.dimen.thick_spacing))
                 .background(color = MaterialTheme.colorScheme.background),
             properties = DialogProperties(usePlatformDefaultWidth = false),
             shape = RectangleShape,
@@ -111,12 +104,7 @@ fun DateTimeSelection (
     if (openTimeDialog.value) {
         DatePickerDialog(
             modifier = Modifier
-                .fillMaxSize()
-                .border(
-                    dimensionResource(id = R.dimen.thin_spacing),
-                    MaterialTheme.colorScheme.tertiaryContainer
-                )
-                .padding(dimensionResource(id = R.dimen.thin_spacing))
+                .padding(dimensionResource(id = R.dimen.thick_spacing))
                 .background(color = MaterialTheme.colorScheme.background),
             properties = DialogProperties(usePlatformDefaultWidth = false),
             shape = RectangleShape,

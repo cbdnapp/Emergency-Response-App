@@ -1,10 +1,11 @@
+package com.cbdn.reports.ui.navigation
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.cbdn.reports.ui.navigation.Destinations
-import com.cbdn.reports.ui.viewmodel.NewReportViewModel
+import com.cbdn.reports.ui.viewmodel.AppViewModel
 import com.cbdn.reports.ui.views.AppMenu
 import com.cbdn.reports.ui.views.finishreport.FinishReport
 import com.cbdn.reports.ui.views.newreport.NewReport
@@ -13,20 +14,23 @@ import com.cbdn.reports.ui.views.viewstatistics.ViewStatistics
 
 @Composable
 fun AppNavHost(
-    navController: NavHostController,
-    newReportViewModel: NewReportViewModel,
+    appNavController: NavHostController,
+    appViewModel: AppViewModel,
     modifier: Modifier
 ) {
     NavHost(
-        navController = navController,
+        navController = appNavController,
         startDestination = Destinations.AppMenu.name,
         modifier = modifier
     ) {
         composable(route = Destinations.AppMenu.toString()) {
-            AppMenu(navController = navController)
+            AppMenu(navController = appNavController)
         }
         composable(route = Destinations.NewReport.name) {
-            NewReport(newReportViewModel = newReportViewModel)
+            NewReport(
+                appViewModel = appViewModel,
+                appNavController = appNavController,
+            )
         }
         composable(route = Destinations.FinishReport.name) {
             FinishReport()

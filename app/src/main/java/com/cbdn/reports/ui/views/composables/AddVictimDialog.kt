@@ -1,19 +1,16 @@
 package com.cbdn.reports.ui.views.composables
 
+import DialogHeader
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.cbdn.reports.R
@@ -41,16 +38,12 @@ fun AddVictimDialog(
     ){
         Column(
             modifier = Modifier
-                .border(
-                    dimensionResource(id = R.dimen.thin_spacing),
-                    MaterialTheme.colorScheme.tertiaryContainer
-                )
-                .fillMaxSize()
-                .background(color = MaterialTheme.colorScheme.background),
+                .background(color = MaterialTheme.colorScheme.background)
+                .padding(dimensionResource(id = R.dimen.thick_spacing)),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            FormSubHeader(textResource = R.string.victim_details)
+            DialogHeader(textResource = R.string.victim_details)
 
             // STATUS CODE
             DropDownTextField(
@@ -78,17 +71,20 @@ fun AddVictimDialog(
                 labelResource = R.string.victim_identification
             )
             Row() {
-                TextButton(onClick = onDismiss) {
-                    Text(text = stringResource(id = R.string.cancel))
-                }
+                FormButton(
+                    onClick = onDismiss,
+                    labelResource = R.string.cancel
+                )
                 if (victimEditIndex == null) {
-                    TextButton(onClick = onConfirmation) {
-                        Text(text = stringResource(id = R.string.ok))
-                    }
+                    FormButton(
+                        onClick = onConfirmation,
+                        labelResource = R.string.ok
+                    )
                 } else {
-                    TextButton(onClick = onEdit) {
-                        Text(text = stringResource(id = R.string.update))
-                    }
+                    FormButton(
+                        onClick = onEdit,
+                        labelResource = R.string.update
+                    )
                 }
             }
         }

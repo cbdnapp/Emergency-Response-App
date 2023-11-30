@@ -2,7 +2,6 @@ package com.cbdn.reports.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.cbdn.reports.data.datamodel.FireStoreUtility
 import com.cbdn.reports.data.datamodel.Report
 import com.cbdn.reports.data.datamodel.VictimInfo
 import com.cbdn.reports.ui.navigation.Destinations
@@ -35,21 +34,23 @@ data class NewReportUiState(
     var victimAge: String = "",
     var victimIdentification: String = "",
     // submittal
-    var reportID: String = "",
 )
 
-class NewReportViewModel : ViewModel() {
+class NewReportViewModel() : ViewModel() {
     private var _reportState = MutableStateFlow(Report())
     private var _uiState = MutableStateFlow(NewReportUiState())
     var reportState: StateFlow<Report> = _reportState.asStateFlow()
     var uiState: StateFlow<NewReportUiState> = _uiState.asStateFlow()
 
     init {
-        Log.d("DEV", "ViewModel init.")
+        Log.d("DEV", "NewReportViewModel init.")
     }
     override fun onCleared() {
         super.onCleared()
-        Log.d("DEV", "ViewModel onCleared.")
+        Log.d("DEV", "NewReportViewModel onCleared.")
+    }
+    fun leaveScreen() {
+        onCleared()
     }
     fun setCurrentScreen(screen: String?) {
         _uiState.update {
@@ -352,13 +353,5 @@ class NewReportViewModel : ViewModel() {
             it.copy(reportWriter = input.ifEmpty { null })
         }
         isSubmitComplete()
-    }
-
-    fun submitReport() {
-        if (uiState.value.reportID.isNotEmpty()) {
-            FireStoreUtility().updateReport(reportState.value, uiState.value.reportID)
-        } else {
-            FireStoreUtility().submitReport(reportState.value)
-        }
     }
 }

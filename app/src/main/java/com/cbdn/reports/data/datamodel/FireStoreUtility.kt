@@ -87,7 +87,7 @@ class FireStoreUtility {
             }
     }
 
-    fun ammendReport(report: Report, prevId : String){
+    fun amendReport(report: Report, prevId : String){
         db.collection("reports")
             .add(report)
             .addOnSuccessListener { newDocumentReference ->
