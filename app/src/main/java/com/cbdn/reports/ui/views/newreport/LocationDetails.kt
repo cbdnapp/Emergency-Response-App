@@ -43,9 +43,9 @@ fun LocationDetails(
             labelResource = R.string.enter_location
         )
         FormDivider()
-        val singapore = LatLng(1.35, 103.87)
+        val santoDomingo = LatLng(18.46, -69.94)
         val cameraPositionState = rememberCameraPositionState {
-            position = CameraPosition.fromLatLngZoom(singapore, 10f)
+            position = CameraPosition.fromLatLngZoom(santoDomingo, 10f)
         }
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
