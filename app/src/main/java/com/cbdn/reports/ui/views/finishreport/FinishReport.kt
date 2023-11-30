@@ -1,38 +1,54 @@
 package com.cbdn.reports.ui.views.finishreport
 
-import android.util.Log
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.cbdn.reports.ui.viewmodel.FinishReportViewModel
+import com.cbdn.reports.ui.viewmodel.AppViewModel
+import com.cbdn.reports.ui.views.composables.LazyColumnOfReports
 
 @Composable
 fun FinishReport(
-    viewModel: FinishReportViewModel = FinishReportViewModel()
+    appViewModel: AppViewModel,
 ) {
-    val reportState by viewModel.reportState.collectAsStateWithLifecycle()
-    if (reportState.isEmpty()) {
-        
-    } else {
-        LazyColumn(
+    val uiState by appViewModel.uiState.collectAsStateWithLifecycle()
+
+    if (uiState.pulledReports == null) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Log.d("DEV", "Finish Report reportState: ${viewModel.reportState.value}")
-            Thread.sleep(2000)
-            items(
-                items = viewModel.reportState.value,
-                key = {}
-            ) { unfinishedReport ->
-                Row() {
-                    Text(text = unfinishedReport.first)
-                    Text(text = unfinishedReport.second.toString())
-                }
+            CircularProgressIndicator(
+                modifier = Modifier.width(64.dp),
+                color = MaterialTheme.colorScheme.secondary,
+                trackColor = MaterialTheme.colorScheme.surfaceVariant,
+            )
+            LaunchedEffect(Unit) {
+                appViewModel.getUnfinishedReports()
             }
-            Log.d("DEV", "Finish Report reportState: ${viewModel.reportState.value}")
         }
+    } else if (uiState.pulledReports!!.isNotEmpty()) {
+        LazyColumnOfReports(
+            items= uiState.pulledReports!!,
+            modifier = Modifier.fillMaxSize()
+        )
+    } else {
+        Text(text = "No Results")
     }
 }
 

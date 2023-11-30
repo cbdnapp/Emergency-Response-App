@@ -43,6 +43,7 @@ fun NewReport (
     newReportViewModel: NewReportViewModel = NewReportViewModel(),
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
 ) {
+    val reportState by newReportViewModel.reportState.collectAsStateWithLifecycle()
     val uiState by newReportViewModel.uiState.collectAsStateWithLifecycle()
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { source, event ->
@@ -50,8 +51,10 @@ fun NewReport (
         }
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose {
-            appViewModel.setReport(newReportViewModel.reportState.value)
+//            Log.d("DEV", "${}")
+            appViewModel.setReport(reportState)
             newReportViewModel.leaveScreen()
+//            Log.d("DEV", "Disposed")
             Log.d("DEV", "Disposed")
             lifecycleOwner.lifecycle.removeObserver((observer))
         }
@@ -73,7 +76,8 @@ fun NewReport (
                 currentScreen = uiState.currentScreen,
                 submitReady = uiState.reportComplete,
                 submitClick = {
-                    appViewModel.setReport(newReportViewModel.reportState.value)
+                    appViewModel.setReport(reportState)
+                    appViewModel.submitReport()
                     appViewModel.setLastScreen(
                         appNavController.currentBackStackEntry?.destination?.route
                     )

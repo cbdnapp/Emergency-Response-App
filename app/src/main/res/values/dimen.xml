@@ -5,12 +5,14 @@
     <dimen name="next_button_width">200.dp</dimen>
     <dimen name="next_button_height">80.dp</dimen>
 
-    <!-- Padding-->
+    <!-- Padding -->
     <dimen name="double_thick_spacing">100.dp</dimen>
     <dimen name="thick_spacing">50.dp</dimen>
     <dimen name="moderate_spacing">20.dp</dimen>
     <dimen name="thin_spacing">10.dp</dimen>
 
+    <!-- Loading -->
+    <dimen name="circular_indicator">80.dp</dimen>
 
     <!-- FORM -->
     <dimen name="full_field_width">400.dp</dimen>

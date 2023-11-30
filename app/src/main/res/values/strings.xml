@@ -81,10 +81,11 @@
     <string name="not_submitted">Report Not Submitted</string>
     <string name="not_submitted_message">The New Report was finished but was not submitted. Would you like to submit it or discard it?</string>
     <string name="discard">Discard</string>
-    <string name="incomplete_message">The New Report was incomplete and not submitted. You may discard it or submit it as incomplete. Incomplete reports may be finished or discarded later, but will not show up in the report archive.</string>
-    <string name="submit_as_incomplete">Submit as Incomplete</string>
+    <string name="incomplete_message">The New Report was incomplete and not submitted. You may discard it or save it as incomplete. Incomplete reports may be finished or discarded later, but will not show up in the report archive.</string>
+    <string name="save_as_incomplete">Save as Incomplete</string>
 
 
+    <string name="report_id">Report ID</string>
     <!-- Submit Report Finish -->
 
     <!-- View Report Filter -->

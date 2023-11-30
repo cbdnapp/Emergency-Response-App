@@ -33,10 +33,14 @@ fun AppNavHost(
             )
         }
         composable(route = Destinations.FinishReport.name) {
-            FinishReport()
+            FinishReport(
+                appViewModel = appViewModel
+            )
         }
         composable(route = Destinations.SearchReports.name) {
-            SearchReports()
+            SearchReports(
+                appViewModel = appViewModel
+            )
         }
         composable(route = Destinations.ViewStatistics.name) {
             ViewStatistics()

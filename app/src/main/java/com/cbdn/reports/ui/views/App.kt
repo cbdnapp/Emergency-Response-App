@@ -77,38 +77,49 @@ fun App(
         when (uiState.prevScreen) {
             Destinations.NewReport.name -> {
                 if (uiState.submitClicked) {
-                    Dialog(onDismissRequest = { }) {
+                    Dialog(onDismissRequest = { appViewModel.resetUiState() }) {
                         Column {
                             Icon(Icons.Rounded.Done, null)
                             FormHeader(R.string.submitted_successfully)
                             Text(stringResource(id = R.string.submit_successful_message))
                             FormButton(
-                                onClick = { appViewModel.resetUiState() },
+                                onClick = {
+                                    appViewModel.resetUiState()
+                                          },
                                 labelResource = R.string.ok
                             )
                         }
                     }
                 } else {
                     if (uiState.report?.finalized == true) {
-                        Dialog(onDismissRequest = { }) {
-                            Column {
+                        Dialog(onDismissRequest = { appViewModel.resetUiState() }) {
+                            Column(
+                                modifier = Modifier
+                                    .background(color = MaterialTheme.colorScheme.background)
+                                    .padding(dimensionResource(id = R.dimen.moderate_spacing)),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ) {
                                 Icon(Icons.Rounded.Warning, null)
                                 DialogHeader(R.string.not_submitted)
                                 Text(stringResource(id = R.string.not_submitted_message))
                                 Row {
                                     FormButton(
-                                        onClick = {  },
+                                        onClick = { appViewModel.resetUiState() },
                                         labelResource = R.string.discard
                                     )
                                     FormButton(
-                                        onClick = {  },
+                                        onClick = {
+                                            appViewModel.submitReport()
+                                            appViewModel.resetUiState()
+                                        },
                                         labelResource = R.string.submit
                                     )
                                 }
                             }
                         }
                     } else {
-                        Dialog(onDismissRequest = { }) {
+                        Dialog(onDismissRequest = { appViewModel.resetUiState() }) {
                             Column(
                                 modifier = Modifier
                                     .background(color = MaterialTheme.colorScheme.background)
@@ -125,8 +136,11 @@ fun App(
                                         labelResource = R.string.discard
                                     )
                                     FormButton(
-                                        onClick = {  },
-                                        labelResource = R.string.submit_as_incomplete
+                                        onClick = {
+                                            appViewModel.submitReport()
+                                            appViewModel.resetUiState()
+                                        },
+                                        labelResource = R.string.save_as_incomplete
                                     )
                                 }
                             }
@@ -134,6 +148,9 @@ fun App(
                     }
                 }
             }
+            Destinations.FinishReport.name -> { appViewModel.resetUiState() }
+            Destinations.SearchReports.name -> { appViewModel.resetUiState() }
+            Destinations.ViewStatistics.name -> { appViewModel.resetUiState() }
         }
     }
 }

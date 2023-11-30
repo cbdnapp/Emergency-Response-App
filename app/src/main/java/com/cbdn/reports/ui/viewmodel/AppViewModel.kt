@@ -10,10 +10,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 data class AppUiState(
-    val submitClicked: Boolean = false,
-    val prevScreen: String? = null,
-    val report: Report? = null,
-    val reportID: String? = null
+    var submitClicked: Boolean = false,
+    var prevScreen: String? = null,
+    var report: Report? = null,
+    var reportID: String? = null,
+    var pulledReports: List<Pair<String, Report>>? = null
 )
 class AppViewModel(
     private val db: FireStoreUtility = FireStoreUtility()
@@ -33,7 +34,8 @@ class AppViewModel(
                 submitClicked = false,
                 prevScreen = null,
                 report = null,
-                reportID = null
+                reportID = null,
+                pulledReports = null
                 )
         }
     }
@@ -54,9 +56,22 @@ class AppViewModel(
     }
     fun submitReport() {
         if (uiState.value.reportID != null) {
-            uiState.value.report?.let { db.updateReport(it, uiState.value.reportID!!) }
+            db.updateReport(uiState.value.report!!, uiState.value.reportID!!)
         } else if (uiState.value.report != null){
             db.submitReport(uiState.value.report!!)
         }
     }
+    suspend fun getUnfinishedReports() {
+        val reports: List<Pair<String, Report>> = db.getReport(finalized = false)
+        _uiState.update {
+            it.copy(pulledReports = reports)
+        }
+    }
+    suspend fun getFinishedReports() {
+        val reports: List<Pair<String, Report>> = db.getReport(finalized = true)
+        _uiState.update {
+            it.copy(pulledReports = reports)
+        }
+    }
+
 }
