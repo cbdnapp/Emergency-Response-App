@@ -22,10 +22,12 @@ android {
         versionCode 1
         versionName "1.0"
 
+        //Makes MAPS_API_KEY available from local.properties
+        //Not sure why it's throwing it's flag but it works and its a temporary
+        //solution until API key is stored in secret.properties
         Properties properties = new Properties()
-
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        manifestPlaceholders = [MAPS_API_KEY: "${properties.getProperty('MAPS_API_KEY')}"]
+        manifestPlaceholders = ["MAPS_API_KEY": "${properties.getProperty('MAPS_API_KEY')}"]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
