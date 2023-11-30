@@ -14,35 +14,39 @@ import com.cbdn.reports.ui.views.viewstatistics.ViewStatistics
 
 @Composable
 fun AppNavHost(
-    appNavController: NavHostController,
+    navController: NavHostController,
     appViewModel: AppViewModel,
     modifier: Modifier
 ) {
     NavHost(
-        navController = appNavController,
+        navController = navController,
         startDestination = Destinations.AppMenu.name,
         modifier = modifier
     ) {
         composable(route = Destinations.AppMenu.toString()) {
-            AppMenu(navController = appNavController)
+            AppMenu(navController = navController)
         }
         composable(route = Destinations.NewReport.name) {
+            appViewModel.setPrevDestination(Destinations.NewReport.name)
             NewReport(
                 appViewModel = appViewModel,
-                appNavController = appNavController,
+                navController = navController,
             )
         }
         composable(route = Destinations.FinishReport.name) {
+            appViewModel.setPrevDestination(Destinations.FinishReport.name)
             FinishReport(
                 appViewModel = appViewModel
             )
         }
         composable(route = Destinations.SearchReports.name) {
+            appViewModel.setPrevDestination(Destinations.SearchReports.name)
             SearchReports(
                 appViewModel = appViewModel
             )
         }
         composable(route = Destinations.ViewStatistics.name) {
+            appViewModel.setPrevDestination(Destinations.ViewStatistics.name)
             ViewStatistics()
         }
     }

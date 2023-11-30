@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -20,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cbdn.reports.R
 import com.cbdn.reports.data.VictimCodeData
-import com.cbdn.reports.ui.viewmodel.NewReportViewModel
+import com.cbdn.reports.ui.viewmodel.AppViewModel
 import com.cbdn.reports.ui.views.composables.AddVictimDialog
 import com.cbdn.reports.ui.views.composables.DateTimeSelection
 import com.cbdn.reports.ui.views.composables.FormButton
@@ -32,15 +31,15 @@ import com.cbdn.reports.ui.views.composables.SwitchWithTextField
 import com.cbdn.reports.ui.views.composables.VictimInfoCard
 
 @Composable
-fun NewSiteDetails(
-    viewModel: NewReportViewModel
+fun SiteDetails(
+    viewModel: AppViewModel,
+    modifier: Modifier
 ) {
     val reportState by viewModel.reportState.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = modifier
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
