@@ -27,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -78,7 +77,13 @@ fun App(
             Destinations.NewReport.name -> {
                 if (uiState.submitClicked) {
                     Dialog(onDismissRequest = { appViewModel.resetUiState() }) {
-                        Column {
+                        Column(
+                            modifier = Modifier
+                                .background(color = MaterialTheme.colorScheme.background)
+                                .padding(dimensionResource(id = R.dimen.moderate_spacing)),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
                             Icon(Icons.Rounded.Done, null)
                             FormHeader(R.string.submitted_successfully)
                             Text(stringResource(id = R.string.submit_successful_message))
@@ -166,7 +171,6 @@ fun ReportsTopBar(
         title = {
             Text(
                 stringResource(id = currentScreen.title),
-                fontSize = 35.sp,
                 color = MaterialTheme.colorScheme.onPrimary
             )
                 },

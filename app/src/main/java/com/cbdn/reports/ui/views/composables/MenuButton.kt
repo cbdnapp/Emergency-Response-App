@@ -61,11 +61,14 @@ fun MenuButton(
                     )
                 }
             }
-            Box(modifier = Modifier.weight(.45f)) {
+            Box(modifier = Modifier.weight(.7f)) {
                 Column(
                     modifier = modifier
                         .fillMaxSize()
-                        .padding(start = dimensionResource(id = R.dimen.thin_spacing)),
+                        .padding(
+                            start = dimensionResource(id = R.dimen.thin_spacing),
+                            end = dimensionResource(id = R.dimen.moderate_spacing)
+                        ),
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Center
                 ) {
@@ -81,7 +84,6 @@ fun MenuButton(
                     )
                 }
             }
-            Box(modifier = Modifier.weight(.25f)) {}
         }
     }
 }
