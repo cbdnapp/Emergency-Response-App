@@ -92,6 +92,7 @@ fun App(
                                         FormButton(
                                             onClick = {
                                                 appViewModel.submitReport()
+                                                appViewModel.resetUI()
                                             },
                                             labelResource = R.string.submit
                                         )
@@ -122,6 +123,7 @@ fun App(
                                         FormButton(
                                             onClick = {
                                                 appViewModel.submitReport()
+                                                appViewModel.resetUI()
                                             },
                                             labelResource = R.string.save_as_incomplete
                                         )

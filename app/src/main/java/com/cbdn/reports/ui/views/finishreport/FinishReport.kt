@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cbdn.reports.ui.viewmodel.AppViewModel
 import com.cbdn.reports.ui.views.composables.LazyColumnOfReports
+import com.cbdn.reports.ui.views.composables.SingleReport
 
 @Composable
 fun FinishReport(
@@ -43,10 +44,21 @@ fun FinishReport(
             }
         }
     } else if (uiState.pulledReports!!.isNotEmpty()) {
-        LazyColumnOfReports(
-            items= uiState.pulledReports!!,
-            modifier = Modifier.fillMaxSize()
-        )
+
+        if (uiState.reportItemIndex != null) {
+            SingleReport(
+                reportData = uiState.pulledReports!![uiState.reportItemIndex!!],
+                optionDelete = { /*TODO*/ },
+                optionFinish = { /*TODO*/ },
+                modifier = Modifier
+            )
+        } else {
+            LazyColumnOfReports(
+                items= uiState.pulledReports!!,
+                selectReport = { appViewModel.setReportItemIndex(it) },
+                modifier = Modifier.fillMaxSize()
+            )
+        }
     } else {
         Text(text = "No Results")
     }

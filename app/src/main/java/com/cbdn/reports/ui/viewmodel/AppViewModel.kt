@@ -16,6 +16,7 @@ data class AppUiState(
     // Get Reports UI
     var reportID: String = "",
     var pulledReports: List<Pair<String, Report>>? = null,
+    var reportItemIndex: Int? = null,
 
     // Report Form UI
     var currentScreen: String = DetailSections.DispatchDetails.name,
@@ -59,6 +60,11 @@ class AppViewModel(
     fun clearPulledReports() {
         _uiState.update {
             it.copy(pulledReports = null)
+        }
+    }
+    fun setReportItemIndex(input: Int) {
+        _uiState.update {
+            it.copy(reportItemIndex = input)
         }
     }
     fun setCurrentScreen(input: String) {

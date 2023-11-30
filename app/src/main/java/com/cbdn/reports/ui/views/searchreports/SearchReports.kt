@@ -45,6 +45,7 @@ fun SearchReports(
         } else if (uiState.pulledReports!!.isNotEmpty()) {
             LazyColumnOfReports(
                 items= uiState.pulledReports!!,
+                selectReport = {  },
                 modifier = Modifier.fillMaxSize()
             )
         } else {
