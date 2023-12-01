@@ -1,13 +1,13 @@
 package com.cbdn.reports.ui.views.newreport
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cbdn.reports.R
 import com.cbdn.reports.ui.viewmodel.AppViewModel
@@ -29,8 +29,7 @@ fun LocationDetails(
 //    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Column(
-        modifier = modifier
-            .verticalScroll(rememberScrollState()),
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         FormHeader(textResource = R.string.submit_location_header)
@@ -48,8 +47,11 @@ fun LocationDetails(
             position = CameraPosition.fromLatLngZoom(santoDomingo, 10f)
         }
         GoogleMap(
-            modifier = Modifier.fillMaxSize(),
-            cameraPositionState = cameraPositionState
+            cameraPositionState = cameraPositionState,
+            modifier = Modifier
+                .fillMaxHeight()
+                .width(dimensionResource(id = R.dimen.full_field_width))
+            
         )
     }
 }
