@@ -31,7 +31,6 @@ fun LazyColumnOfReports(
 ) {
     LazyColumn {
         itemsIndexed(items = items) { index, item ->
-            val reportId = item.first
             val report = item.second
             Card(
                 colors = CardDefaults.cardColors(contentColor = MaterialTheme.colorScheme.primary),
@@ -41,7 +40,7 @@ fun LazyColumnOfReports(
             ) {
                 Row(
                     modifier = modifier
-                        .padding(dimensionResource(id = R.dimen.moderate_spacing)),
+                        .padding(dimensionResource(id = R.dimen.thin_spacing)),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(

@@ -3,6 +3,7 @@ package com.cbdn.reports.ui.views.searchreports
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cbdn.reports.ui.viewmodel.AppViewModel
 import com.cbdn.reports.ui.views.composables.LazyColumnOfReports
+import com.cbdn.reports.ui.views.composables.ReportViewer
 
 @Composable
 fun SearchReports(
@@ -43,12 +45,23 @@ fun SearchReports(
                 }
             }
         } else if (uiState.pulledReports!!.isNotEmpty()) {
-            LazyColumnOfReports(
-                items= uiState.pulledReports!!,
-                selectReport = {  },
-                modifier = Modifier.fillMaxSize()
-            )
+
+            if (uiState.reportItemIndex != null) {
+                ReportViewer(
+                    reportData = uiState.pulledReports!![uiState.reportItemIndex!!],
+                    clickPrevious = { appViewModel.clearReportItemIndex() },
+                    showAmend = true,
+                    clickAmend = { /*TODO*/ },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            } else {
+                LazyColumnOfReports(
+                    items= uiState.pulledReports!!,
+                    selectReport = { appViewModel.setReportItemIndex(it) },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         } else {
             Text(text = "No Results")
         }
-    }
+}

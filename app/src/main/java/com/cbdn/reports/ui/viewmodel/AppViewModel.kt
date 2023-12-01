@@ -67,6 +67,11 @@ class AppViewModel(
             it.copy(reportItemIndex = input)
         }
     }
+    fun clearReportItemIndex() {
+        _uiState.update {
+            it.copy(reportItemIndex = null)
+        }
+    }
     fun setCurrentScreen(input: String) {
         _uiState.update {
             it.copy(currentScreen = input)

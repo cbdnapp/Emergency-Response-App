@@ -84,13 +84,14 @@
     <string name="incomplete_message">The New Report was incomplete and not submitted. You may discard it or save it as incomplete. Incomplete reports may be finished or discarded later, but will not show up in the report archive.</string>
     <string name="save_as_incomplete">Save as Incomplete</string>
 
-
     <string name="report_id">Report ID</string>
-    <!-- Submit Report Finish -->
 
-    <!-- View Report Filter -->
+    <!-- Finish Report -->
 
-    <!-- View Report Statistics -->
+    <!-- Search Reports -->
+    <string name="delete_report">Delete Report</string>
+    <string name="amend_report">Amend Report</string>
+    <!-- View Statistics -->
 
 
 </resources>

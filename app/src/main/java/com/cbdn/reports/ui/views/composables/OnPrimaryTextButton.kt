@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun OnPrimaryTextButton(
-    enabled: Boolean,
+    enabled: Boolean = true,
     onClick: () -> Unit,
     labelResource: Int,
     modifier: Modifier

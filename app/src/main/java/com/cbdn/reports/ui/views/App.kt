@@ -155,9 +155,18 @@ fun App(
                         }
                     }
                 }
-                Destinations.FinishReport.name -> { appViewModel.clearPulledReports() }
-                Destinations.SearchReports.name -> { appViewModel.clearPulledReports() }
-                Destinations.ViewStatistics.name -> { appViewModel.clearPulledReports() }
+                Destinations.FinishReport.name -> {
+                    appViewModel.clearPulledReports()
+                    appViewModel.clearReportItemIndex()
+                }
+                Destinations.SearchReports.name -> {
+                    appViewModel.clearPulledReports()
+                    appViewModel.clearReportItemIndex()
+                }
+                Destinations.ViewStatistics.name -> {
+                    appViewModel.clearPulledReports()
+                    appViewModel.clearReportItemIndex()
+                }
                 else -> {}
             }
         }
