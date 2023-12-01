@@ -30,5 +30,6 @@ fun BasicTextField (
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.thin_spacing))
             )
         },
+
     )
 }
