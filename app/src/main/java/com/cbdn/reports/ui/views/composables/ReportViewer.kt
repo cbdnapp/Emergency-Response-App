@@ -76,10 +76,10 @@ fun ReportViewer(
                 data = report.emergencyCode.toString(),
                 modifier = modifier
             )
-            ReportCardRow(
-                header = stringResource(id = R.string.location),
-                data = report.location.toString(),
-                modifier = modifier
+            ReportHeaderText(text = stringResource(id = R.string.location))
+            ReportDataText(
+                text = report.location.toString(),
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.thin_spacing))
             )
             convertMillisToDateTime(report.datetimeArrival)?.let {
                 ReportCardRow(

@@ -1,97 +1,159 @@
 <resources>
-    <string name="app_name">CBDN Reports</string>
+    <!-- App Name -->
+    <!-- CBDN Reports -->
+    <string name="app_name">Informes CBDN</string>
+
     <!-- App Menu -->
-    <string name="report_submission">Report Submission</string>
-    <string name="new_report">New Report</string>
-    <string name="submit_new_description">Start a new report.</string>
-    <string name="finish_report">Finish Report</string>
-    <string name="submit_finish_description">Select an incomplete report and complete it.</string>
-    <string name="report_database">Report Database</string>
-    <string name="search_reports">Search Reports</string>
-    <string name="view_filter_description">Search, filter, and select reports to view or amend.</string>
-    <string name="view_statistics">View Statistics</string>
-    <string name="view_statistics_description">View aggregate data from reports database.</string>
+    <!-- Report Submission -->
+    <string name="report_submission">Envío de informe</string>
+    <!-- New Report -->
+    <string name="new_report">Nuevo informe</string>
+    <!-- Start a new report. -->
+    <string name="submit_new_description">Iniciar un nuevo informe.</string>
+    <!-- Finish Report -->
+    <string name="finish_report">Finalizar informe</string>
+    <!-- Select an incomplete report and complete it. -->
+    <string name="submit_finish_description">Seleccionar un informe incompleto y completarlo.</string>
+    <!-- Report Database -->
+    <string name="report_database">Base de datos de informes</string>
+    <!-- Search Reports -->
+    <string name="search_reports">Buscar informes</string>
+    <!-- Search, filter, and select reports to view or amend. -->
+    <string name="view_filter_description">Buscar, filtrar y seleccionar informes para ver o modificar.</string>
+    <!-- View Statistics -->
+    <string name="view_statistics">Ver estadísticas</string>
+    <!-- View aggregate data from reports database. -->
+    <string name="view_statistics_description">Ver datos agregados de la base de datos de informes.</string>
 
-
-    <!-- GENERAL  -->
-    <string name="required">Required</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
-    <string name="update">Update</string>
-    <string name="cancel">Cancel</string>
-    <string name="ok">OK</string>
-    <string name="remove">Remove</string>
-    <string name="previous">Previous</string>
-    <string name="submit">Submit</string>
-    <string name="next">Next</string>
-    <string name="change_date">Change Date</string>
-    <string name="change_time">Change Time</string>
+    <!-- GENERAL -->
+    <string name="required">Obligatorio</string>
+    <string name="add">Agregar</string>
+    <string name="edit">Editar</string>
+    <string name="update">Actualizar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="ok">Aceptar</string>
+    <string name="remove">Eliminar</string>
+    <string name="previous">Anterior</string>
+    <string name="submit">Enviar</string>
+    <string name="next">Siguiente</string>
+    <string name="change_date">Cambiar fecha</string>
+    <string name="change_time">Cambiar hora</string>
 
     <!-- SubmitNew -->
-    <string name="submit_new_header">New Report</string>
+    <!-- New Report -->
+    <string name="submit_new_header">Nuevo informe</string>
+
     <!-- SubmitNewDispatch -->
-    <string name="dispatch">Dispatch</string>
-    <string name="submit_dispatch_details_header">Dispatch Details</string>
-    <string name="responding_truck">Responding Truck</string>
-    <string name="select_truck_id">Select Truck ID</string>
-    <string name="commanding_officer">Commanding Officer</string>
-    <string name="enter_officers_name">Enter Officer\'s Name</string>
-    <string name="date_and_time_of_dispatch">Date and Time of Dispatch</string>
-    <string name="emergency_code">Emergency Code</string>
-    <string name="select_emergency_code_id">Select Emergency Code ID</string>
-    <string name="select_code_category">Select Code Category</string>
+    <!-- Dispatch -->
+    <string name="dispatch">Despacho</string>
+    <!-- Dispatch Details -->
+    <string name="submit_dispatch_details_header">Detalles del despacho</string>
+    <!-- Responding Truck -->
+    <string name="responding_truck">Camión de respuesta</string>
+    <!-- Select Truck ID -->
+    <string name="select_truck_id">Seleccionar ID de camión</string>
+    <!-- Commanding Officer -->
+    <string name="commanding_officer">Oficial a cargo</string>
+    <!-- Enter Officer's Name -->
+    <string name="enter_officers_name">Ingresar nombre del oficial</string>
+    <!-- Date and Time of Dispatch -->
+    <string name="date_and_time_of_dispatch">Fecha y hora del despacho</string>
+    <!-- Emergency Code -->
+    <string name="emergency_code">Código de emergencia</string>
+    <!-- Select Emergency Code ID -->
+    <string name="select_emergency_code_id">Seleccionar ID de código de emergencia</string>
+    <!-- Select Code Category -->
+    <string name="select_code_category">Seleccionar categoría de código</string>
 
     <!-- SubmitNewLocation -->
-    <string name="submit_location_header">Location Data</string>
-    <string name="location">Location</string>
-    <string name="enter_location">Enter Location</string>
+    <!-- Location Data -->
+    <string name="submit_location_header">Datos de ubicación</string>
+    <!-- Location -->
+    <string name="location">Ubicación</string>
+    <!-- Enter Location -->
+    <string name="enter_location">Ingresar ubicación</string>
 
     <!-- SubmitNewOnScene -->
-    <string name="on_scene">On Scene</string>
-    <string name="submit_on_scene_details_header">On Scene Details</string>
-    <string name="date_and_time_of_arrival">Date and Time of Arrival</string>
-    <string name="unit_id">Unit ID</string>
-    <string name="police_present">Police Unit Present</string>
-    <string name="ambulance_present">Ambulance Unit Present</string>
-    <string name="electric_company_present">Electricity Company Present</string>
-    <string name="transit_police_present">Transit Police Present</string>
-    <string name="victim_info">Victim Info</string>
-    <string name="victim_count_with_count">Victim Count: %s</string>
-    <string name="victim_details">Victim Details</string>
-    <string name="victim_status_code">Status Code</string>
-    <string name="victim_name">Name</string>
-    <string name="victim_age">Age</string>
-    <string name="victim_number_with_data">Victim Number: %s</string>
-    <string name="victim_identification_with_data">Identification: %s</string>
-    <string name="victim_status_code_with_data">Status Code: %s</string>
-    <string name="victim_name_with_data">Name: %s</string>
-    <string name="victim_age_with_data">Age: %s</string>
-    <string name="victim_identification">Identification</string>
-    <string name="notes">Notes</string>
-    <string name="enter_notes">Enter Notes</string>
+    <!-- On Scene -->
+    <string name="on_scene">En el lugar</string>
+    <!-- On Scene Details -->
+    <string name="submit_on_scene_details_header">Detalles en el lugar</string>
+    <!-- Date and Time of Arrival -->
+    <string name="date_and_time_of_arrival">Fecha y hora de llegada</string>
+    <!-- Unit ID -->
+    <string name="unit_id">ID de unidad</string>
+    <!-- Police Unit Present -->
+    <string name="police_present">Unidad de policía presente</string>
+    <!-- Ambulance Unit Present -->
+    <string name="ambulance_present">Unidad de ambulancia presente</string>
+    <!-- Electricity Company Present -->
+    <string name="electric_company_present">Empresa de electricidad presente</string>
+    <!-- Transit Police Present -->
+    <string name="transit_police_present">Policía de tránsito presente</string>
+    <!-- Victim Info -->
+    <string name="victim_info">Información de la víctima</string>
+    <!-- Victim Count: %s -->
+    <string name="victim_count_with_count">Cantidad de víctimas: %s</string>
+    <!-- Victim Details -->
+    <string name="victim_details">Detalles de la víctima</string>
+    <!-- Status Code -->
+    <string name="victim_status_code">Código de estado</string>
+    <!-- Name -->
+    <string name="victim_name">Nombre</string>
+    <!-- Age -->
+    <string name="victim_age">Edad</string>
+    <!-- Victim Number: %s -->
+    <string name="victim_number_with_data">Número de víctima: %s</string>
+    <!-- Identification: %s -->
+    <string name="victim_identification_with_data">Identificación: %s</string>
+    <!-- Status Code: %s -->
+    <string name="victim_status_code_with_data">Código de estado: %s</string>
+    <!-- Name: %s -->
+    <string name="victim_name_with_data">Nombre: %s</string>
+    <!-- Age: %s -->
+    <string name="victim_age_with_data">Edad: %s</string>
+    <!-- Identification -->
+    <string name="victim_identification">Identificación</string>
+    <!-- Notes -->
+    <string name="notes">Notas</string>
+    <!-- Enter Notes -->
+    <string name="enter_notes">Ingresar notas</string>
 
     <!-- SubmitNewOnSubmit -->
-    <string name="submit_submittal_details_header">Submittal Details</string>
-    <string name="date_and_time_of_return">Date and Time of Return</string>
-    <string name="report_writer">Report Writer</string>
-    <string name="enter_name">Enter Name</string>
+    <!-- Submittal Details -->
+    <string name="submit_submittal_details_header">Detalles de presentación</string>
+    <!-- Date and Time of Return -->
+    <string name="date_and_time_of_return">Fecha y hora de devolución</string>
+    <!-- Report Writer -->
+    <string name="report_writer">Escritor del informe</string>
+    <!-- Enter Name -->
+    <string name="enter_name">Ingresar nombre</string>
 
-    <string name="submitted_successfully">Submitted Successfully</string>
-    <string name="submit_successful_message">The New Report has been submitted with all necessary fields. It will be available in the archive to view or amend.</string>
-    <string name="not_submitted">Report Not Submitted</string>
-    <string name="not_submitted_message">The New Report was finished but was not submitted. Would you like to submit it or discard it?</string>
-    <string name="discard">Discard</string>
-    <string name="incomplete_message">The New Report was incomplete and not submitted. You may discard it or save it as incomplete. Incomplete reports may be finished or discarded later, but will not show up in the report archive.</string>
-    <string name="save_as_incomplete">Save as Incomplete</string>
-
-    <string name="report_id">Report ID</string>
+    <!-- Submitted Successfully -->
+    <string name="submitted_successfully">Enviado exitosamente</string>
+    <!-- The New Report has been submitted with all necessary fields. It will be available in the archive to view or amend. -->
+    <string name="submit_successful_message">El nuevo informe se ha enviado con todos los campos necesarios. Estará disponible en el archivo para ver o modificar.</string>
+    <!-- Report Not Submitted -->
+    <string name="not_submitted">Informe no enviado</string>
+    <!-- The New Report was finished but was not submitted. Would you like to submit it or discard it? -->
+    <string name="not_submitted_message">El nuevo informe se completó pero no se envió. ¿Desea enviarlo o descartarlo?</string>
+    <!-- Discard -->
+    <string name="discard">Descartar</string>
+    <!-- The New Report was incomplete and not submitted. You may discard it or save it as incomplete. Incomplete reports may be finished or discarded later, but will not show up in the report archive. -->
+    <string name="incomplete_message">El nuevo informe estaba incompleto y no se envió. Puede descartarlo o guardarlo como incompleto. Los informes incompletos pueden completarse o descartarse más tarde, pero no aparecerán en el archivo de informes.</string>
+    <!-- Save as Incomplete -->
+    <string name="save_as_incomplete">Guardar como incompleto</string>
+    <!-- Report ID -->
+    <string name="report_id">ID de informe</string>
 
     <!-- Finish Report -->
 
     <!-- Search Reports -->
-    <string name="delete_report">Delete Report</string>
-    <string name="amend_report">Amend Report</string>
+    <!-- Delete Report -->
+    <string name="delete_report">Eliminar informe</string>
+    <!-- Amend Report -->
+    <string name="amend_report">Modificar informe</string>
     <!-- View Statistics -->
-
+    <!-- (No translation provided as it's a title/header) -->
 
 </resources>
