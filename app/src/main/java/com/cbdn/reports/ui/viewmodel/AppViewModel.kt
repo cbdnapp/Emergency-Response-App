@@ -396,8 +396,6 @@ class AppViewModel(
         }
     }
     suspend fun getUnfinishedReports() {
-        _db.filterQuery("Richard", null, null)
-
         val reports: List<Pair<String, Report>> = _db.getReports(finalized = false)
         _uiState.update {
             it.copy(pulledReports = reports)
