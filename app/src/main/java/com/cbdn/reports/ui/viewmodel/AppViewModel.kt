@@ -4,12 +4,15 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.cbdn.reports.data.datamodel.FireStoreUtility
 import com.cbdn.reports.data.datamodel.Report
+import com.cbdn.reports.data.datamodel.RetrofitInstance
 import com.cbdn.reports.data.datamodel.VictimInfo
 import com.cbdn.reports.ui.views.newreport.DetailSections
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import retrofit2.HttpException
 
 data class AppUiState(
     var prevDestination: String? = null,
@@ -393,16 +396,38 @@ class AppViewModel(
         }
     }
     suspend fun getUnfinishedReports() {
-        val reports: List<Pair<String, Report>> = _db.getReport(finalized = false)
+        _db.filterQuery("Richard", null, null)
+
+        val reports: List<Pair<String, Report>> = _db.getReports(finalized = false)
         _uiState.update {
             it.copy(pulledReports = reports)
         }
     }
     suspend fun getFinishedReports() {
-        val reports: List<Pair<String, Report>> = _db.getReport(finalized = true)
+        val reports: List<Pair<String, Report>> = _db.getReports(finalized = true)
         _uiState.update {
             it.copy(pulledReports = reports)
         }
     }
+
+    suspend fun getAddress(coordinates: LatLng, key: String){
+        try {
+            val response = RetrofitInstance.geocodingApi.geocodeLatLng(
+                "${coordinates.latitude},${coordinates.longitude}",
+                "ROOFTOP",
+                "street_address",
+                key
+            )
+            setLocation(response.results[0].formatted_address ?: "Address not found")
+        } catch (e: HttpException) {
+            // Handle HTTP errors
+            Log.e("DEV", "HTTP Error fetching address: $e")
+        } catch (e: Exception) {
+            // Handle other exceptions
+            Log.e("DEV", "Exception Error fetching address: $e")
+        }
+    }
+
+
 
 }

@@ -43,7 +43,7 @@ class FireStoreUtility {
     }
 
 
-    suspend fun getReport(finalized: Boolean): List<Pair<String, Report>> {
+    suspend fun getReports(finalized: Boolean): List<Pair<String, Report>> {
         val reports: MutableList<Pair<String, Report>> = mutableListOf()
         val documents = db.collection("reports")
             .whereEqualTo("finalized", finalized)
@@ -57,12 +57,15 @@ class FireStoreUtility {
                 val reportID: String = document.id
                 val report: Report = document.toObject(Report::class.java)
                 reports.add(Pair(reportID, report))
+
             }
-            Log.d("DEV", "$reports")
+//            Log.d("DEV", "$reports")
         }
-        Log.d("DEV", "FireStoreUtility Reports: $reports")
+//        Log.d("DEV", "FireStoreUtility Reports: $reports")
         return reports
     }
+
+
 
     fun updateReport(report: Report, reportID: String){
         db.collection("reports").document(reportID)
@@ -80,36 +83,87 @@ class FireStoreUtility {
             .add(report)
             .addOnSuccessListener { documentReference ->
                 Log.d("DEV", "DocumentSnapshot added with ID: ${documentReference.id}")
-
             }
             .addOnFailureListener { error ->
                 Log.e("DEV", "Error adding document: $error")
             }
     }
 
-    fun amendReport(report: Report, prevId : String){
+    fun amendReport(report: Report, prevID : String){
         db.collection("reports")
             .add(report)
             .addOnSuccessListener { newDocumentReference ->
                 db.collection("reports").document(newDocumentReference.id)
-                    .update(mapOf("prev" to prevId))
+                    .update(mapOf("prev" to prevID))
                     .addOnSuccessListener {
                         Log.d("DEV", "Successfully updated document: ${newDocumentReference.id} ")
                     }
                     .addOnFailureListener{ error ->
                         Log.e("DEV", "Error updating document: ${newDocumentReference.id}: $error")
                     }
-                db.collection("reports").document(prevId)
+                db.collection("reports").document(prevID)
                     .update(mapOf("next" to newDocumentReference.id))
                     .addOnSuccessListener {
-                        Log.e("DEV", "Successfully updated document: $prevId ")
+                        Log.e("DEV", "Successfully updated document: $prevID ")
                     }
                     .addOnFailureListener{ error ->
-                        Log.e("DEV", "Error updating document: $prevId: $error")
+                        Log.e("DEV", "Error updating document: $prevID: $error")
                     }
             }
             .addOnFailureListener{ error ->
                 Log.e("DEV", "Error appending document: $error")
             }
     }
+
+    private fun containsContent(report: Report, content: String?, start: Long?, end: Long?): Boolean {
+        for (victim in report.victimInfo) {
+            if (victim.name == content){
+                return true
+            }
+        }
+        return (report.commandingOfficer == content ||
+                report.reportWriter == content ||
+                report.location == content) &&
+                (report.datetimeReturn!! >= (start ?: -1) && report.datetimeReturn!! <= (end ?: Long.MAX_VALUE))
+    }
+    // Query by date, by author, by commanding officer, by victim, by location, and by truck.
+    suspend fun filterQuery(content: String?, start: Long?, end: Long?) : List<Pair<String, Report>>{
+
+        val reports: MutableList<Pair<String, Report>> = mutableListOf()
+        val documents = db.collection("reports")
+            .whereEqualTo("finalized", true)
+            .get()
+            .await()
+
+        if(documents.isEmpty){
+            Log.d("DEV", "Received no documents")
+        } else {
+            for (document in documents) {
+                val reportID: String = document.id
+                val report: Report = document.toObject(Report::class.java)
+                if (containsContent(report, content, start, end)){
+                    reports.add(Pair(reportID, report))
+                }
+            }
+        }
+        Log.d("DEV", "FireStoreUtility from Filter Reports: $reports")
+        return reports
+    }
+
+    suspend fun getReport(id: String) : Report?{
+        val document = db.collection("reports").document(id)
+            .get()
+            .await()
+        return document.toObject(Report::class.java)
+
+    }
+    fun deleteReport(reportID: String){
+        db.collection("reports").document(reportID)
+            .delete()
+            .addOnSuccessListener { Log.e("DEV", "Successfully deleted document: $reportID ") }
+            .addOnFailureListener { error -> Log.e("DEV", "Error deleting document: $error")}
+    }
+
+
 }
+

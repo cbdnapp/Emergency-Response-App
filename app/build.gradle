@@ -9,6 +9,7 @@ plugins {
     //
     //Firebase
     id 'com.google.gms.google-services'
+    id'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -17,22 +18,20 @@ android {
 
     defaultConfig {
         applicationId "com.cbdn.reports"
-        minSdk 30
+        minSdk 33
         targetSdk 34
         versionCode 1
         versionName "1.0"
 
-        //Makes MAPS_API_KEY available from local.properties
-        //Not sure why it's throwing it's flag but it works and its a temporary
-        //solution until API key is stored in secret.properties
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        manifestPlaceholders = ["MAPS_API_KEY": "${properties.getProperty('MAPS_API_KEY')}"]
+
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
         }
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        buildConfigField "String", "MAPS_API_KEY", "\"${properties.getProperty('MAPS_API_KEY')}\""
     }
 
     buildTypes {
@@ -50,6 +49,7 @@ android {
     }
     buildFeatures {
         compose true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.5.2'
@@ -117,6 +117,13 @@ dependencies {
     // Optionally, you can include the widgets library for ScaleBar, etc.
     implementation 'com.google.maps.android:maps-compose-widgets:4.3.0'
 
+    implementation 'com.google.android.gms:play-services-maps:18.2.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
     // adaptive windows
 //    implementation("androidx.compose.material3:material3-window-size-class")
 
