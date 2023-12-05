@@ -130,24 +130,20 @@ class FireStoreUtility {
     suspend fun filterQuery(content: String?, start: Long?, end: Long?) : List<Pair<String, Report>>{
         Log.d("DEV", "FireStoreUtility.filterQuery: content: ${content}, start: ${convertMillisToDateTime(start)}, end: ${convertMillisToDateTime(end)}")
 
-        val reports: MutableList<Pair<String, Report>> = mutableListOf()
-        val documents = db.collection("reports")
-            .whereEqualTo("finalized", true)
-            .get()
-            .await()
 
-        if(documents.isEmpty){
+        val reports: MutableList<Pair<String, Report>> = mutableListOf()
+        val documents: List<Pair<String, Report>> = getReports(true)
+
+        if(documents.isEmpty()){
             Log.d("DEV", "FireStoreUtility.filterQuery: Received no documents")
         } else {
             for (document in documents) {
-                val reportID: String = document.id
-                val report: Report = document.toObject(Report::class.java)
+                val report: Report = document.second
                 if (containsContent(report, content, start, end)){
-                    reports.add(Pair(reportID, report))
+                    reports.add(document)
                 }
             }
         }
-        Log.d("DEV", "FireStoreUtility.filterQuery: $reports")
         return reports
     }
 
