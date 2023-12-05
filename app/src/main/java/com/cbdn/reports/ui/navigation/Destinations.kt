@@ -18,7 +18,7 @@ enum class Destinations(
     SearchReports(
         title = R.string.search_reports
     ),
-    ViewStatistics(
-        title = R.string.view_statistics
-    )
+//    ViewStatistics(
+//        title = R.string.view_statistics
+//    )
 }

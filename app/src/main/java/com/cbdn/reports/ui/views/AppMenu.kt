@@ -82,12 +82,12 @@ fun AppMenu(
             icon = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
             modifier = Modifier.weight(2f)
         )
-        MenuButton(
-            onClick = { navController.navigate(Destinations.ViewStatistics.name) },
-            labelResource = R.string.view_statistics,
-            subLabelResource = R.string.view_statistics_description,
-            icon = ImageVector.vectorResource(id = R.drawable.pie_chart_24),
-            modifier = Modifier.weight(2f)
-        )
+//        MenuButton(
+//            onClick = { navController.navigate(Destinations.ViewStatistics.name) },
+//            labelResource = R.string.view_statistics,
+//            subLabelResource = R.string.view_statistics_description,
+//            icon = ImageVector.vectorResource(id = R.drawable.pie_chart_24),
+//            modifier = Modifier.weight(2f)
+//        )
     }
 }

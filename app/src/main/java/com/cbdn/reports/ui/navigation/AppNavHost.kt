@@ -10,7 +10,6 @@ import com.cbdn.reports.ui.views.AppMenu
 import com.cbdn.reports.ui.views.finishreport.FinishReport
 import com.cbdn.reports.ui.views.newreport.NewReport
 import com.cbdn.reports.ui.views.searchreports.SearchReports
-import com.cbdn.reports.ui.views.viewstatistics.ViewStatistics
 
 @Composable
 fun AppNavHost(
@@ -47,9 +46,9 @@ fun AppNavHost(
                 navController = navController,
             )
         }
-        composable(route = Destinations.ViewStatistics.name) {
-            appViewModel.setPrevDestination(Destinations.ViewStatistics.name)
-            ViewStatistics()
-        }
+//        composable(route = Destinations.ViewStatistics.name) {
+//            appViewModel.setPrevDestination(Destinations.ViewStatistics.name)
+//            ViewStatistics()
+//        }
     }
 }
