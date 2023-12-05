@@ -22,9 +22,9 @@ import com.cbdn.reports.R
 import com.cbdn.reports.data.EmergencyCodeData
 import com.cbdn.reports.data.TruckData
 import com.cbdn.reports.ui.viewmodel.AppViewModel
-import com.cbdn.reports.ui.views.composables.BasicTextField
-import com.cbdn.reports.ui.views.composables.DateTimeSelection
-import com.cbdn.reports.ui.views.composables.DropDownTextField
+import com.cbdn.reports.ui.views.composables.FormOneLineTextField
+import com.cbdn.reports.ui.views.composables.FormDateTimeSelection
+import com.cbdn.reports.ui.views.composables.FormDropDownTextField
 import com.cbdn.reports.ui.views.composables.FormDivider
 import com.cbdn.reports.ui.views.composables.FormHeader
 import com.cbdn.reports.ui.views.composables.FormSubHeader
@@ -47,7 +47,7 @@ fun DispatchDetails(
 
         // RESPONDING TRUCK
         FormSubHeader(textResource = R.string.responding_truck)
-        DropDownTextField(
+        FormDropDownTextField(
             displayValue = reportState.respondingTruck,
             updateDataValue = { viewModel.setRespondingTruck(it) },
             optionsTrucks = TruckData.getTrucks(),
@@ -57,7 +57,7 @@ fun DispatchDetails(
 
         // COMMANDING OFFICER
         FormSubHeader(textResource = R.string.commanding_officer)
-        BasicTextField(
+        FormOneLineTextField(
             value = reportState.commandingOfficer,
             updateValue = { viewModel.setCommandingOfficer(it) },
             labelResource = R.string.enter_officers_name
@@ -66,7 +66,7 @@ fun DispatchDetails(
 
         // DATETIME OF DISPATCH
         FormSubHeader(textResource = R.string.date_and_time_of_dispatch)
-        DateTimeSelection(
+        FormDateTimeSelection(
             displayValue = reportState.datetimeDispatch,
             updateDatetime = { viewModel.setDatetimeDispatch(it)}
         )
@@ -100,7 +100,7 @@ fun DispatchDetails(
                 }
             }
         }
-        DropDownTextField(
+        FormDropDownTextField(
             displayValue = reportState.emergencyCode,
             updateDataValue = { viewModel.setEmergencyCode(it) },
             optionsEmergencyCodes = optionsEmergencyCodes,

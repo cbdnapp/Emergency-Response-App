@@ -16,7 +16,8 @@ import com.cbdn.reports.R
 fun FormButton(
     onClick: () -> Unit,
     labelResource: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    args: Any = "",
 ) {
     TextButton(
         shape = RectangleShape,
@@ -25,6 +26,6 @@ fun FormButton(
         modifier = modifier
             .padding(dimensionResource(id = R.dimen.thin_spacing))
     ) {
-        Text(text = stringResource(id = labelResource))
+        Text(text = stringResource(id = labelResource, args))
     }
 }

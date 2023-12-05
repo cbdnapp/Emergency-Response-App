@@ -11,6 +11,8 @@
     <dimen name="moderate_spacing">20.dp</dimen>
     <dimen name="thin_spacing">10.dp</dimen>
 
+    <dimen name="thick_line">3.dp</dimen>
+
     <!-- Loading -->
     <dimen name="circular_indicator">80.dp</dimen>
 

@@ -36,13 +36,15 @@ fun AppNavHost(
         composable(route = Destinations.FinishReport.name) {
             appViewModel.setPrevDestination(Destinations.FinishReport.name)
             FinishReport(
-                appViewModel = appViewModel
+                appViewModel = appViewModel,
+                navController = navController,
             )
         }
         composable(route = Destinations.SearchReports.name) {
             appViewModel.setPrevDestination(Destinations.SearchReports.name)
             SearchReports(
-                appViewModel = appViewModel
+                appViewModel = appViewModel,
+                navController = navController,
             )
         }
         composable(route = Destinations.ViewStatistics.name) {

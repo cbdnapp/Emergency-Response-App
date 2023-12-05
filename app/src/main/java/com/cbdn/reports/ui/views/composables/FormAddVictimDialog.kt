@@ -17,7 +17,7 @@ import com.cbdn.reports.R
 import com.cbdn.reports.data.VictimCodes
 
 @Composable
-fun AddVictimDialog(
+fun FormAddVictimDialog(
     onConfirmation: () -> Unit,
     onDismiss: () -> Unit,
     onEdit: () -> Unit,
@@ -46,26 +46,26 @@ fun AddVictimDialog(
             DialogHeader(textResource = R.string.victim_details)
 
             // STATUS CODE
-            DropDownTextField(
+            FormDropDownTextField(
                 displayValue = statusCode,
                 updateDataValue = setStatusCode,
                 optionsVictimCodes = optionsVictimCodes,
                 labelResource = R.string.victim_status_code
             )
             // NAME
-            BasicTextField(
+            FormOneLineTextField(
                 value = name,
                 updateValue = setName,
                 labelResource = R.string.victim_name
             )
             // AGE
-            BasicTextField(
+            FormOneLineTextField(
                 value = age,
                 updateValue = setAge,
                 labelResource = R.string.victim_age
             )
             // IDENTIFICATION
-            BasicTextField(
+            FormOneLineTextField(
                 value = identification,
                 updateValue = setIdentification,
                 labelResource = R.string.victim_identification

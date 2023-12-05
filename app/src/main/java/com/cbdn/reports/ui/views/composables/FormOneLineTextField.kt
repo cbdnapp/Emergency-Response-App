@@ -11,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 import com.cbdn.reports.R
 
 @Composable
-fun BasicTextField (
+fun FormOneLineTextField (
     value: String?,
     updateValue: (String) -> Unit,
     labelResource: Int,

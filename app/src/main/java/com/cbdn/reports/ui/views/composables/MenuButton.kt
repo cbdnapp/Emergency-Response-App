@@ -75,12 +75,12 @@ fun MenuButton(
                 ) {
                     Text(
                         text = stringResource(id = labelResource),
-                        style = MaterialTheme.typography.labelMedium,
+                        style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
                     Text(
                         text = stringResource(id = subLabelResource),
-                        style = MaterialTheme.typography.labelSmall,
+                        style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.onSurface,
                         overflow = TextOverflow.Ellipsis
                     )

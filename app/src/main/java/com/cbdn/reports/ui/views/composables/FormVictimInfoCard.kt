@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import com.cbdn.reports.R
 
 @Composable
-fun VictimInfoCard(
+fun FormVictimInfoCard(
     index: Int,
     statusCode: String,
     name: String,

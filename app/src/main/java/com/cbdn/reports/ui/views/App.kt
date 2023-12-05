@@ -65,7 +65,7 @@ fun App(
         }
     ) { innerPadding ->
         if (currentScreen == Destinations.AppMenu) {
-            when (uiState.prevDestination) {
+            when (uiState.backButtonPrev) {
                 Destinations.NewReport.name -> {
                     if (!uiState.submitSuccessful) {
                         if (reportState.finalized) {
@@ -155,19 +155,7 @@ fun App(
                         }
                     }
                 }
-                Destinations.FinishReport.name -> {
-                    appViewModel.clearPulledReports()
-                    appViewModel.clearReportItemIndex()
-                }
-                Destinations.SearchReports.name -> {
-                    appViewModel.clearPulledReports()
-                    appViewModel.clearReportItemIndex()
-                }
-                Destinations.ViewStatistics.name -> {
-                    appViewModel.clearPulledReports()
-                    appViewModel.clearReportItemIndex()
-                }
-                else -> {}
+                else -> { appViewModel.resetUI() }
             }
         }
         AppNavHost(

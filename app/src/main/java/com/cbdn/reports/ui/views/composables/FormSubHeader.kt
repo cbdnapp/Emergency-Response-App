@@ -21,6 +21,6 @@ fun FormSubHeader (
             .width(dimensionResource(id = R.dimen.full_field_width))
             .padding(top = dimensionResource(id = R.dimen.moderate_spacing)),
         textAlign = TextAlign.Left,
-        style = MaterialTheme.typography.headlineMedium
+        style = MaterialTheme.typography.bodyLarge
     )
 }

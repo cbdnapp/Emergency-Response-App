@@ -27,7 +27,7 @@ fun MenuHeader (
         Text(
             text = stringResource(id = textResource),
             color = MaterialTheme.colorScheme.onPrimary,
-            style = MaterialTheme.typography.headlineLarge,
+            style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.padding(start = dimensionResource(id = R.dimen.thin_spacing)),
         )
     }

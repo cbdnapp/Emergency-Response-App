@@ -10,8 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cbdn.reports.R
 import com.cbdn.reports.ui.viewmodel.AppViewModel
-import com.cbdn.reports.ui.views.composables.BasicTextField
-import com.cbdn.reports.ui.views.composables.DateTimeSelection
+import com.cbdn.reports.ui.views.composables.FormOneLineTextField
+import com.cbdn.reports.ui.views.composables.FormDateTimeSelection
 import com.cbdn.reports.ui.views.composables.FormDivider
 import com.cbdn.reports.ui.views.composables.FormHeader
 import com.cbdn.reports.ui.views.composables.FormSubHeader
@@ -33,7 +33,7 @@ fun SubmittalDetails(
 
         // DATE AND TIME OF RETURN
         FormSubHeader(textResource = R.string.date_and_time_of_return)
-        DateTimeSelection(
+        FormDateTimeSelection(
             displayValue = reportState.datetimeReturn,
             updateDatetime = { viewModel.setDatetimeReturn(it)}
         )
@@ -41,7 +41,7 @@ fun SubmittalDetails(
 
         // AUTHOR
         FormSubHeader(textResource = R.string.report_writer)
-        BasicTextField(
+        FormOneLineTextField(
             value = reportState.reportWriter,
             updateValue = { viewModel.setReportWriter(it) },
             labelResource = R.string.enter_name

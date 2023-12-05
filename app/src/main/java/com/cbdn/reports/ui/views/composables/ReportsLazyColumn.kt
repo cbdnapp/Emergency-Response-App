@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -19,12 +18,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
 import com.cbdn.reports.R
 import com.cbdn.reports.data.datamodel.Report
 import convertMillisToDateTime
 
 @Composable
-fun LazyColumnOfReports(
+fun ReportsLazyColumn(
     items: List<Pair<String, Report>>,
     selectReport: (Int) -> Unit,
     modifier: Modifier
@@ -35,12 +35,14 @@ fun LazyColumnOfReports(
             Card(
                 colors = CardDefaults.cardColors(contentColor = MaterialTheme.colorScheme.primary),
                 shape = RectangleShape,
+                elevation = CardDefaults.elevatedCardElevation(10.dp),
                 modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.thin_spacing))
                     .clickable { selectReport(index) }
             ) {
                 Row(
                     modifier = modifier
-                        .padding(dimensionResource(id = R.dimen.thin_spacing)),
+                        .padding(dimensionResource(id = R.dimen.moderate_spacing)),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(
@@ -48,28 +50,28 @@ fun LazyColumnOfReports(
                             .weight(.9f)
                     ) {
                         convertMillisToDateTime(report.datetimeDispatch)?.let {
-                            ReportCardRow(
+                            ReportCardField(
                                 header = stringResource(id = R.string.date_and_time_of_dispatch),
                                 data = it,
                                 modifier = modifier
                             )
                         }
-                        ReportCardRow(
+                        ReportCardField(
                             header = stringResource(id = R.string.report_writer),
                             data = report.reportWriter.toString(),
                             modifier = modifier
                         )
-                        ReportCardRow(
+                        ReportCardField(
                             header = stringResource(id = R.string.responding_truck),
                             data = report.respondingTruck.toString(),
                             modifier = modifier
                         )
-                        ReportCardRow(
+                        ReportCardField(
                             header = stringResource(id = R.string.emergency_code),
                             data = report.emergencyCode.toString(),
                             modifier = modifier
                         )
-                        ReportCardRow(
+                        ReportCardField(
                             header = stringResource(id = R.string.location),
                             data = report.location.toString(),
                             modifier = modifier
@@ -82,7 +84,6 @@ fun LazyColumnOfReports(
                             .weight(.1f)
                     )
                 }
-                HorizontalDivider()
             }
         }
     }

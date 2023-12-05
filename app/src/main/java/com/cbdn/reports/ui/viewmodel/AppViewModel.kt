@@ -2,26 +2,33 @@ package com.cbdn.reports.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.cbdn.reports.data.datamodel.FireStoreUtility
 import com.cbdn.reports.data.datamodel.Report
 import com.cbdn.reports.data.datamodel.RetrofitInstance
 import com.cbdn.reports.data.datamodel.VictimInfo
+import com.cbdn.reports.ui.navigation.Destinations
 import com.cbdn.reports.ui.views.newreport.DetailSections
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 data class AppUiState(
-    var prevDestination: String? = null,
     // Get Reports UI
-    var reportID: String = "",
+    var backButtonPrev: String? = null,
+    var reportModification: String? = null,
+    var reportId: String = "",
     var pulledReports: List<Pair<String, Report>>? = null,
     var reportItemIndex: Int? = null,
+    var searchString: String? = null,
+    var searchFrom: Long? = null,
+    var searchTo: Long? = null,
 
-    // Report Form UI
+    // New Report Form UI
     var currentScreen: String = DetailSections.DispatchDetails.name,
     var dispatchDetailsComplete: Boolean = false,
     var locationDetailsComplete: Boolean = false,
@@ -54,7 +61,7 @@ class AppViewModel(
     var uiState: StateFlow<AppUiState> = _uiState.asStateFlow()
 
     init {
-        Log.d("DEV", "AppViewModel init.")
+        Log.d("DEV", "AppViewModel.init")
     }
     fun resetUI() {
         _uiState.update { AppUiState() }
@@ -82,7 +89,27 @@ class AppViewModel(
     }
     fun setPrevDestination(input: String) {
         _uiState.update {
-            it.copy(prevDestination = input)
+            it.copy(backButtonPrev = input)
+        }
+    }
+    fun setReportModification(input: String) {
+        _uiState.update {
+            it.copy(reportModification = input)
+        }
+    }
+    fun setSearch(input: String) {
+        _uiState.update {
+            it.copy(searchString = input)
+        }
+    }
+    fun setSearchFrom(input: Long) {
+        _uiState.update {
+            it.copy(searchFrom = input)
+        }
+    }
+    fun setSearchTo(input: Long) {
+        _uiState.update {
+            it.copy(searchTo = input)
         }
     }
     private fun isReportComplete() {
@@ -384,12 +411,35 @@ class AppViewModel(
         isSubmitComplete()
     }
 
+    fun importReport(report: Report, reportId: String) {
+        _reportState.update { report }
+        _uiState.update {
+            it.copy(
+                reportId = reportId,
+                policeCheck = _reportState.value.policePresent.toBoolean(),
+                ambulanceCheck = _reportState.value.ambulancePresent.toBoolean(),
+                electricCompanyCheck = _reportState.value.electricCompanyPresent.toBoolean(),
+                transitPoliceCheck = _reportState.value.transitPolicePresent.toBoolean()
+            )
+        }
+        isDispatchComplete()
+        isLocationComplete()
+        isOnSceneComplete()
+        isSubmitComplete()
+    }
+
     // DATABASE CALLS
     fun submitReport() {
-        if (uiState.value.reportID.isNotEmpty()) {
-            _db.updateReport(reportState.value, uiState.value.reportID)
-        } else {
-            _db.submitReport(reportState.value)
+        when (uiState.value.reportModification) {
+            Destinations.FinishReport.name -> {
+                _db.updateReport(reportState.value, uiState.value.reportId)
+            }
+            Destinations.SearchReports.name -> {
+                _db.amendReport(reportState.value, uiState.value.reportId)
+            }
+            else -> {
+                _db.submitReport(reportState.value)
+            }
         }
         _uiState.update {
             it.copy(submitSuccessful = true)
@@ -407,7 +457,23 @@ class AppViewModel(
             it.copy(pulledReports = reports)
         }
     }
+    fun getFilteredReports() {
+        viewModelScope.launch { val reports: List<Pair<String, Report>> = _db.filterQuery(
+            content = uiState.value.searchString,
+            start = uiState.value.searchFrom,
+            end = uiState.value.searchTo
+        )
+            _uiState.update {
+                it.copy(pulledReports = reports)
+            }
+        }
+    }
+    fun deleteReport(input: String) {
+        _db.deleteReport(input)
+    }
 
+    // OTHER
+    // Location API
     suspend fun getAddress(coordinates: LatLng, key: String){
         try {
             val response = RetrofitInstance.geocodingApi.geocodeLatLng(
@@ -419,13 +485,10 @@ class AppViewModel(
             setLocation(response.results[0].formatted_address ?: "Address not found")
         } catch (e: HttpException) {
             // Handle HTTP errors
-            Log.e("DEV", "HTTP Error fetching address: $e")
+            Log.e("DEV", "AppViewModel.getAddress: HTTP Error fetching address: $e")
         } catch (e: Exception) {
             // Handle other exceptions
-            Log.e("DEV", "Exception Error fetching address: $e")
+            Log.e("DEV", "AppViewModel.getAddress: Exception Error fetching address: $e")
         }
     }
-
-
-
 }

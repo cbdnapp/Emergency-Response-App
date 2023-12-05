@@ -14,6 +14,8 @@
 
 
     <!-- GENERAL  -->
+    <string name="search">Search</string>
+    <string name="no">No</string>
     <string name="required">Required</string>
     <string name="add">Add</string>
     <string name="edit">Edit</string>
@@ -77,21 +79,22 @@
     <string name="enter_name">Enter Name</string>
 
     <string name="submitted_successfully">Submitted Successfully</string>
-    <string name="submit_successful_message">The New Report has been submitted with all necessary fields. It will be available in the archive to view or amend.</string>
+    <string name="submit_successful_message">The Report has been successfully submitted with all necessary fields. It will be available in the archive to view or amend.</string>
     <string name="not_submitted">Report Not Submitted</string>
-    <string name="not_submitted_message">The New Report was finished but was not submitted. Would you like to submit it or discard it?</string>
+    <string name="not_submitted_message">The Report is finished but was not submitted. Would you like to submit it or discard these changes?</string>
     <string name="discard">Discard</string>
-    <string name="incomplete_message">The New Report was incomplete and not submitted. You may discard it or save it as incomplete. Incomplete reports may be finished or discarded later, but will not show up in the report archive.</string>
+    <string name="incomplete_message">The Report is incomplete and not submitted. Discard it or save it as incomplete. Incomplete reports may be finished or discarded later, but will not show up in the report archive.</string>
     <string name="save_as_incomplete">Save as Incomplete</string>
 
+
+    <!-- Finish, Search Report -->
     <string name="report_id">Report ID</string>
-
-    <!-- Finish Report -->
-
-    <!-- Search Reports -->
-    <string name="delete_report">Delete Report</string>
-    <string name="amend_report">Amend Report</string>
+    <string name="from_date">From: %s</string>
+    <string name="to_date">To: %s</string>
+    <string name="delete">Delete</string>
+    <string name="finish">Finish</string>
+    <string name="amend">Amend</string>
+    <string name="no_results">No Results</string>
+    <string name="end_of_results">End of Results</string>
     <!-- View Statistics -->
-
-
 </resources>

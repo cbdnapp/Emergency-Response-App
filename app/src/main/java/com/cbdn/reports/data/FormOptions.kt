@@ -25,19 +25,19 @@ object EmergencyCodeData {
         return listOf(
             EmergencyCategories(
                 id = "F",
-                category = "Incendio"
+                category = "Fire"
             ),
             EmergencyCategories(
                 id = "R",
-                category = "Rescate"
+                category = "Rescue"
             ),
             EmergencyCategories(
                 id = "I",
-                category = "Accidente"
+                category = "Accident"
             ),
             EmergencyCategories(
                 id = "O",
-                category = "Otro"
+                category = "Other"
             ),
         )
     }
@@ -49,97 +49,97 @@ object EmergencyCodeData {
             "F" -> returnList = listOf(
                 EmergencyCodes(
                     code = "F-1",
-                    name = "Incendio Residencial (F-1)",
+                    name = "Residential Fire (F-1)",
                 ),
                 EmergencyCodes(
                     code = "F-2",
-                    name = "Incendio Comercial (F-2)",
+                    name = "Commercial Fire (F-2)",
                 ),
                 EmergencyCodes(
                     code = "F-3",
-                    name = "Escape de GLP (F-3)",
+                    name = "LPG exhaust (F-3)",
                 ),
                 EmergencyCodes(
                     code = "F-4",
-                    name = "Incendio Eléctrico (F-4)",
+                    name = "Electrical Fire (F-4)",
                 ),
                 EmergencyCodes(
                     code = "F-5",
-                    name = "Incendio de Vehículo de Motor (F-5)",
+                    name = "Motor Vehicle Fire (F-5)",
                 ),
                 EmergencyCodes(
                     code = "F-6",
-                    name = "Incendio Forestal o Vertedero (F-6)",
+                    name = "Forest Fire or Landfill (F-6)",
                 ),
                 EmergencyCodes(
                     code = "F-7",
-                    name = "Materiales Peligrosos (F-7)",
+                    name = "Dangerous materials (F-7)",
                 ),
                 EmergencyCodes(
                     code = "F-8",
-                    name = "Derrame de Combustible (F-8)",
+                    name = "Fuel spill (F-8)",
                 ),
                 EmergencyCodes(
                     code = "F-9",
-                    name = "Incendio de una Embarcación (F-9)",
+                    name = "Boat Fire (F-9)",
                 ),
                 EmergencyCodes(
                     code = "F-10",
-                    name = "Incendio de Aeronave (F-10)",
+                    name = "Aircraft Fire (F-10)",
                 ),
             )
             "R" -> returnList = listOf(
                 EmergencyCodes(
                     code = "R-1",
-                    name = "Rescate Acuático (R-1)",
+                    name = "Aquatic rescue (R-1)",
                 ),
                 EmergencyCodes(
                     code = "R-2",
-                    name = "Rescate Terrestre (R-2)",
+                    name = "Land Rescue (R-2)",
                 ),
                 EmergencyCodes(
                     code = "R-3",
-                    name = "Rescate en Altura (R-3)",
+                    name = "Rescue at Height (R-3)",
                 ),
                 EmergencyCodes(
                     code = "R-4",
-                    name = "Rescate de Animales (R-4)",
+                    name = "Animal Rescue (R-4)",
                 ),
                 EmergencyCodes(
                     code = "R-5",
-                    name = "Rescate Vehícular (R-5)",
+                    name = "Vehicle Rescue (R-5)",
                 ),
                 EmergencyCodes(
                     code = "R-6",
-                    name = "Intento de Suicidio (R-6)",
+                    name = "Suicide attempt (R-6)",
                 ),
             )
             "I" -> returnList = listOf(
                 EmergencyCodes(
                     code = "I-15",
-                    name = "Accidente Personal (I-15)",
+                    name = "Personal Accident (I-15)",
                 ),
                 EmergencyCodes(
                     code = "I-16",
-                    name = "Accidente de Tránsito (I-16)",
+                    name = "Car accident (I-16)",
                 ),
                 EmergencyCodes(
                     code = "I-17",
-                    name = "Accidente Aereo (I-17)",
+                    name = "Air crash (I-17)",
                 ),
             )
             "O" -> returnList = listOf(
                 EmergencyCodes(
                     code = "E-1",
-                    name = "Explosión (E-1)",
+                    name = "Burst (E-1)",
                 ),
                 EmergencyCodes(
                     code = "D-2",
-                    name = "Derrumbe o Deslizamiento de Tierra (D-2)",
+                    name = "Landslide (D-2)",
                 ),
                 EmergencyCodes(
                     code = "I-1",
-                    name = "Inundación (I-1)",
+                    name = "Flood (I-1)",
                 ),
                 EmergencyCodes(
                     code = "PODA",
@@ -195,23 +195,23 @@ object VictimCodeData {
         return listOf(
             VictimCodes(
                 code = "I-26",
-                name = "Persona sin daño físico (I-26)",
+                name = "Person without physical damage (I-26)",
             ),
             VictimCodes(
                 code = "I-27",
-                name = "Persona afectada ligeramente (I-27)",
+                name = "Slightly affected person (I-27)",
             ),
             VictimCodes(
                 code = "I-28",
-                name = "Persona con heridas serias (I-28)",
+                name = "Person with serious injuries (I-28)",
             ),
             VictimCodes(
-                code = "I-28 AVANZADO",
-                name = "Persona en estado crítico (I-28 AVANZADO)",
+                code = "I-28 ADVANCED",
+                name = "Person in critical condition (I-28 ADVANCED)",
             ),
             VictimCodes(
                 code = "I-29",
-                name = "Persona fallecida (I-29)",
+                name = "Deceased person (I-29)",
             ),
         )
     }

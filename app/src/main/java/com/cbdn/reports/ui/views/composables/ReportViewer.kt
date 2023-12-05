@@ -9,20 +9,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.cbdn.reports.R
 import com.cbdn.reports.data.datamodel.Report
 import convertMillisToDateTime
 
 @Composable
 fun ReportViewer(
-    reportData: Pair<String, Report>,
+    report: Report,
+    reportId: String,
     clickPrevious: () -> Unit,
     showDelete: Boolean = false,
     clickDelete: () -> Unit = {},
@@ -45,132 +50,137 @@ fun ReportViewer(
             )
         }
     ) { innerPadding ->
-        Column(
-            modifier = modifier
+        Card(
+            colors = CardDefaults.cardColors(contentColor = MaterialTheme.colorScheme.primary),
+            shape = RectangleShape,
+            elevation = CardDefaults.elevatedCardElevation(10.dp),
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(dimensionResource(id = R.dimen.thin_spacing))
-                .verticalScroll(rememberScrollState()),
+                .padding(dimensionResource(id = R.dimen.thin_spacing)),
         ) {
-            val reportId = reportData.first
-            val report = reportData.second
-            ReportCardRow(
-                header = stringResource(id = R.string.responding_truck),
-                data = report.respondingTruck.toString(),
-                modifier = modifier
-            )
-            ReportCardRow(
-                header = stringResource(id = R.string.commanding_officer),
-                data = report.commandingOfficer.toString(),
-                modifier = modifier
-            )
-            convertMillisToDateTime(report.datetimeDispatch)?.let {
-                ReportCardRow(
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(dimensionResource(id = R.dimen.moderate_spacing))
+                    .verticalScroll(rememberScrollState())
+            ) {
+                ReportCardField(
+                    header = stringResource(id = R.string.responding_truck),
+                    data = report.respondingTruck.toString(),
+                    modifier = modifier
+                )
+                ReportCardField(
+                    header = stringResource(id = R.string.commanding_officer),
+                    data = report.commandingOfficer.toString(),
+                    modifier = modifier
+                )
+                ReportCardField(
                     header = stringResource(id = R.string.date_and_time_of_dispatch),
-                    data = it,
+                    data = convertMillisToDateTime(report.datetimeDispatch) ?: null.toString(),
                     modifier = modifier
                 )
-            }
-            ReportCardRow(
-                header = stringResource(id = R.string.emergency_code),
-                data = report.emergencyCode.toString(),
-                modifier = modifier
-            )
-            ReportHeaderText(text = stringResource(id = R.string.location))
-            ReportDataText(
-                text = report.location.toString(),
-                modifier = Modifier.padding(dimensionResource(id = R.dimen.thin_spacing))
-            )
-            convertMillisToDateTime(report.datetimeArrival)?.let {
-                ReportCardRow(
+                ReportCardField(
+                    header = stringResource(id = R.string.emergency_code),
+                    data = report.emergencyCode.toString(),
+                    modifier = modifier
+                )
+                ReportCardField(
+                    header = stringResource(id = R.string.location),
+                    data = report.location.toString(),
+                    modifier = modifier
+                )
+                ReportCardField(
                     header = stringResource(id = R.string.date_and_time_of_arrival),
-                    data = it,
+                    data = convertMillisToDateTime(report.datetimeArrival) ?: null.toString(),
                     modifier = modifier
                 )
-            }
-            ReportCardRow(
-                header = stringResource(id = R.string.police_present),
-                data = report.policePresent.toString(),
-                modifier = modifier
-            )
-            ReportCardRow(
-                header = stringResource(id = R.string.ambulance_present),
-                data = report.ambulancePresent.toString(),
-                modifier = modifier
-            )
-            ReportCardRow(
-                header = stringResource(id = R.string.electric_company_present),
-                data = report.electricCompanyPresent.toString(),
-                modifier = modifier
-            )
-            ReportCardRow(
-                header = stringResource(id = R.string.transit_police_present),
-                data = report.transitPolicePresent.toString(),
-                modifier = modifier
-            )
-            ReportCardRow(
-                header = stringResource(id = R.string.victim_info),
-                data = stringResource(
-                    id = R.string.victim_count_with_count,
-                    report.victimInfo.size
-                ),
-                modifier = modifier
-            )
-            report.victimInfo.forEachIndexed { index, victim ->
-                Column(
+                ReportCardField(
+                    header = stringResource(id = R.string.police_present),
+                    data = report.policePresent.toString().ifEmpty {
+                        stringResource(id = R.string.no) },
                     modifier = modifier
-                        .padding(dimensionResource(id = R.dimen.thin_spacing))
-                ) {
-                    ReportHeaderText(
-                        stringResource(
-                            id = R.string.victim_number_with_data,
-                            index + 1
+                )
+                ReportCardField(
+                    header = stringResource(id = R.string.ambulance_present),
+                    data = report.ambulancePresent.toString().ifEmpty {
+                        stringResource(id = R.string.no) },
+                    modifier = modifier
+                )
+                ReportCardField(
+                    header = stringResource(id = R.string.electric_company_present),
+                    data = report.electricCompanyPresent.toString().ifEmpty {
+                        stringResource(id = R.string.no) },
+                    modifier = modifier
+                )
+                ReportCardField(
+                    header = stringResource(id = R.string.transit_police_present),
+                    data = report.transitPolicePresent.toString().ifEmpty {
+                        stringResource(id = R.string.no) },
+                    modifier = modifier
+                )
+                ReportCardField(
+                    header = stringResource(id = R.string.victim_info),
+                    data = stringResource(
+                        id = R.string.victim_count_with_count,
+                        report.victimInfo.size
+                    ),
+                    modifier = modifier
+                )
+                report.victimInfo.forEachIndexed { index, victim ->
+                    Column(
+                        modifier = modifier
+                            .padding(dimensionResource(id = R.dimen.moderate_spacing))
+                    ) {
+                        ReportHeaderText(
+                            stringResource(
+                                id = R.string.victim_number_with_data,
+                                index + 1
+                            )
                         )
-                    )
-                    ReportCardRow(
-                        header = stringResource(id = R.string.victim_status_code),
-                        data = victim.statusCode,
-                        modifier = modifier
-                    )
-                    ReportCardRow(
-                        header = stringResource(id = R.string.victim_name),
-                        data = victim.name,
-                        modifier = modifier
-                    )
-                    ReportCardRow(
-                        header = stringResource(id = R.string.victim_age),
-                        data = victim.age,
-                        modifier = modifier
-                    )
-                    ReportCardRow(
-                        header = stringResource(id = R.string.victim_identification),
-                        data = victim.identification,
-                        modifier = modifier
-                    )
+                        ReportCardField(
+                            header = stringResource(id = R.string.victim_status_code),
+                            data = victim.statusCode,
+                            modifier = modifier
+                        )
+                        ReportCardField(
+                            header = stringResource(id = R.string.victim_name),
+                            data = victim.name,
+                            modifier = modifier
+                        )
+                        ReportCardField(
+                            header = stringResource(id = R.string.victim_age),
+                            data = victim.age,
+                            modifier = modifier
+                        )
+                        ReportCardField(
+                            header = stringResource(id = R.string.victim_identification),
+                            data = victim.identification,
+                            modifier = modifier
+                        )
+                    }
                 }
-            }
-            ReportHeaderText(text = stringResource(id = R.string.notes))
-            ReportDataText(
-                text = report.notes.toString(),
-                modifier = Modifier.padding(dimensionResource(id = R.dimen.thin_spacing))
-            )
-            convertMillisToDateTime(report.datetimeReturn)?.let {
-                ReportCardRow(
+                ReportCardField(
+                    header = stringResource(id = R.string.notes),
+                    data = report.notes.toString(),
+                    modifier = modifier
+                )
+                ReportCardField(
                     header = stringResource(id = R.string.date_and_time_of_return),
-                    data = it,
+                    data = convertMillisToDateTime(report.datetimeReturn) ?: null.toString(),
+                    modifier = modifier
+                )
+                ReportCardField(
+                    header = stringResource(id = R.string.report_writer),
+                    data = report.reportWriter.toString(),
+                    modifier = modifier
+                )
+                ReportCardField(
+                    header = stringResource(id = R.string.report_id),
+                    data = reportId,
                     modifier = modifier
                 )
             }
-            ReportCardRow(
-                header = stringResource(id = R.string.report_writer),
-                data = report.reportWriter.toString(),
-                modifier = modifier
-            )
-            ReportCardRow(
-                header = stringResource(id = R.string.report_id),
-                data = reportId,
-                modifier = modifier
-            )
         }
     }
 }
@@ -204,7 +214,7 @@ fun ReportViewerBottomBar(
                 if (showDelete) {
                     OnPrimaryTextButton(
                         onClick = clickDelete,
-                        labelResource = R.string.delete_report,
+                        labelResource = R.string.delete,
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f)
@@ -214,7 +224,7 @@ fun ReportViewerBottomBar(
                 if (showFinish) {
                     OnPrimaryTextButton(
                         onClick = clickFinish,
-                        labelResource = R.string.finish_report,
+                        labelResource = R.string.finish,
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f)
@@ -224,7 +234,7 @@ fun ReportViewerBottomBar(
                 if (showAmend) {
                     OnPrimaryTextButton(
                         onClick = clickAmend,
-                        labelResource = R.string.amend_report,
+                        labelResource = R.string.amend,
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f)

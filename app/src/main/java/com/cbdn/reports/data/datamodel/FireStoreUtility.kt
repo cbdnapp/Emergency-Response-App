@@ -8,6 +8,7 @@ import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.firestoreSettings
 import com.google.firebase.firestore.memoryCacheSettings
 import com.google.firebase.firestore.persistentCacheSettings
+import convertMillisToDateTime
 import kotlinx.coroutines.tasks.await
 
 
@@ -24,24 +25,22 @@ class FireStoreUtility {
         db.collection("reports")
             .addSnapshotListener(MetadataChanges.INCLUDE) { querySnapshot, e ->
                 if (e != null) {
-                    Log.e("DEV", "Listen error", e)
+                    Log.e("DEV", "FireStoreUtility.init: Listen error", e)
                     return@addSnapshotListener
                 }
                 for (change in querySnapshot!!.documentChanges) {
                     if (change.type == DocumentChange.Type.ADDED) {
-                        Log.d("DEV", "New Report: ${change.document.data}")
+                        Log.d("DEV", "FireStoreUtility.init: New Report: ${change.document.data}")
                     }
                     val source = if (querySnapshot.metadata.isFromCache) {
                         "local cache"
                     } else {
                         "server"
                     }
-                    Log.d("DEV", "Data fetched from $source")
+                    Log.d("DEV", "FireStoreUtility.init: Data fetched from $source")
                 }
             }
-
     }
-
 
     suspend fun getReports(finalized: Boolean): List<Pair<String, Report>> {
         val reports: MutableList<Pair<String, Report>> = mutableListOf()
@@ -51,7 +50,7 @@ class FireStoreUtility {
             .await()
 
         if(documents.isEmpty){
-            Log.d("DEV", "Received no documents")
+            Log.d("DEV", "FireStoreUtility.getReports: Received no documents")
         } else {
             for (document in documents) {
                 val reportID: String = document.id
@@ -65,16 +64,14 @@ class FireStoreUtility {
         return reports
     }
 
-
-
     fun updateReport(report: Report, reportID: String){
         db.collection("reports").document(reportID)
             .set(report)
             .addOnSuccessListener {
-                Log.d("DEV", "DocumentSnapshot added with ID: $reportID")
+                Log.d("DEV", "FireStoreUtility.updateReport: DocumentSnapshot added with ID: $reportID")
             }
             .addOnFailureListener { error ->
-                Log.e("DEV", "Error adding document: $error")
+                Log.e("DEV", "FireStoreUtility.updateReport: Error adding document: $error")
             }
     }
 
@@ -82,10 +79,10 @@ class FireStoreUtility {
         db.collection("reports")
             .add(report)
             .addOnSuccessListener { documentReference ->
-                Log.d("DEV", "DocumentSnapshot added with ID: ${documentReference.id}")
+                Log.d("DEV", "FireStoreUtility.submitReport: DocumentSnapshot added with ID: ${documentReference.id}")
             }
             .addOnFailureListener { error ->
-                Log.e("DEV", "Error adding document: $error")
+                Log.e("DEV", "FireStoreUtility.submitReport: Error adding document: $error")
             }
     }
 
@@ -96,22 +93,22 @@ class FireStoreUtility {
                 db.collection("reports").document(newDocumentReference.id)
                     .update(mapOf("prev" to prevID))
                     .addOnSuccessListener {
-                        Log.d("DEV", "Successfully updated document: ${newDocumentReference.id} ")
+                        Log.d("DEV", "FireStoreUtility.amendReport: Successfully updated document: ${newDocumentReference.id} ")
                     }
                     .addOnFailureListener{ error ->
-                        Log.e("DEV", "Error updating document: ${newDocumentReference.id}: $error")
+                        Log.e("DEV", "FireStoreUtility.amendReport: Error updating document: ${newDocumentReference.id}: $error")
                     }
                 db.collection("reports").document(prevID)
                     .update(mapOf("next" to newDocumentReference.id))
                     .addOnSuccessListener {
-                        Log.e("DEV", "Successfully updated document: $prevID ")
+                        Log.d("DEV", "FireStoreUtility.amendReport: Successfully updated document: $prevID ")
                     }
                     .addOnFailureListener{ error ->
-                        Log.e("DEV", "Error updating document: $prevID: $error")
+                        Log.e("DEV", "FireStoreUtility.amendReport: Error updating document: $prevID: $error")
                     }
             }
             .addOnFailureListener{ error ->
-                Log.e("DEV", "Error appending document: $error")
+                Log.e("DEV", "FireStoreUtility.amendReport: Error appending document: $error")
             }
     }
 
@@ -126,8 +123,10 @@ class FireStoreUtility {
                 report.location == content) &&
                 (report.datetimeReturn!! >= (start ?: -1) && report.datetimeReturn!! <= (end ?: Long.MAX_VALUE))
     }
+
     // Query by date, by author, by commanding officer, by victim, by location, and by truck.
     suspend fun filterQuery(content: String?, start: Long?, end: Long?) : List<Pair<String, Report>>{
+        Log.d("DEV", "FireStoreUtility.filterQuery: content: ${content}, start: ${convertMillisToDateTime(start)}, end: ${convertMillisToDateTime(end)}")
 
         val reports: MutableList<Pair<String, Report>> = mutableListOf()
         val documents = db.collection("reports")
@@ -136,7 +135,7 @@ class FireStoreUtility {
             .await()
 
         if(documents.isEmpty){
-            Log.d("DEV", "Received no documents")
+            Log.d("DEV", "FireStoreUtility.filterQuery: Received no documents")
         } else {
             for (document in documents) {
                 val reportID: String = document.id
@@ -146,7 +145,7 @@ class FireStoreUtility {
                 }
             }
         }
-        Log.d("DEV", "FireStoreUtility from Filter Reports: $reports")
+        Log.d("DEV", "FireStoreUtility.filterQuery: $reports")
         return reports
     }
 
@@ -155,15 +154,12 @@ class FireStoreUtility {
             .get()
             .await()
         return document.toObject(Report::class.java)
-
     }
+
     fun deleteReport(reportID: String){
         db.collection("reports").document(reportID)
             .delete()
-            .addOnSuccessListener { Log.e("DEV", "Successfully deleted document: $reportID ") }
-            .addOnFailureListener { error -> Log.e("DEV", "Error deleting document: $error")}
+            .addOnSuccessListener { Log.d("DEV", "FireStoreUtility.deleteReport: Successfully deleted document: $reportID ") }
+            .addOnFailureListener { error -> Log.e("DEV", "FireStoreUtility.deleteReport: Error deleting document: $error")}
     }
-
-
 }
-

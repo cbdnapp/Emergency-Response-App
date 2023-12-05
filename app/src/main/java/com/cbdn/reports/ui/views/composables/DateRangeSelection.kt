@@ -10,10 +10,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TimeInput
 import androidx.compose.material3.rememberDatePickerState
-import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,27 +20,29 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.DialogProperties
 import com.cbdn.reports.R
-import convertMillisToDateTime
+import convertMillisToDate
 import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DateTimeSelection (
-    displayValue: Long?,
-    updateDatetime: (Long) -> Unit
+fun DateRangeSelection (
+    fromValue: Long?,
+    toValue: Long?,
+    changeFrom: (Long) -> Unit,
+    changeTo: (Long) -> Unit,
 ) {
     val now: Calendar = Calendar.getInstance()
-    now.timeInMillis = displayValue ?: now.timeInMillis
-    if (displayValue == null) updateDatetime(now.timeInMillis)
+    now.timeInMillis = toValue ?: now.timeInMillis
+    now.set(Calendar.HOUR, 11)
+    now.set(Calendar.MINUTE, 59)
+    now.set(Calendar.SECOND, 59)
+    now.set(Calendar.AM_PM, 1)
+    if (toValue == null) changeTo(now.timeInMillis)
 
     val openDateDialog = remember { mutableStateOf(false) }
+    val fromFlag = remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = now.timeInMillis
-    )
-    val openTimeDialog = remember { mutableStateOf(false) }
-    val timePickerState = rememberTimePickerState(
-        initialHour = now.get(Calendar.HOUR_OF_DAY),
-        initialMinute = now.get(Calendar.MINUTE)
     )
 
     Row(
@@ -51,13 +50,21 @@ fun DateTimeSelection (
             .width(dimensionResource(id = R.dimen.full_field_width))
     ) {
         FormButton(
-            onClick = { openDateDialog.value = true },
-            labelResource = R.string.change_date,
+            onClick = {
+                fromFlag.value = true
+                openDateDialog.value = true
+                      },
+            labelResource = R.string.from_date,
+            args = convertMillisToDate(fromValue) ?: "",
             modifier = Modifier.weight(1f)
         )
         FormButton(
-            onClick = { openTimeDialog.value = true },
-            labelResource = R.string.change_time,
+            onClick = {
+                fromFlag.value = false
+                openDateDialog.value = true
+                      },
+            labelResource = R.string.to_date,
+            args = convertMillisToDate(toValue) ?: "",
             modifier = Modifier.weight(1f)
         )
     }
@@ -77,9 +84,21 @@ fun DateTimeSelection (
                         now.set(
                             newDate.get(Calendar.YEAR),
                             newDate.get(Calendar.MONTH),
-                            newDate.get(Calendar.DAY_OF_MONTH)
+                            newDate.get(Calendar.DAY_OF_MONTH) + 1
                         )
-                        updateDatetime(now.timeInMillis)
+                        if (fromFlag.value) {
+                            now.set(Calendar.HOUR, 0)
+                            now.set(Calendar.MINUTE, 0)
+                            now.set(Calendar.SECOND, 0)
+                            now.set(Calendar.AM_PM, 0)
+                            changeFrom(now.timeInMillis)
+                        } else {
+                            now.set(Calendar.HOUR, 11)
+                            now.set(Calendar.MINUTE, 59)
+                            now.set(Calendar.SECOND, 59)
+                            now.set(Calendar.AM_PM, 1)
+                            changeTo(now.timeInMillis)
+                        }
                         openDateDialog.value = false
                     },
                 ) {
@@ -101,48 +120,4 @@ fun DateTimeSelection (
             )
         }
     }
-    if (openTimeDialog.value) {
-        DatePickerDialog(
-            modifier = Modifier
-                .padding(dimensionResource(id = R.dimen.thick_spacing))
-                .background(color = MaterialTheme.colorScheme.background),
-            properties = DialogProperties(usePlatformDefaultWidth = false),
-            shape = RectangleShape,
-            onDismissRequest = { openTimeDialog.value = false },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        now.set(Calendar.HOUR_OF_DAY, timePickerState.hour)
-                        now.set(Calendar.MINUTE, timePickerState.minute)
-                        updateDatetime(now.timeInMillis)
-                        openTimeDialog.value = false
-                    },
-                ) {
-                    Text(stringResource(id = R.string.ok))
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    onClick = {
-                        openTimeDialog.value = false
-                    }
-                ) {
-                    Text(stringResource(id = R.string.cancel))
-                }
-            }
-        ) {
-            TimeInput(
-                state = timePickerState,
-                modifier = Modifier
-                    .padding(dimensionResource(id = R.dimen.moderate_spacing))
-            )
-        }
-    }
-    TextField(
-        readOnly = true,
-        value = convertMillisToDateTime(displayValue) ?: "",
-        onValueChange = {},
-        modifier = Modifier
-            .width(dimensionResource(id = R.dimen.full_field_width))
-    )
 }

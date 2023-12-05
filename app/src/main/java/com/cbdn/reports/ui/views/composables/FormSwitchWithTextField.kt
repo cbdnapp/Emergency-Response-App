@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import com.cbdn.reports.R
 
 @Composable
-fun SwitchWithTextField(
+fun FormSwitchWithTextField(
     labelResource: Int,
     checked: Boolean,
     onChange: (Boolean) -> Unit,

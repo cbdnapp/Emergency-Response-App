@@ -19,6 +19,6 @@ fun FormHeader (
         modifier = Modifier
             .width(dimensionResource(id = R.dimen.full_field_width))
             .padding(top = dimensionResource(id = R.dimen.moderate_spacing)),
-        style = MaterialTheme.typography.headlineLarge
+        style = MaterialTheme.typography.titleMedium
     )
 }

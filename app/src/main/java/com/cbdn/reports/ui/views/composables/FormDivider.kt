@@ -13,6 +13,6 @@ fun FormDivider() {
     HorizontalDivider(
         modifier = Modifier
             .width(dimensionResource(id = R.dimen.full_field_width))
-            .padding(vertical = dimensionResource(id = R.dimen.moderate_spacing))
+            .padding(vertical = dimensionResource(id = R.dimen.thin_spacing))
     )
 }
