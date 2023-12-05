@@ -4,6 +4,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.MetadataChanges
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.firestoreSettings
 import com.google.firebase.firestore.memoryCacheSettings
@@ -45,6 +46,7 @@ class FireStoreUtility {
     suspend fun getReports(finalized: Boolean): List<Pair<String, Report>> {
         val reports: MutableList<Pair<String, Report>> = mutableListOf()
         val documents = db.collection("reports")
+            .orderBy("datetimeDispatch", Query.Direction.DESCENDING)
             .whereEqualTo("finalized", finalized)
             .get()
             .await()
