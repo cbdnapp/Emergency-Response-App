@@ -115,15 +115,19 @@ class FireStoreUtility {
     }
 
     private fun containsContent(report: Report, content: String?, start: Long?, end: Long?): Boolean {
-        for (victim in report.victimInfo) {
-            if (victim.name == content){
-                return true
+        if (content.isNullOrEmpty()) {
+            return report.datetimeDispatch!! in (start ?: 0)..(end ?: Long.MAX_VALUE)
+        } else {
+            for (victim in report.victimInfo) {
+                if (victim.name == content){
+                    return true
+                }
             }
+            return (report.commandingOfficer == content ||
+                    report.reportWriter == content ||
+                    report.location == content) &&
+                    report.datetimeDispatch!! in (start ?: 0)..(end ?: Long.MAX_VALUE)
         }
-        return (report.commandingOfficer == content ||
-                report.reportWriter == content ||
-                report.location == content) &&
-                (report.datetimeReturn!! >= (start ?: -1) && report.datetimeReturn!! <= (end ?: Long.MAX_VALUE))
     }
 
     // Query by date, by author, by commanding officer, by victim, by location, and by truck.
@@ -147,12 +151,12 @@ class FireStoreUtility {
         return reports
     }
 
-    suspend fun getReport(id: String) : Report?{
-        val document = db.collection("reports").document(id)
-            .get()
-            .await()
-        return document.toObject(Report::class.java)
-    }
+//    suspend fun getReport(id: String) : Report?{
+//        val document = db.collection("reports").document(id)
+//            .get()
+//            .await()
+//        return document.toObject(Report::class.java)
+//    }
 
     fun deleteReport(reportID: String){
         db.collection("reports").document(reportID)

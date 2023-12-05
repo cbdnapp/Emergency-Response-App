@@ -64,24 +64,28 @@ fun NewReport (
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
+                    .padding(dimensionResource(id = R.dimen.thin_spacing))
             ) }
             DetailSections.LocationDetails.name -> { LocationDetails(
                 viewModel = appViewModel,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
+                    .padding(dimensionResource(id = R.dimen.thin_spacing))
             ) }
             DetailSections.SiteDetails.name -> { SiteDetails(
                 viewModel = appViewModel,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
+                    .padding(dimensionResource(id = R.dimen.thin_spacing))
             ) }
             DetailSections.SubmittalDetails.name -> { SubmittalDetails(
                 viewModel = appViewModel,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
+                    .padding(dimensionResource(id = R.dimen.thin_spacing))
             ) }
 
         }
