@@ -43,54 +43,6 @@ fun SiteDetails(
     ) {
         FormHeader(textResource = R.string.submit_on_scene_details_header)
 
-        // DATE AND TIME OF ARRIVAL
-        FormSubHeader(textResource = R.string.date_and_time_of_arrival)
-        FormDateTimeSelection(
-            displayValue = reportState.datetimeArrival,
-            updateDatetime = { viewModel.setDatetimeArrival(it)}
-        )
-        FormDivider()
-
-        // POLICE PRESENT
-        FormSwitchWithTextField(
-            checked = uiState.policeCheck,
-            onChange = { viewModel.setPoliceCheck(it) },
-            labelResource = R.string.police_present,
-            value = reportState.policePresent,
-            updateValue = { viewModel.setPolicePresent(it) }
-        )
-        FormDivider()
-
-        // AMBULANCE PRESENT
-        FormSwitchWithTextField(
-            checked = uiState.ambulanceCheck,
-            onChange = { viewModel.setAmbulanceCheck(it) },
-            labelResource = R.string.ambulance_present,
-            value = reportState.ambulancePresent,
-            updateValue = { viewModel.setAmbulancePresent(it) }
-        )
-        FormDivider()
-
-        // ELECTRIC COMPANY PRESENT
-        FormSwitchWithTextField(
-            checked = uiState.electricCompanyCheck,
-            onChange = { viewModel.setElectricCompanyCheck(it) },
-            labelResource = R.string.electric_company_present,
-            value = reportState.electricCompanyPresent,
-            updateValue = { viewModel.setElectricCompanyPresent(it) }
-        )
-        FormDivider()
-
-        // TRANSIT POLICE PRESENT
-        FormSwitchWithTextField(
-            checked = uiState.transitPoliceCheck,
-            onChange = { viewModel.setTransitPoliceCheck(it) },
-            labelResource = R.string.transit_police_present,
-            value = reportState.transitPolicePresent,
-            updateValue = { viewModel.setTransitPolicePresent(it) }
-        )
-        FormDivider()
-
         // VICTIM INFO
         FormSubHeader(
             textResource = (R.string.victim_info)
@@ -102,7 +54,10 @@ fun SiteDetails(
             horizontalArrangement = Arrangement.Center
         ) {
             Row(
-                Modifier.padding(dimensionResource(id = R.dimen.thin_spacing))
+                Modifier.padding(
+                    start=dimensionResource(id = R.dimen.thin_spacing),
+                    end=dimensionResource(id = R.dimen.thin_spacing),
+                    )
             ) {
                 FormSubHeaderWithArgs(
                     textResource = R.string.victim_count_with_count,
@@ -156,5 +111,55 @@ fun SiteDetails(
             labelResource =  R.string.enter_notes,
         )
         FormDivider()
+
+        // DATE AND TIME OF ARRIVAL
+        FormSubHeader(textResource = R.string.date_and_time_of_arrival)
+        FormDateTimeSelection(
+            displayValue = reportState.datetimeArrival,
+            updateDatetime = { viewModel.setDatetimeArrival(it)}
+        )
+        FormDivider()
+
+        // POLICE PRESENT
+        FormSwitchWithTextField(
+            checked = uiState.policeCheck,
+            onChange = { viewModel.setPoliceCheck(it) },
+            labelResource = R.string.police_present,
+            value = reportState.policePresent,
+            updateValue = { viewModel.setPolicePresent(it) }
+        )
+        FormDivider()
+
+        // AMBULANCE PRESENT
+        FormSwitchWithTextField(
+            checked = uiState.ambulanceCheck,
+            onChange = { viewModel.setAmbulanceCheck(it) },
+            labelResource = R.string.ambulance_present,
+            value = reportState.ambulancePresent,
+            updateValue = { viewModel.setAmbulancePresent(it) }
+        )
+        FormDivider()
+
+        // ELECTRIC COMPANY PRESENT
+        FormSwitchWithTextField(
+            checked = uiState.electricCompanyCheck,
+            onChange = { viewModel.setElectricCompanyCheck(it) },
+            labelResource = R.string.electric_company_present,
+            value = reportState.electricCompanyPresent,
+            updateValue = { viewModel.setElectricCompanyPresent(it) }
+        )
+        FormDivider()
+
+        // TRANSIT POLICE PRESENT
+        FormSwitchWithTextField(
+            checked = uiState.transitPoliceCheck,
+            onChange = { viewModel.setTransitPoliceCheck(it) },
+            labelResource = R.string.transit_police_present,
+            value = reportState.transitPolicePresent,
+            updateValue = { viewModel.setTransitPolicePresent(it) }
+        )
+        FormDivider()
+
+
     }
 }
