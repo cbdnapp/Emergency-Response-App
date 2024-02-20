@@ -47,8 +47,12 @@ fun LocationDetails(
     val coroutineScope = rememberCoroutineScope()
     val santoDomingo = LatLng(18.46, -69.94)
     val context = LocalContext.current as Activity
-    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
+
+    // Citation for the following snippet of code
+    // Date: 2/19/2024
+    // Adapted from Google Maps SDK for Android tutorial for slecting current place
+    // Source URL: https://developers.google.com/maps/documentation/android-sdk/current-place-tutorial
+    var fusedLocationProviderClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
     var lastKnownLocation: Location? = null
     var cameraPositionState = rememberCameraPositionState {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
