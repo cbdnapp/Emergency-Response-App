@@ -6,6 +6,9 @@ import com.cbdn.reports.R
 enum class Destinations(
     @StringRes val title: Int
     ) {
+    StartScreen(
+        title = R.string.start_screen
+    ),
     AppMenu(
         title = R.string.app_name
     ),

@@ -18,6 +18,8 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 data class AppUiState(
+
+    val isTruckSelectShowing: Boolean = false,
     // Get Reports UI
     var backButtonPrev: String? = null,
     var reportModification: String? = null,
@@ -110,6 +112,12 @@ class AppViewModel(
     fun setSearchTo(input: Long) {
         _uiState.update {
             it.copy(searchTo = input)
+        }
+    }
+
+    fun setIsTruckSelectShowing(input: Boolean) {
+        _uiState.update {
+            it.copy(isTruckSelectShowing = input)
         }
     }
     private fun isReportComplete() {

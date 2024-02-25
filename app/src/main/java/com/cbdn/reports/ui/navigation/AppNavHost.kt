@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.cbdn.reports.ui.viewmodel.AppViewModel
+import com.cbdn.reports.ui.views.startscreen.StartScreen
 import com.cbdn.reports.ui.views.AppMenu
 import com.cbdn.reports.ui.views.finishreport.FinishReport
 import com.cbdn.reports.ui.views.newreport.NewReport
@@ -19,9 +20,16 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Destinations.AppMenu.name,
+//        startDestination = Destinations.AppMenu.name,
+        startDestination = Destinations.StartScreen.name,
         modifier = modifier
     ) {
+        composable(route = Destinations.StartScreen.name) {
+            StartScreen(
+                appViewModel = appViewModel,
+                navController = navController
+                )
+        }
         composable(route = Destinations.AppMenu.toString()) {
             AppMenu(navController = navController)
         }

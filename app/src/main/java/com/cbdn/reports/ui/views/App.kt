@@ -1,7 +1,5 @@
 package com.cbdn.reports.ui.views
 
-
-import DialogHeader
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -37,6 +35,7 @@ import com.cbdn.reports.ui.navigation.AppNavHost
 import com.cbdn.reports.ui.navigation.Destinations
 import com.cbdn.reports.ui.viewmodel.AppViewModel
 import com.cbdn.reports.ui.views.composables.FormButton
+import com.cbdn.reports.ui.views.composables.DialogHeader
 
 
 @Composable
@@ -56,10 +55,14 @@ fun App(
                 currentScreen = currentScreen,
                 canNavigateBack = navController.previousBackStackEntry != null,
                 navigateUp = {
-                    navController.popBackStack(
-                        route = Destinations.AppMenu.name,
-                        inclusive = false
-                    )
+                    if (currentScreen.name == Destinations.AppMenu.name){
+                        navController.popBackStack()
+                    } else {
+                        navController.popBackStack(
+                            route = Destinations.AppMenu.name,
+                            inclusive = false
+                        )
+                    }
                 },
             )
         }
@@ -155,7 +158,7 @@ fun App(
                         }
                     }
                 }
-                else -> { appViewModel.resetUI() }
+//                else -> { appViewModel.resetUI() }
             }
         }
         AppNavHost(

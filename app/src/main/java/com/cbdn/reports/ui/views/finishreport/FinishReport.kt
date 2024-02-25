@@ -1,6 +1,5 @@
 package com.cbdn.reports.ui.views.finishreport
 
-import DialogHeader
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,6 +22,7 @@ import com.cbdn.reports.R
 import com.cbdn.reports.ui.navigation.Destinations
 import com.cbdn.reports.ui.viewmodel.AppViewModel
 import com.cbdn.reports.ui.views.composables.ReportViewer
+import com.cbdn.reports.ui.views.composables.DialogHeader
 import com.cbdn.reports.ui.views.composables.ReportsLazyColumn
 
 @Composable

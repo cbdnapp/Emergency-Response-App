@@ -1,3 +1,5 @@
+package com.cbdn.reports.ui.views.composables
+
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

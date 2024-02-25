@@ -1,6 +1,5 @@
 package com.cbdn.reports.ui.views.searchreports
 
-import DialogHeader
 import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,6 +30,7 @@ import com.cbdn.reports.ui.navigation.Destinations
 import com.cbdn.reports.ui.viewmodel.AppViewModel
 import com.cbdn.reports.ui.views.composables.DateRangeSelection
 import com.cbdn.reports.ui.views.composables.ReportViewer
+import com.cbdn.reports.ui.views.composables.DialogHeader
 import com.cbdn.reports.ui.views.composables.ReportsLazyColumn
 
 @Composable

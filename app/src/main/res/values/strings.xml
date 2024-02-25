@@ -29,6 +29,16 @@
     <string name="change_date">Change Date</string>
     <string name="change_time">Change Time</string>
 
+    <!-- StartScreen -->
+    <string name="start_screen">Start Screen</string>
+    <string name="select_truck">Select Truck</string>
+    <string name="select_truck_description">Choose Which Truck to Assign</string>
+    <string name="admin_login">Admin Login</string>
+    <string name="admin_login_description">View trucks, current emergencies, or historical data</string>
+
+    <!-- SelectTruckDialog -->
+    <string name="select_truck_dialog">Choose Your Truck</string>
+
     <!-- SubmitNew -->
     <string name="submit_new_header">New Report</string>
     <!-- SubmitNewDispatch -->
